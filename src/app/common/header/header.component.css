@@ -1,0 +1,36 @@
+.qns-topbar .navbar{
+    height: 30px;
+    padding: 0 10px;
+}
+
+.qns-topbar .input-group{
+    height: 20px;
+    margin-right: 5px;
+}
+
+.qns-topbar .input-group input{
+    font-size: 10px;
+}
+
+.qns-topbar .input-group-btn .btn{
+    padding: 2px 10px 1px 10px;
+    font-size: 10px;
+}
+
+.qns-topbar .tiny-link{
+    font-size: 12px;
+
+}
+.qns-topbar .tiny-link:hover{
+    text-decoration: underline;    
+}
+
+.qns-topbar ul, .qns-topbar ul > li{
+    display: inline-block !important;
+    font-size: 11px;
+    padding: 0 5px;
+}
+
+.navbar-brand{
+    font-size: 3.5rem;
+}
