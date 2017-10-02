@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+.sidenav-wrapper {
+    background: url(https://bizweb.dktcdn.net/100/083/266/files/pattern-a.png?v=1487482060893) repeat scroll center 0 #f8f8f8;
+}
+
+.sidenav-wrapper #sidebar{
+    background: url(https://bizweb.dktcdn.net/100/083/266/files/pattern-a.png?v=1487482060893) repeat scroll center 0 #f8f8f8;
+}
+
+.action-bar{
+    background: slategray;
+    color: #fff;
+}
+
+.overflow-x-hide{
+    overflow: hidden;
+}
