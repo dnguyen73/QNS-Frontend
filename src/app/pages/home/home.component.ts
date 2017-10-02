@@ -1,15 +1,14 @@
-import { Component, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 declare var $:any;
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent {
-  title = 'app';
-  @ViewChild('sidebar') el:ElementRef;
+export class HomeComponent {
+
 
   toggleSidebar() {
     // fade in the overlay
@@ -32,6 +31,5 @@ export class AppComponent {
         $('#sidebar').toggleClass('active');
     });
   }
-  
-  
+
 }
