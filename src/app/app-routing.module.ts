@@ -9,6 +9,10 @@ import { NewArrivalComponent } from "./pages/new-arrival/new-arrival.component";
 import { ProductListComponent } from "./pages/product-list/product-list.component";
 import { ProductDetailResolve } from "./pages/product-detail/product-detail-resolve.service";
 import { ProductDetailComponent } from "./pages/product-detail/product-detail.component";
+import { ShoppingCartComponent } from "./pages/shopping-cart/shopping-cart.component";
+import { ConfirmComponent } from "./common/dialog/confirm.component";
+import { AlertComponent } from "./common/dialog/alert.component";
+import { ThankyouComponent } from "./pages/thankyou/thankyou.component";
 
 const routes: Routes = [
     {
@@ -37,6 +41,14 @@ const routes: Routes = [
                     product: ProductDetailResolve
                 },
             },
+            {
+                path: 'cart',
+                component: ShoppingCartComponent
+            },
+            {
+                path: 'thankyou/:code',
+                component: ThankyouComponent
+            }
             //{ path: 'new/:id', component: ProductListComponent },
 
         ]
@@ -57,5 +69,7 @@ export class AppRoutingModule { }
 export const routedComponents: any[] = [
     MainComponent,
     HomeComponent,
-    HeaderComponent, FooterComponent, NotfoundComponent, NewArrivalComponent, ProductListComponent, ProductDetailComponent
+    HeaderComponent, FooterComponent, NotfoundComponent, NewArrivalComponent, ProductListComponent, ProductDetailComponent,
+    ShoppingCartComponent, ThankyouComponent,
+    ConfirmComponent, AlertComponent
 ]

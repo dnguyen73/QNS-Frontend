@@ -1,0 +1,174 @@
+<div class="shopping-cart mx-3">
+  <div class="my-2">
+    <div class="d-flex justify-content-between align-content-end">
+      <div class="heading">Shopping Cart</div>
+      <div class="heading">{{subtotal | vnd}}</div>
+    </div>
+    <div class="d-flex justify-content-between align-content-start">
+      <div class="sub-heading">{{numOfItems()}}</div>
+      <div class="sub-heading">Subtotal</div>
+    </div>
+    
+  </div>
+
+
+  <div class="order-items">
+    <div class="order-item-labels d-none d-md-block">
+      <div class="d-flex flex-row">
+        <div class="col-md-6 col-sm-6"><span class="prod-label">Product</span></div>
+        <div class="col-sm-2 qty-header text-center">Quantity</div>
+        <div class="col-sm-2 col-xs-3 text-right">Item Price</div>
+        <div class="col-sm-2 col-xs-5 text-right"><span class="total-label">Total</span></div>
+      </div>
+    </div>
+
+    <!--Order item list-->
+    <div class="order-item show" *ngFor="let cartItem of shoppingCartItems; let idx = index">
+      <div class="order-item-container row my-2">
+        <div class="col-md-6 basic-info">
+          <div class="row row-flex">
+            <div class="col-4 image">
+              <div class="item-left image-container">
+                <a>
+                  <img class="img-fluid" [src]="getImagePath(cartItem)">
+                </a>
+              </div>
+            </div>
+            <div class="col-8 details">
+              <div class="product-details">
+                <!--<product-info>-->
+                <a class="product-link">
+                  <div data-ui="brand-name"><strong>{{cartItem.product.productName}}</strong></div>
+                  <div data-ui="item-name">{{cartItem.product.description}}</div>
+                </a>
+                <div data-ui="item-color">{{cartItem.color}}</div>
+                <div data-ui="item-size">{{cartItem.size}}</div>
+                <div data-ui="item-sku" class="sku">#{{cartItem.product.productCode}}</div>
+                <!--</product-info>-->
+                <div class="d-flex mt-2">
+                  <button data-ui="remove-item-btn" class="btn btn-outline-dark btn-xs" (click)="removeItem(idx)"><span>Remove</span></button>
+                </div>
+              </div>
+              <!--end product-details-->
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 extended-info my-3">
+          <div class="d-flex flex-row">
+            <div class="col-md-offset-2 col-sm-4 p-0">
+              <div class="d-flex flex-row align-items-center quantity">
+                <div class="d-flex">
+                  <button type="button" class="btn btn-outline-secondary btn-qty mr-1" (click)="DownQty(idx)">-</button>
+                </div>
+                <input type="number" class="form-control" [(ngModel)]="cartItem.quantity" (ngModelChange)="UpdateQty(idx)">
+                <div class="d-flex">
+                  <button type="button" class="btn btn-outline-secondary btn-qty ml-1" (click)="UpQty(idx)">+</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-xs-3 text-right">
+              <div class="price-container">
+                <div data-ui="unit-price">{{cartItem.product.price | vnd}}</div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-xs-5 text-right">
+              <div class="total-container">
+                <div data-ui="item-total-price"><strong>{{itemSubTotal(cartItem) | vnd}}</strong></div>
+              </div>
+            </div>
+            <!--<div class="col-md-offset-2 col-md-10">
+            </div>-->
+
+          </div>
+        </div>
+        <!--<div class="d-flex flex-row d-sm-none text-right">
+              <div class="btn-container">
+                <button data-ui="remove-item-btn" class="btn btn-outline-dark btn-xs"> Remove </button>
+              </div>
+            </div>-->
+      </div>
+    </div>
+  </div>
+
+  <div class="shipping">
+    <div class="row my-2">
+      <div class="col-md-8 user-info">
+        <form>
+          <div class="form-group row">
+            <label for="province" class="col-sm-2 form-control-label">Chon tinh thanh</label>
+            <div class="col-sm-10">
+              <select class="form-control" [(ngModel)]="userInfo.province" name="province" >
+                <option>Tp HCM</option>
+                <option>Dong Nai</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="fullname" class="col-sm-2 form-control-label">Ten day du</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="fullname" placeholder="Ho va ten" [(ngModel)]="userInfo.fullname">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="email" class="col-sm-2 form-control-label">Email</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" name="email" placeholder="Email" [(ngModel)]="userInfo.email">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="phone" class="col-sm-2 form-control-label">So dien thoai</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="phone" placeholder="So dien thoai" [(ngModel)]="userInfo.phone">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="address" class="col-sm-2 form-control-label">Dia chi</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="address" placeholder="Dia chi" [(ngModel)]="userInfo.address">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="note" class="col-sm-2 form-control-label">Ghi chu</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" name="notes" placeholder="Ban co yeu cau gi them?" rows="4" [(ngModel)]="orderItem.notes"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-4 total-info">
+        <div class="row">
+          <div class="col-5">
+            <label>Tien hang</label>
+          </div>
+          <div class="col-7">
+            <label>{{subtotal | vnd}}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-5">
+            <label>Phi van chuyen</label>
+          </div>
+          <div class="col-7">
+            <label>{{orderItem.shippingFee | vnd}}</label>
+          </div>
+        </div>
+        <div class="row sum mt-4">
+          <div class="col-5">
+            <label>Tien thanh toan</label>
+          </div>
+          <div class="col-7">
+            <label>650,000 d</label>
+          </div>
+        </div>
+        <div class="d-flex mt-2 justify-content-between align-content-center">
+      <div class="">
+        <button data-ui="remove-item-btn" class="btn btn-outline-dark btn-xs">Continue shopping</button>
+      </div>
+      <div class="">
+        <button data-ui="remove-item-btn" class="btn btn-outline-dark btn-xs" (click)="checkout()">Checkout</button>
+      </div>
+    </div>
+      </div>
+    </div>
+  </div>
+</div>

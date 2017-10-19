@@ -6,6 +6,7 @@ import { NewArrivalComponent } from "./new-arrival.component";
 import { ProductService } from "../../shared/services/products.service";
 import { ProductListComponent } from "../product-list/product-list.component";
 //import { MomentModule } from 'angular2-moment';
+declare var $: any;
 
 @NgModule({
   imports: [
@@ -19,4 +20,8 @@ import { ProductListComponent } from "../product-list/product-list.component";
   providers: [ProductService],
   declarations: [NewArrivalComponent]
 })
-export class NewArrivalModule { }
+export class NewArrivalModule { 
+  ngAfterViewInit(){
+    $('.zoomContainer').remove();
+  }
+}

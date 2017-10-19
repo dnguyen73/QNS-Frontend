@@ -1,64 +1,98 @@
 <!-- Page Content -->
-    <div class="container">
+<div class="container">
 
-      <!-- Portfolio Item Heading -->
-      <h1 class="my-4">Page Heading
-        <small>Secondary Text</small>
-      </h1>
+  <!-- Portfolio Item Heading -->
+  <h1 class="my-4">Page Heading
+    <small>Secondary Text</small>
+  </h1>
 
-      <!-- Portfolio Item Row -->
-      <div class="row">
+  <!-- Portfolio Item Row -->
+  <div class="row">
 
-        <div class="col-md-8">
-          <img class="img-fluid" [src]="myProduct.images[0].filepath" alt="">
+    <!--Image gallery show and zoom-->
+    <div class="col-md-6">
+      <img id="zoom_01" class="img-fluid front-show" [src]='selectedImage.thumbnail' />
+      <!--<img class="img-fluid front-show" id="zoom_01" src="{{selectedImage.filepath}}" data-zoom-image="{{selectedImage.filepath}}">-->
+      <!--Image thumbnails-->
+      <div id="gal1" class="row aligns-inline-flex pl-2">
+        <div class="col-2" *ngFor="let thumb of myProduct.images">
+          <a href="#">
+            <img class="thumbnail" id="img_01" src="{{thumb.thumbnail}}" />
+          </a>
         </div>
-
-        <div class="col-md-4">
-          <h3 class="my-3">Project Description</h3>
-          <p>{{myProduct.description}}</p>
-          <h3 class="my-3">Project Details</h3>
-          <ul>
-            <li>Price: $ {{myProduct.price}}</li>
-            <li>Dolor Sit Amet</li>
-            <li>Consectetur</li>
-            <li>Adipiscing Elit</li>
-          </ul>
-        </div>
-
       </div>
-      <!-- /.row -->
+    </div>
 
-      <!-- Related Projects Row -->
-      <h3 class="my-4">Related Projects</h3>
+    <div class="col-md-6 pl-2">
+      <h3 class="my-3">{{myProduct.productName}}</h3>
+      <p>Danh muc: {{myProduct.description}}</p>
+      <p>Ma hang: {{myProduct.productCode}}</p>
+      <p>{{myProduct.price | vnd}}</p>
 
-      <div class="row">
-
-        <div class="col-md-3 col-sm-6 mb-4">
-          <a href="#">
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-          </a>
+      <p>Chon size: </p>
+      <div class="d-flex flex-row">
+        <div *ngFor="let size of sizeList" class="thumb-size p-2" (click)="selectSize(size)" [class.selected]="size.selected" [class.disabled]="!size.activated">
+          {{size.code}}
         </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-          <a href="#">
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-          </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-          <a href="#">
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-          </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-          <a href="#">
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-          </a>
-        </div>
-
       </div>
-      <!-- /.row -->
+
+      <p>Chon color: </p>
+      <div class="d-flex flex-row">
+        <div *ngFor="let color of colorList" class="thumb-color align-items-stretch" (click)="selectColor(color)" [class.selected]="color.selected"
+          [class.disabled]="!color.activated">
+          <img [src]="getColorFilePath(color)" />
+        </div>
+      </div>
+
+      <p>Quantity: </p>
+      <div class="d-flex flex-row quantity">
+        <input type="number" class="form-control" [(ngModel)]="quantity">
+        <div class="d-flex">
+          <button type="button" class="btn btn-outline-secondary ml-2" (click)="qtyUp()">+</button>
+          <button type="button" class="btn btn-outline-secondary ml-2" (click)="qtyDown()">-</button>
+        </div>
+      </div>
+
+      <div class="action-btn mt-2">
+        <button type="button" class="btn btn-outline-danger" (click)="addToCart()">Place Order</button>
+      </div>
 
     </div>
-    <!-- /.container -->
+
+  </div>
+  <!-- /.row -->
+
+  <!-- Related Projects Row -->
+  <h3 class="my-4">Related Projects</h3>
+
+  <div class="row">
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="#">
+        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+      </a>
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="#">
+        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+      </a>
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="#">
+        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+      </a>
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="#">
+        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+      </a>
+    </div>
+
+  </div>
+  <!-- /.row -->
+
+</div>
+<!-- /.container -->

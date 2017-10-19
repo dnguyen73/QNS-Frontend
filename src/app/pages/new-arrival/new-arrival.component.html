@@ -21,13 +21,13 @@
   </nav>
 
   <div id="content" class="w-100">
-    <div id="sidebarCollapse" class="d-flex flex-row action-bar">
+    <div id="sidebarCollapse" class="d-flex flex-row mb-2 action-bar">
       <div class="d-md-none p-2" (click)="toggleSidebar()">
         <i class="fa fa-arrow-circle-left"></i>
       </div>
       <div class="p-2">{{selectedCategory.description}}</div>
     </div>
-
+<!--<img id="zoom_01" src='https://magictoolbox.sirv.com/images/magiczoomplus/jeans-1-z.jpg?scale.width=56' data-zoom-image="https://magictoolbox.sirv.com/images/magiczoomplus/jeans-1-z.jpg"/>-->
     <router-outlet></router-outlet>
 
     <div class="overlay">

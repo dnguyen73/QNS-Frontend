@@ -18,7 +18,11 @@
       </div>
 
       <!--<a target="_blank" href="#" class="fa fa-search d-xs-none"></a>-->
-      <a target="_blank" href="#" class=" fa fa-shopping-cart"><span class="tiny-link d-sm-inline"> Your cart</span> </a>
+      <a target="_blank" (click)="gotoShoppingCart()" class=" fa fa-shopping-cart"><span class="tiny-link d-sm-inline"> 
+        Your cart
+        ({{(shoppingCartItems$ | async).length}})
+        </span> 
+      </a>
     </div>
   </nav>
 </div>
