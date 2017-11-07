@@ -21,6 +21,12 @@ import { ConfirmComponent } from "./common/dialog/confirm.component";
 import { AlertComponent } from "./common/dialog/alert.component";
 import { Ng2Webstorage } from 'ngx-webstorage';
 import { OrderService } from "./shared/services/order.service";
+import { CategoryService } from "./shared/services/category.service";
+import { FemaleFashionComponent } from './pages/female-fashion/female-fashion.component';
+import { KidsFashionComponent } from './pages/kids-fashion/kids-fashion.component';
+import { HomeNewComponent } from './pages/home-new/home-new.component';
+import { ProductBoxComponent } from './components/product-box/product-box.component';
+import { HomeKidsComponent } from './pages/home-kids/home-kids.component';
 
 
 @NgModule({
@@ -28,6 +34,11 @@ import { OrderService } from "./shared/services/order.service";
     AppComponent,
     routedComponents,
     QnsPricePipe,
+    FemaleFashionComponent,
+    KidsFashionComponent,
+    HomeNewComponent,
+    ProductBoxComponent,
+    HomeKidsComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -41,7 +52,7 @@ import { OrderService } from "./shared/services/order.service";
   entryComponents: [
     ConfirmComponent, AlertComponent
   ],
-  providers: [ProductService, ProductDetailResolve, CartService, OrderService],
+  providers: [ProductService, ProductDetailResolve, CategoryService, CartService, OrderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

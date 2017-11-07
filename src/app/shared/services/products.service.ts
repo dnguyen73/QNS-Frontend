@@ -5,11 +5,17 @@ import { environment } from './../../../environments/environment';
 import { FileObject } from "../models/fileobject";
 import { Size } from "../models/size";
 import { Product } from "../models/product";
+import { Category } from "../models/categories";
 
 const FILE_URL: string = environment.apiUrl + '/attachments';
 const SIZE_URL: string = environment.apiUrl + '/sizes';
 const PRODUCT_URL: string = environment.apiUrl + '/products';
 
+ export enum ParentCategory{
+   "Thời trang nữ" = 1,
+   "Thời trang trung niên",
+   "Thời trang trẻ em"
+ }
 @Injectable()
 export class ProductService {
 
@@ -51,8 +57,24 @@ export class ProductService {
       .map(res => {
         const products = res.json();
         return products
-          .filter(p => p.parentId === pId)
+          .filter(p => p.parentId === +pId)
           .map((product) => new Product(product));
+      })
+      .catch(this.handleError);
+  }
+
+  /**
+   * Grab all product items for given category Id from loopback api
+   */
+  getProductsByCategoryId(cId: string): Observable<Product[]> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('categoryId', cId);
+
+    return this._http
+      .get(PRODUCT_URL + "/findByCategory", { search: params })
+      .map(res => {
+        const products = res.json();
+        return products.map((p) => new Product(p));
       })
       .catch(this.handleError);
   }
@@ -69,6 +91,18 @@ export class ProductService {
       .map(res => {
         const product = res.json();
         return new Product(product);
+      })
+      .catch(this.handleError);
+  }
+
+  /**
+   * Get one product for given product code from loopback api
+   */
+  findCategoryByProductId(pid: string): Observable<Category> {
+    return this._http
+      .get(PRODUCT_URL + "/" + pid + "/category")
+      .map(res => {
+        return new Category(res.json());
       })
       .catch(this.handleError);
   }
@@ -97,6 +131,13 @@ export class ProductService {
         return new Product(res.json());
       })
       .catch(this.handleError);
+  }
+
+  /**
+     * Get Parent category by parentID
+     */
+  getParentCategory(pid: number): string {
+    return ParentCategory[pid];
   }
 
 

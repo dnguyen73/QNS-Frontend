@@ -15,7 +15,7 @@ export interface AlertModel {
                      <h4 class="modal-title">{{title || 'Alert!'}}</h4>
                    </div>
                    <div class="modal-body">
-                     <p>{{message || 'TADAA-AM!'}}</p>
+                    <div [innerHTML]="message"></div>
                    </div>
                    <div class="modal-footer">
                      <button type="button" class="btn btn-primary" (click)="close()">OK</button>
@@ -23,10 +23,18 @@ export interface AlertModel {
                 </div>
              </div>`
 })
+
 export class AlertComponent extends DialogComponent<AlertModel, null> implements AlertModel {
   title: string;
   message: string;
   constructor(dialogService: DialogService) {
     super(dialogService);
   }
+
+  ngOnInit() {
+    document.getElementsByTagName('body')[0].classList.add('modal-open');
+ }
+  ngOnDestroy(){
+    document.getElementsByTagName('body')[0].classList.remove('modal-open');
+ }
 }

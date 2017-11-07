@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Rx";
 import { Product } from "../../shared/models/product";
 import { Router } from "@angular/router";
 import { CartItem } from "../../shared/models/cartitem";
+declare var $: any;
 
 @Component({
   selector: 'qns-header',
@@ -23,6 +24,13 @@ export class HeaderComponent implements OnInit {
 
   gotoShoppingCart(){
     this._router.navigate(['cart']);
+  }
+
+  ngAfterViewInit() {
+    // hide the nav bar on small screen
+    $('.nav-link').on('click', function () {
+      $('#navbarNav').removeClass('show');
+    });
   }
 
 }

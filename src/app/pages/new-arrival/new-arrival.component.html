@@ -15,7 +15,7 @@
     <!-- Sidebar Links -->
     <ul class="list-group">
       <li *ngFor="let cat of categories" class="list-group-item" [class.active]="cat === selectedCategory" (click)="onSelect(cat)">
-        <span>{{cat.id}} {{cat.description}} </span>
+        <span>{{cat.name}} </span>
       </li>
     </ul>
   </nav>

@@ -1,0 +1,35 @@
+<div class="new-section container">
+  <!--Tie label section-->
+  <div class="tie best">
+    <h2 class="no-padding no-margin"><span>Sản phẩm mới</span></h2>
+  </div>
+  <!--List of new products-->
+  <div class="clearfix home-new-list">
+    <div class="see-more">
+      <a>Xem tất cả >></a>
+    </div>
+    <div class="row mt-2">
+      <div class="col-lg-3 col-md-3 col-sm-4 mb-4" *ngFor="let product of newProducts">
+        <product-box [product]="product"></product-box>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="new-section container">
+  <!--Tie label section-->
+  <div class="tie best">
+    <h2 class="no-padding no-margin"><span>Sản phẩm sale</span></h2>
+  </div>
+  <!--List of new products-->
+  <div class="clearfix home-new-list">
+    <div class="see-more">
+      <a>Xem tất cả >></a>
+    </div>
+    <div class="row mt-2">
+      <div class="col-lg-3 col-md-3 col-sm-4 mb-4" *ngFor="let product of saleProducts">
+        <product-box [product]="product"></product-box>
+      </div>
+    </div>
+  </div>
+</div>

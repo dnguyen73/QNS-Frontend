@@ -1,53 +1,118 @@
 <!--TOP LINKS-->
-<div class="qns-topbar">
-  <nav class="navbar navbar-light bg-light">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <span><i class="fa fa-facebook"></i>: quynhnhuvu  </span>
-      </li>
-      <li class="nav-item">
-        <span class="d-none d-sm-block"><i class="fa fa-phone"></i>: 09xx-xxx-075</span>
-      </li>
-    </ul>
-    <div class="form-inline my-2 my-lg-0">
-      <div class="input-group input-group-sm d-none d-sm-flex">
-        <span class="input-group-btn">
+<div class="qns-topbar bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 col-6 no-padding pl-0">
+        <p class="no-margin mt-2">
+          <strong><a href="tel:0939808500"><i class="fa fa-phone"></i><span class="d-none d-sm-inline">0939808500</span></a></strong>|
+          <strong><a href="/"><i class="fa fa-facebook"></i><span class="d-none d-sm-inline">quynhnhuvu</span></a></strong>
+        </p>
+      </div>
+      <div class="col-md-6 col-sm-6 col-6">
+        <div class="form-inline my-2 float-right">
+          <div class="input-group input-group-sm d-none d-sm-flex">
+            <span class="input-group-btn">
           <button class="btn btn-secondary" type="button">Go!</button>
         </span>
-        <input type="text" class="form-control" placeholder="Search for...">
-      </div>
+            <input type="text" class="form-control" placeholder="Search for...">
+          </div>
 
-      <!--<a target="_blank" href="#" class="fa fa-search d-xs-none"></a>-->
-      <a target="_blank" (click)="gotoShoppingCart()" class=" fa fa-shopping-cart"><span class="tiny-link d-sm-inline"> 
+          <a target="_blank" (click)="gotoShoppingCart()" class=" fa fa-shopping-cart"><span class="tiny-link d-sm-inline"> 
         Your cart
         ({{(shoppingCartItems$ | async).length}})
         </span> 
       </a>
+        </div>
+      </div>
     </div>
-  </nav>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row qns-header-top">
+    <div class="col-lg-3 col-md-3 col-sm-6">
+      <div class="box-logo text-center text-sm-left">
+        <a class="header-logo">
+          <img src="../assets/images/logo.png" alt="QuynhNhu Fashion">
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-7 d-none d-md-block">
+      <div class="d-flex align-items-start">
+        <div class="col-6 feature">
+          <div class="media">
+            <div class="media-left media-middle">
+              <img class="media-object" src="../assets/images/truck-2-xl.png" alt="feature1">
+            </div>
+            <div class="media-body">
+              <span class="feature-title">Miễn phí vận chuyển</span><br>
+              <p class="no-margin">Với đơn hàng trị giá trên <b>500K</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 feature">
+          <div class="media ">
+            <div class="media-left media-middle">
+              <img class="media-object" src="../assets/images/phone-39-xl.png" alt="feature1">
+            </div>
+            <div class="media-body">
+              <span class="feature-title">Đặt hàng nhanh</span><br>
+              <p>Gọi ngay <b>1900.6750</b></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2 col-md-3 col-sm-6 d-none d-sm-block">
+      <div class="box-cart text-center">
+        <a (click)="gotoShoppingCart()" class="icon-cart">
+          <img src="../assets/images/cart-59-xl.png" alt="QuynhNhu Fashion">
+        </a>
+        <div class="heading-cart text-xs-left">
+          <a (click)="gotoShoppingCart()" >Giỏ hàng</a>
+          <p><span>(<span class="cartCount">{{(shoppingCartItems$ | async).length}}</span>)</span> Sản phẩm</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!--NAVIGATION MENU-->
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-    aria-label="Toggle navigation">
+<div class="qns-navbar">
+  <nav class="navbar container navbar-expand-md navbar-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse pt-4" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/new']">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#"><span>Trang chủ</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/new']"><span>Sản phẩm mới</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/female', 1]"><span>Thời trang nữ</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/lady', 1]"><span>Thời trang trung niên</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/kids"><span>Thời trang trẻ em</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/accessory"><span>Phụ kiện</span></a>
+        </li>
+      </ul>
+    </div>
+    
+  </nav>
+  <div class="mini-cart text-xs-center d-sm-none">
+      <a href="/cart" class="icon-cart"><img src="../assets/images/cart-59w-xl.png"></a>
+      <div class="heading-cart text-xs-left">
+        <span class="cartCount">{{(shoppingCartItems$ | async).length}}</span>
+      </div>
+    </div>
+</div>

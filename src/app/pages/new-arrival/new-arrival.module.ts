@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NewArrivalComponent } from "./new-arrival.component";
 import { ProductService } from "../../shared/services/products.service";
 import { ProductListComponent } from "../product-list/product-list.component";
+import { CategoryService } from "../../shared/services/category.service";
 //import { MomentModule } from 'angular2-moment';
 declare var $: any;
 
@@ -17,7 +18,7 @@ declare var $: any;
     //   { path: '/:id', component: ProductListComponent },
     // ])
   ],
-  providers: [ProductService],
+  providers: [ProductService, CategoryService],
   declarations: [NewArrivalComponent]
 })
 export class NewArrivalModule { 

@@ -1,0 +1,76 @@
+<div class="new-section container">
+  <!--Tie label section-->
+  <div class="tie best">
+    <h2 class="no-padding no-margin"><span>Dành cho trẻ em</span></h2>
+  </div>
+  <!--List of new products-->
+  <div class="clearfix home-new-list">
+    <div class="see-more">
+      <a>Xem tất cả >></a>
+    </div>
+    <div class="row mt-2">
+      <div class="col-lg-3 col-md-3 d-none d-md-block">
+        <div class="home-girl">
+          <div class="kid-title for-y">
+            <a><h2 class="no-margin">Bé trai</h2></a>
+          </div>
+          <div class="kid-cate d-flex flex-wrap">
+            <div class="col-6 item">
+              <a><img src="../../assets/images/icons/b-shirt.png"></a>
+              <h5>Áo</h5>
+            </div>
+            <div class="col-6 item">
+              <a><img src="../../assets/images/icons/b-short.png"></a>
+              <h5>Quần</h5>
+            </div>
+            <div class="col-6 item">
+              <a><img src="../../assets/images/icons/b-set.png"></a>
+              <h5>Set bộ</h5>
+            </div>
+            <div class="col-6 item">
+              <a><img src="../../assets/images/icons/b-balo.png"></a>
+              <h5>Ba lỗ</h5>
+            </div>
+          </div>
+          <div class="kid-title for-x">
+            <a><h2 class="no-margin">Bé gái</h2></a>
+          </div>
+          <div class="kid-cate d-flex flex-wrap">
+            <div class="col-6 item">
+              <a><img src="../../assets/images/icons/g-shirt.png"></a>
+              <h5>Áo thun</h5>
+            </div>
+            <div class="col-6 item">
+              <a><img src="../../assets/images/icons/g-dress.png"></a>
+              <h5>Đầm</h5>
+            </div>
+            <div class="col-6 item">
+              <a><img src="../../assets/images/icons/g-skirt.png"></a>
+              <h5>Váy</h5>
+            </div>
+            <div class="col-6 item">
+              <a><img src="../../assets/images/icons/g-short.png"></a>
+              <h5>Quần</h5>
+            </div>
+            <div class="col-6 item last">
+              <a><img src="../../assets/images/icons/g-jacket.png"></a>
+              <h5>Áo khoác</h5>
+            </div>
+            <div class="col-6 item last">
+              <a><img src="../../assets/images/icons/b-set.png"></a>
+              <h5>Set bộ</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9 col-md-9 col-xs-12">
+        <div class="row mt-2">
+          <div class="col-lg-4 col-md-4 col-sm-4 mb-4" *ngFor="let product of kidProducts">
+            <product-box [product]="product"></product-box>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

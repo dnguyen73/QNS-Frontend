@@ -1,0 +1,85 @@
+.box-product{
+    position: relative;
+}
+.box-product .card-body{
+    padding: .5rem;
+}
+
+.card-body .price, .card-body .sale{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.card-body .price{
+    color: #e6194a;
+    text-align: left;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.card-body .sale{
+    color: #555;
+    text-align: right;
+    text-decoration: line-through;
+    font-size: 14px;
+    padding-top: 2px;
+}
+
+.card-title a{
+    color: #666;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.product-action{
+    position: absolute;
+    bottom: 70px;
+    background: #eee;
+    width: 100%;
+    left: 0;
+    opacity: 0;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    transform: translateY(100%);
+    -webkit-transform: translateY(100%);
+    -moz-transform: translateY(100%);
+    -o-transform: translateY(100%);
+    padding: 15px 0;
+    text-align: center;
+}
+
+.product-action a{
+    background-color: #b37a88;
+    color: #fff !important;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    text-align: center;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+    margin: 0 3px;
+}
+
+.product-action a:hover{
+    background-color: #683642;
+}
+
+.sale-corner{
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 0;
+    right:0;
+    background: url("../../../assets/images/sale-icon.png");
+    background-size: 60px 60px;
+    background-repeat: no-repeat;
+
+}

@@ -1,50 +1,79 @@
 <!-- Page Content -->
-<div class="container">
+<div class="product-detail container">
 
   <!-- Portfolio Item Heading -->
-  <h1 class="my-4">Page Heading
-    <small>Secondary Text</small>
-  </h1>
+  <nav aria-label="breadcrumb" role="navigation" class="d-block">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i>  Home</a></li>
+      <li class="breadcrumb-item" aria-current="page"><a [routerLink]="['/female', myProduct.parentId]">{{parentCategoryName}}</a></li>
+      <li class="breadcrumb-item" aria-current="page"><a [routerLink]="['/female', myProduct.parentId, myProduct.categoryId]">{{categoryName}}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{myProduct.productName}}</li>
+    </ol>
+  </nav>
 
   <!-- Portfolio Item Row -->
   <div class="row">
 
     <!--Image gallery show and zoom-->
     <div class="col-md-6">
-      <img id="zoom_01" class="img-fluid front-show" [src]='selectedImage.thumbnail' />
+      <div class="d-md-none img-box-mobile">
+        <img src="{{selectedImage.thumbnail}}" />
+      </div>
+      <div class="d-none d-md-block">
+        <img id="zoom_01" class="img-fluid front-show" [src]='selectedImage.thumbnail' />
+      </div>
       <!--<img class="img-fluid front-show" id="zoom_01" src="{{selectedImage.filepath}}" data-zoom-image="{{selectedImage.filepath}}">-->
       <!--Image thumbnails-->
-      <div id="gal1" class="row aligns-inline-flex pl-2">
+      <div id="gal1" class="row gallery">
         <div class="col-2" *ngFor="let thumb of myProduct.images">
-          <a href="#">
+          <a (click)="selectedImage = thumb">
             <img class="thumbnail" id="img_01" src="{{thumb.thumbnail}}" />
           </a>
         </div>
       </div>
     </div>
 
-    <div class="col-md-6 pl-2">
-      <h3 class="my-3">{{myProduct.productName}}</h3>
-      <p>Danh muc: {{myProduct.description}}</p>
-      <p>Ma hang: {{myProduct.productCode}}</p>
-      <p>{{myProduct.price | vnd}}</p>
+    <div class="col-md-6 pl-2 detail-info">
+      <h1 class="title-head">{{myProduct.productName}}</h1>
+      <div class="detail-header-info">
+        Tình trạng:
+        <span class="text">Còn hàng</span>
+        <span class="line">|</span> Mã SP:
+        <span class="text">{{myProduct.productCode}}</span>
+      </div>
 
-      <p>Chon size: </p>
-      <div class="d-flex flex-row">
-        <div *ngFor="let size of sizeList" class="thumb-size p-2" (click)="selectSize(size)" [class.selected]="size.selected" [class.disabled]="!size.activated">
-          {{size.code}}
+      <div class="price-box">
+        <span class="special-price" *ngIf="!myProduct.isOnSale"><span class="price product-price">{{myProduct.price | vnd}}</span></span>
+        <div *ngIf="myProduct.isOnSale">
+          <span class="special-price"><span class="price product-price">{{myProduct.discountPrice | vnd}}</span></span>
+          <span class="old-price"><del class="price product-price-old">{{myProduct.price | vnd}}</del> </span>
         </div>
       </div>
 
-      <p>Chon color: </p>
-      <div class="d-flex flex-row">
-        <div *ngFor="let color of colorList" class="thumb-color align-items-stretch" (click)="selectColor(color)" [class.selected]="color.selected"
-          [class.disabled]="!color.activated">
-          <img [src]="getColorFilePath(color)" />
-        </div>
+      <span class="text">{{myProduct.description}}</span>
+      <div class="line-break"></div>
+
+      <h6 class="option-header">Chọn size: </h6>
+      <div class="d-flex flex-row option-picker">
+        <ul class="pl-0">
+          <li *ngFor="let size of sizeList" class="thumb-size" (click)="selectSize(size)" [class.selected]="size.selected" [class.disabled]="!size.activated">
+            <span>{{size.code}}</span>
+          </li>
+        </ul>
       </div>
 
-      <p>Quantity: </p>
+      <h6 class="option-header">Chọn màu sắc: </h6>
+      <div class="d-flex flex-row option-picker">
+        <ul class="pl-0">
+          <li *ngFor="let color of colorList" class="thumb-color align-items-stretch" (click)="selectColor(color)" [class.selected]="color.selected"
+            [class.disabled]="!color.activated">
+            <img [src]="getColorFilePath(color)" />
+            <div class="pick-corner"></div>
+          </li>
+        </ul>
+      </div>
+
+      <h6 class="option-header">Số lượng: </h6>
       <div class="d-flex flex-row quantity">
         <input type="number" class="form-control" [(ngModel)]="quantity">
         <div class="d-flex">
@@ -53,8 +82,8 @@
         </div>
       </div>
 
-      <div class="action-btn mt-2">
-        <button type="button" class="btn btn-outline-danger" (click)="addToCart()">Place Order</button>
+      <div class="action-btn mt-3">
+        <button type="button" class="btn btn-primary" (click)="addToCart()">Place Order</button>
       </div>
 
     </div>
@@ -96,3 +125,88 @@
 
 </div>
 <!-- /.container -->
+
+<div #myModal class="cart-popup modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <!--For large screen-->
+  <div class="modal-dialog modal-lg d-none d-md-block" role="document">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      <div class="modal-body">
+        <div class="title_popup"><i class="fa fa-check"></i> Bạn vừa thêm <span>{{myProduct.productName}}</span> vào giỏ</div>
+        <div class="title_quantity"><i class="fa fa-shopping-cart"></i> Hiện đang có <span>{{(shoppingCartItems$ | async).length}}</span> sản phẩm trong
+          giỏ hàng</div>
+        <div class="content-popup-cart">
+          <div class="thead-popup">
+            <div style="width: 50%;" class="text-left">Sản phẩm</div>
+            <div style="width: 15%;" class="text-right">Đơn giá</div>
+            <div style="width: 15%;" class="text-center">Số lượng</div>
+            <div style="width: 20%;" class="text-right">Thành tiền</div>
+          </div>
+          <div class="tbody-popup">
+            <div class="item-popup" *ngFor="let cartItem of shoppingCartItems; let idx = index">
+              <div style="width: 50%;" class="text-left">
+                <div class="item-image" *ngIf="selectedColor">
+                  <a class="product-image" href="/" title=""><img alt="" [src]="getImagePath(cartItem)" width="80"></a>
+                </div>
+                <div class="item-info">
+                  <p class="item-name"><a href="/" title="">{{cartItem.product.productName}}</a></p>
+                  <p class="item-remove"><a class="remove-item-cart" (click)="removeItem(idx)"><i class="fa fa-close"></i> Xoá sản phẩm</a></p>
+                  <p class="item-picked" *ngIf="myProduct.productCode == cartItem.product.productCode"><i class="fa fa-check"></i> Sản phẩm vừa thêm</p>
+                </div>
+              </div>
+              <div style="width: 15%;" class="text-right">
+                <div class="item-price"><span class="price">{{cartItem.product.price | vnd}}</span></div>
+              </div>
+              <div style="width: 15%;" class="text-center">
+                <button class="reduced items-count btn-minus" type="button" (click)="DownQty(idx)">–</button>
+                <input type="text" maxlength="12" min="0" class="input-text number-sidebar" [(ngModel)]="cartItem.quantity" (ngModelChange)="UpdateQty(idx)">
+                <button class="increase items-count btn-plus" type="button" (click)="UpQty(idx)">+</button>
+              </div>
+              <div style="width: 20%;" class="text-right"><span class="cart-price"> <span class="price">{{itemSubTotal(cartItem) | vnd}}</span> </span>
+              </div>
+            </div>
+          </div>
+          <div class="tfoot-popup">
+            <div class="tfoot-popup-1 clearfix">
+              <div class="pull-right popup-total">
+                <p>Thành tiền: <span class="total-price">{{subtotal |vnd}}</span></p>
+              </div>
+            </div>
+            <div class="tfoot-popup-2 clearfix">
+              <a class="button btn-proceed-checkout" title="Tiến hành thanh toán" href="/cart"><span>Tiến hành thanh toán <i class="fa fa-long-arrow-right" aria-hidden="true"></i></span></a>
+              <a class="button btn-continue" title="Tiếp tục mua hàng" data-dismiss="modal"><span><span><i class="fa fa-caret-left" aria-hidden="true"></i> Tiếp tục mua hàng</span></span></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>-->
+    </div>
+  </div>
+  <!--For small screen-->
+  <div class="modal-dialog mobile d-md-none">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><span><i class="fa fa-check" aria-hidden="true"></i></span>Thêm vào giỏ hàng thành công</h4>
+      </div>
+      <div class="modal-body">
+        <div class="media">
+          <div class="media-left">
+            <div class="thumb-1x1"><img width="70px" src="//bizweb.dktcdn.net/thumb/small/100/258/935/products/ip-7-plus-bop-1-1.jpg" alt="Ví da điện thoại iPhone 7 Plus"></div>
+          </div>
+          <div class="media-body">
+            <div class="product-title">{{myProduct.productName}}</div>
+            <div class="product-new-price"><span>{{myProduct.price | vnd}}</span></div>
+          </div>
+        </div><button class="btn btn-block btn-outline-red" data-dismiss="modal">Tiếp tục mua hàng</button><a href="/checkout"
+          class="btn btn-block btn-red">Tiến hành thanh toán »</a></div>
+    </div>
+  </div>
+</div>

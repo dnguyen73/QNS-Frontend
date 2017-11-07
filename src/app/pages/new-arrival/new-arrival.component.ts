@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Category } from "../../shared/models/categories";
 import { Router } from "@angular/router";
+import { CategoryService } from "../../shared/services/category.service";
 declare var $: any;
 
 @Component({
@@ -14,14 +15,17 @@ export class NewArrivalComponent implements OnInit {
     id: 0,
     description: "All new products"
   });
-  categories: Category[] = [
-    { id: 1, description: "iPhone 7" },
-    { id: 2, description: "Samsung 7" },
-    { id: 3, description: "MS Lumina" }
-  ];
-  constructor(private _router: Router) { }
+  categories: Category[] = [ ];
+  constructor(private _router: Router, private categorySvc: CategoryService) { }
 
   ngOnInit() {
+    this.fetchCategories(1);
+  }
+
+  //Get all categories belong to given parent id
+  fetchCategories(parentId: number) {
+    this.categorySvc.getCategoriesByParentId(parentId)
+      .subscribe((categories) => this.categories = categories);
   }
   onSelect(category: Category): void {
     this.selectedCategory = category;

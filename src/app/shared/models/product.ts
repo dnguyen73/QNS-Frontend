@@ -18,6 +18,7 @@ export class Product {
     discount: number;
     createdDate: Date;
     originalVendor: string;
+    categoryId: string;
 
     constructor(values: Object = {}){
         Object.assign(this, values);
