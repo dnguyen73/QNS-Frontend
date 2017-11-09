@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute } from "@angular/router";
+import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { ProductService } from "../../shared/services/products.service";
 import { Product } from "../../shared/models/product";
 import { FileObject } from "../../shared/models/fileobject";
@@ -12,6 +12,7 @@ import { DialogService } from "ng2-bootstrap-modal";
 import { ConfirmComponent } from "../../common/dialog/confirm.component";
 import { AlertComponent } from "../../common/dialog/alert.component";
 import { Observable } from "rxjs/Observable";
+
 declare var $: any;
 
 @Component({
@@ -22,6 +23,7 @@ declare var $: any;
 })
 export class ProductDetailComponent implements OnInit {
   myProduct: Product = new Product();
+  relatedProducts: Product[] = [];
   selectedImage: FileObject;
   sizeList: Size[] = [];
   colorList: SelectColor[] = [];
@@ -41,7 +43,26 @@ export class ProductDetailComponent implements OnInit {
   public subtotal$: Observable<number>;
   public subtotal: number = 0;
 
-  @ViewChild('myModal') myModal:ElementRef;
+  slideConfig = {
+    slidesToShow: 4,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2
+        }
+      }
+    ]
+  }
+
+  @ViewChild('myModal') myModal: ElementRef;
+  @ViewChild('myslider') myslider;
 
   constructor(
     private _router: Router,
@@ -49,7 +70,7 @@ export class ProductDetailComponent implements OnInit {
     private productSvc: ProductService,
     private cartSvc: CartService,
     private dialogService: DialogService
-  ) { 
+  ) {
     this.shoppingCartItems$ = this
       .cartSvc
       .getItems();
@@ -94,10 +115,29 @@ export class ProductDetailComponent implements OnInit {
           .subscribe(c => this.categoryName = c.name);
 
         this.parentCategoryName = this.productSvc.getParentCategory(this.myProduct.parentId);
+
+        //get related products
+        this.productSvc.getAllProducts()
+          .subscribe(products => {
+            this.relatedProducts = products;
+            let _thisObject = this;
+            setTimeout(function () {
+              _thisObject.myslider.unslick();
+              _thisObject.myslider.slick(_thisObject.slideConfig);
+            }, 0);
+          });
+
       });
 
     this.shoppingCartItems$ = this.cartSvc.getItems();
     this.shoppingCartItems$.subscribe(_ => _);
+
+    this._router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0)
+    });
   }
 
   //Check size or color available in stock
@@ -213,7 +253,7 @@ export class ProductDetailComponent implements OnInit {
   public removeItem(itemIndex: number): void {
     this.cartSvc.removeItem(itemIndex);
   }
-  
+
   public addToCart() {
     if (this.selectedSize && this.selectedColor) {
       //assign property to new cart item
@@ -230,7 +270,6 @@ export class ProductDetailComponent implements OnInit {
     } else {
       //show warning dialog
       this.showAlert('', 'Ban phai chon day du size va mau de tiep tuc');
-      //$(this.myModal.nativeElement).modal('show');
     }
 
   }
@@ -260,17 +299,30 @@ export class ProductDetailComponent implements OnInit {
       return false;
     });
 
-    // setTimeout(function () {
-    //   $('.zoomWrapper').height($('.zoomWrapper').width());
-    // }, 1000);
+    setTimeout(function () {
+      $('.zoomWrapper').height($('.zoomWrapper').width());
+    }, 500);
+  }
 
-
+  resizeTimeout: any;
+  @HostListener('window:resize')
+  onWindowResize() {
+    //debounce resize, wait for resize to finish before doing stuff
+    if (this.resizeTimeout) {
+      clearTimeout(this.resizeTimeout);
+    }
+    this.resizeTimeout = setTimeout((() => {
+      $('.zoomWrapper').height($('.zoomWrapper').width());
+    }).bind(this), 0);
   }
 
 
   showAlert(title, message) {
     this.dialogService
-      .addDialog(AlertComponent, { title: title, message: message },{ closeByClickingOutside:true ,backdropColor: 'rgba(0, 0, 0, 0.5)' });
+      .addDialog(AlertComponent, { title: title, message: message }, { closeByClickingOutside: true, backdropColor: 'rgba(0, 0, 0, 0.5)' });
   }
+
+
+
 
 }

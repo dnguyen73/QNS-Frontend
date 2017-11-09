@@ -30,27 +30,17 @@ body{
     .container {
         max-width: 750px;
     }
-    .gallery{
-        position: absolute;
-        bottom: 100px !important;
-    }
 }
 
 @media (min-width: 992px){
     .container {
         max-width: 970px;
     }
-    .gallery{
-        bottom: 10px !important;
-    }
 }
 
 @media (min-width: 1200px){
     .container {
         max-width: 1170px;
-    }
-    .gallery{
-        bottom: -60px !important;
     }
 }
 
@@ -61,15 +51,6 @@ body{
 
 .no-margin{
     margin: 0;
-}
-
-/* You can add global styles to this file, and also import other style files */
-.sidenav-wrapper {
-    background: url(https://bizweb.dktcdn.net/100/083/266/files/pattern-a.png?v=1487482060893) repeat scroll center 0 #f8f8f8;
-}
-
-.sidenav-wrapper #sidebar{
-    background: url(https://bizweb.dktcdn.net/100/083/266/files/pattern-a.png?v=1487482060893) repeat scroll center 0 #f8f8f8;
 }
 
 .action-bar{
@@ -161,3 +142,4 @@ body{
     border: 2px solid #fff;
     text-shadow: none;
 }
+

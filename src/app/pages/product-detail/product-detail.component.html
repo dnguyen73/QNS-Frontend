@@ -24,7 +24,7 @@
       </div>
       <!--<img class="img-fluid front-show" id="zoom_01" src="{{selectedImage.filepath}}" data-zoom-image="{{selectedImage.filepath}}">-->
       <!--Image thumbnails-->
-      <div id="gal1" class="row gallery">
+      <div id="gal1" class="row gallery mt-2 mt-md-0">
         <div class="col-2" *ngFor="let thumb of myProduct.images">
           <a (click)="selectedImage = thumb">
             <img class="thumbnail" id="img_01" src="{{thumb.thumbnail}}" />
@@ -91,37 +91,15 @@
   </div>
   <!-- /.row -->
 
-  <!-- Related Projects Row -->
-  <h3 class="my-4">Related Projects</h3>
-
-  <div class="row">
-
-    <div class="col-md-3 col-sm-6 mb-4">
-      <a href="#">
-        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-      </a>
-    </div>
-
-    <div class="col-md-3 col-sm-6 mb-4">
-      <a href="#">
-        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-      </a>
-    </div>
-
-    <div class="col-md-3 col-sm-6 mb-4">
-      <a href="#">
-        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-      </a>
-    </div>
-
-    <div class="col-md-3 col-sm-6 mb-4">
-      <a href="#">
-        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-      </a>
-    </div>
-
+  <!-- Related Products -->
+  <div class="relate-product-wrapper">
+    <h3>Sản phẩm liên quan</h3>
+    <slick-slider #myslider *ngIf="relatedProducts" class="relate-slider" [options]="slideConfig">
+      <div class="relate-box" *ngFor="let p of relatedProducts">
+        <product-box [product]="p"></product-box>
+      </div>
+    </slick-slider>
   </div>
-  <!-- /.row -->
 
 </div>
 <!-- /.container -->

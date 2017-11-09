@@ -14,21 +14,21 @@ img:hover {
 img.front-show{
     border: 1px solid #ddd; /* Gray border */
     border-radius: 4px;  /* Rounded border */
-    width: 80% !important; /* Set a small width */
+    width: 90% !important; /* Set a small width */
     height: auto !important;
     position: initial;
 }
 .zoomWrapper{
     width: 100% !important;
-    height: 100%;
+    /*height: auto !important;*/
 }
 .zoom-container{
     z-index: -1;
 }
 
 .gallery{
-    margin-top: 10px; 
     float: left;
+    margin-bottom: 20px;
 }
 
 .img-box-mobile{
@@ -466,4 +466,24 @@ img.front-show{
     border: none;
     text-align: center;
     margin-top: 1.5rem;
+}
+
+.relate-slider .slick-prev, .relate-slider .slick-next{
+    z-index: 1;
+    top: 100px;
+}
+
+.relate-slider .slick-prev{
+    left: 7px;
+}
+.relate-slider .slick-next{
+    right: 7px;
+}
+.relate-product-wrapper .relate-box{
+    padding: 10px;
+}
+.relate-product-wrapper h3{
+    font-size: 20px;
+    color: #83444C;
+    text-decoration: underline;
 }

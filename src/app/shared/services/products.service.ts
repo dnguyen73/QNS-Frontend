@@ -34,7 +34,7 @@ export class ProductService {
       })
       .catch(this.handleError);
   }
-
+findRelateProductsByProductId
   /**
      * Grab all product items from loopback api
      */
@@ -43,7 +43,7 @@ export class ProductService {
       .get(PRODUCT_URL)
       .map(res => {
         const product = res.json();
-        return product.map((category) => new Product(category));
+        return product.map((product) => new Product(product));
       })
       .catch(this.handleError);
   }

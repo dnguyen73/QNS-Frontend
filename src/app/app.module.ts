@@ -27,6 +27,8 @@ import { KidsFashionComponent } from './pages/kids-fashion/kids-fashion.componen
 import { HomeNewComponent } from './pages/home-new/home-new.component';
 import { ProductBoxComponent } from './components/product-box/product-box.component';
 import { HomeKidsComponent } from './pages/home-kids/home-kids.component';
+import { SlickSliderComponent } from './common/slick-slider/slick-slider.component';
+import { SlickModule } from 'ngx-slick';
 
 
 @NgModule({
@@ -39,6 +41,7 @@ import { HomeKidsComponent } from './pages/home-kids/home-kids.component';
     HomeNewComponent,
     ProductBoxComponent,
     HomeKidsComponent,
+    SlickSliderComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -48,6 +51,7 @@ import { HomeKidsComponent } from './pages/home-kids/home-kids.component';
     HttpModule,
     SharedModule,
     Ng2Webstorage,
+    SlickModule.forRoot()
   ],
   entryComponents: [
     ConfirmComponent, AlertComponent
