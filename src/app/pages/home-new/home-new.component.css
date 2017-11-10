@@ -7,7 +7,7 @@
 .tie{
     position: absolute;
     left: -10px;
-    top: -15px;
+    top: -19px;
 }
 .tie span{
     display: block;
@@ -18,6 +18,9 @@
     color: #fff;
     text-align: center;
     text-transform: uppercase;
+}
+.tie h2{
+    margin-top: 5px;
 }
 .best:before{
     border-bottom: 20px solid #F25A59;
@@ -40,10 +43,44 @@
 .see-more{
     border-bottom: 1px solid #ccc;
     width: 100%;
-    text-align: right;
+    text-align: center;
+    position: relative;
+    min-height: 20px;
 }
-.see-more a{
+
+.new-category-mobile{
+    position: initial;
+    text-align: center;
+    border: 1px solid #ababab;
+    padding: 3px;
+}
+
+.new-category-mobile a{
+    text-align: center;
+    display: inline;
+    color: #777 !important;
+    padding: 0 20px;
+}
+
+.see-more .new-category a{
+    text-transform: uppercase;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-block;
+    padding: 0 20px;
+    color: #777 !important;
+    cursor: pointer;
+}
+
+.new-category-mobile a.active, .new-category a.active{
+    color: #B03935 !important;
+}
+
+.see-more .see-all{
+    position: absolute;
+    top: 0;
+    right: 0;
     font-size: 12px;
     font-style: italic;
-    color: #683642;
 }

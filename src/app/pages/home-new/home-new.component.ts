@@ -13,6 +13,7 @@ export class HomeNewComponent implements OnInit {
 
   newProducts: Product[] = [];
   saleProducts: Product[] = [];
+  forNewType: number = 0;
   constructor(private _router: Router, private productSvc: ProductService) { }
 
   ngOnInit() {
@@ -40,6 +41,10 @@ export class HomeNewComponent implements OnInit {
   fetchProductsByCategory(categoryId: string) {
     this.productSvc.getProductsByCategoryId(categoryId)
       .subscribe((products) => this.newProducts = products);
+  }
+
+  selectNewType(type: number){
+    this.forNewType = type;
   }
 
 }

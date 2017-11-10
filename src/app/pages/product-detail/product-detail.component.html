@@ -25,11 +25,18 @@
       <!--<img class="img-fluid front-show" id="zoom_01" src="{{selectedImage.filepath}}" data-zoom-image="{{selectedImage.filepath}}">-->
       <!--Image thumbnails-->
       <div id="gal1" class="row gallery mt-2 mt-md-0">
-        <div class="col-2" *ngFor="let thumb of myProduct.images">
+        <!--<div class="col-2" *ngFor="let thumb of myProduct.images">
           <a (click)="selectedImage = thumb">
             <img class="thumbnail" id="img_01" src="{{thumb.thumbnail}}" />
           </a>
-        </div>
+        </div>-->
+        <ul class="gal-content">
+          <li *ngFor="let thumb of myProduct.images">
+            <a (click)="selectedImage = thumb">
+              <img class="thumbnail" id="img_01" src="{{thumb.thumbnail}}" />
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -90,7 +97,7 @@
 
   </div>
   <!-- /.row -->
-
+<button (click)="viewDetail()">Test</button>
   <!-- Related Products -->
   <div class="relate-product-wrapper">
     <h3>Sản phẩm liên quan</h3>

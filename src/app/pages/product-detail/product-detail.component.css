@@ -31,6 +31,15 @@ img.front-show{
     margin-bottom: 20px;
 }
 
+.gallery ul{
+    list-style: none;
+    padding: 0 15px;
+}
+
+.gallery ul li{
+    display: inline;
+}
+
 .img-box-mobile{
     text-align: center;
     padding: 20px;
@@ -103,10 +112,9 @@ img.front-show{
      width: 100px;
  }
 
- .breadcrumb {
+ /*.breadcrumb {
      margin-top: 15px;
-
- }
+ }*/
 
  .breadcrumb li a{
      font-size: 14px;

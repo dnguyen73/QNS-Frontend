@@ -3,18 +3,7 @@
   <div class="row">
 
     <div class="col-lg-4 col-md-4 col-sm-6 mb-4" *ngFor="let product of products">
-      <div class="box-product card h-100">
-        <a (click)="viewDetail(product)"><img class="card-img-top" [src]="product.images[0].filepath" alt=""></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="#">{{product.productName}}</a>
-          </h4>
-          <h5>{{product.price | vnd}}</h5>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-        </div>
-      </div>
+      <product-box [product]="product"></product-box>
     </div>
 
   </div>

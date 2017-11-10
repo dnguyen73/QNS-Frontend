@@ -5,25 +5,39 @@
   <nav id="sidebar">
     <!-- Sidebar Header -->
     <div class="sidebar-header">
-      <h3>Thoi Trang Nu</h3>
+      <h3><i class="icon fa fa-bars mr-1"></i>Danh mục</h3>
       <div id="dismiss" class="d-md-none">
         <i class="fa fa-remove" aria-hidden="true"></i>
       </div>
     </div>
 
     <ul class="nav flex-column">
-      <li *ngFor="let cat of categories" class="nav-item list-group-item" [class.active]="cat === selectedCategory" (click)="onSelect(cat)">
-        <span>{{cat.name}} </span>
+      <li *ngFor="let cat of categories" class="nav-item" [class.active]="cat === selectedCategory" (click)="onSelect(cat)">
+        <a><i class="icon fa fa-angle-double-right"></i>{{cat.name}}</a>
       </li>
     </ul>
 
-    <!-- Sidebar Links -->
-    <!--<ul class="list-group">
-      <li *ngFor="let cat of categories" class="list-group-item" [class.active]="cat === selectedCategory" (click)="onSelect(cat)">
-        <span>{{cat.name}} </span>
+
+    <!-- Sidebar Header -->
+    <div class="sidebar-header mt-2">
+      <h3><i class="icon fa fa-filter mr-1"></i>Chọn giá</h3>
+      <div id="dismiss" class="d-md-none">
+        <i class="fa fa-remove" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <ul class="nav flex-column">
+      <li *ngFor="let range of priceRange; let idx = index" class="nav-item" [class.active]="range === selectedPrice" (click)="onPriceSelect(idx)">
+        <a>
+          <i class="icon fa fa-square-o" *ngIf="!range.selected"></i>
+          <i class="icon fa fa-check-square-o" *ngIf="range.selected"></i>
+          {{range.label}}</a>
       </li>
-    </ul>-->
+    </ul>
   </nav>
+
+
+
 
   <div id="content" class="w-100">
     <div id="sidebarCollapse" class="action-bar">
@@ -31,12 +45,12 @@
         <div class="d-md-none p-2" (click)="toggleSidebar()">
           <i class="fa fa-arrow-circle-left"></i>
         </div>
-        <div class="p-2">{{selectedCategory.name}}</div>
+        <div class="title"><i class="icon fa fa-snowflake-o"></i>{{selectedCategory.name}}</div>
       </div>
       <nav aria-label="breadcrumb" role="navigation" class="d-block">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i>  Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page"><a [routerLink]="['/female', 1]">Thoi trang nu</a></li>
+          <li class="breadcrumb-item active" aria-current="page"><a [routerLink]="['/female', 1]">Thời trang nữ</a></li>
           <li class="breadcrumb-item active" aria-current="page">{{selectedCategory.name}}</li>
         </ol>
       </nav>

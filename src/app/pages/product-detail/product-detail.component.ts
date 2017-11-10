@@ -75,17 +75,46 @@ export class ProductDetailComponent implements OnInit {
       .cartSvc
       .getItems();
 
+    //Get shopping cart info
     this.shoppingCartItems$.subscribe(_ => this.shoppingCartItems = _);
-  }
-
-  ngOnInit() {
     this.subtotal$ = this.cartSvc.getTotalAmount();
     this.subtotal$.subscribe(_ => this.subtotal = _);
-    let code = this.route.snapshot.params['code'];
+
+    this.shoppingCartItems$ = this.cartSvc.getItems();
+    this.shoppingCartItems$.subscribe(_ => _);
+
+    //reload page data
+    this.reloadPage();
+
+  }
+
+  //Default behavior: ngOnInit does not get called when navigating within same route.
+  //However, route subcribe() will work every time route's param is changed.
+  ngOnInit() {
+    window.scrollTo(0, 0);
+    this._router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0);
+    });
+  }
+
+  //Check size or color available in stock
+  checkSizeAvailInStock(size) {
+    this.myProduct.stocks.filter((s) => {
+
+    })
+  }
+
+  //reload page even if navigating within same route with different params
+  reloadPage() {
     this.route.data
       .subscribe((data: { product: Product }) => {
         this.myProduct = data.product;
         this.selectedImage = this.myProduct.images[0];
+        this.sizeList = [];
+        this.colorList = [];
 
         this.myProduct.stocks.map((s) => {
           if (s.quantity > 0) {
@@ -127,24 +156,13 @@ export class ProductDetailComponent implements OnInit {
             }, 0);
           });
 
+        //reload gallery
+        let _t = this;
+        setTimeout(function(){
+          _t.reloadGallery();
+        }, 0);
+        //this.reloadGallery();
       });
-
-    this.shoppingCartItems$ = this.cartSvc.getItems();
-    this.shoppingCartItems$.subscribe(_ => _);
-
-    this._router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
-      }
-      window.scrollTo(0, 0)
-    });
-  }
-
-  //Check size or color available in stock
-  checkSizeAvailInStock(size) {
-    this.myProduct.stocks.filter((s) => {
-
-    })
   }
 
 
@@ -273,8 +291,16 @@ export class ProductDetailComponent implements OnInit {
     }
 
   }
+  viewDetail() {
+    this._router.navigate(['product', 'L73JUF']);
+  }
 
-  ngAfterViewInit() {
+  // ngAfterViewInit() {
+  //   this.reloadGallery();
+  // }
+
+  //Reload gallery whenever navigating to another product within the same route
+  reloadGallery() {
     $('.zoomContainer').remove();
     let t = this;
     $('#zoom_01').data('zoom-image', t.myProduct.images[0].filepath);
@@ -288,16 +314,16 @@ export class ProductDetailComponent implements OnInit {
       cursor: 'pointer',
       easing: true,
       galleryActiveClass: 'active',
-      imageCrossfade: true,
-      loadingIcon: 'https://www.elevateweb.co.uk/spinner.gif'
+      imageCrossfade: true
+      //loadingIcon: 'https://www.elevateweb.co.uk/spinner.gif'
     });
 
     //pass the images to Fancybox
-    $("#zoom_01").bind("click", function (e) {
-      var ez = $('#zoom_01').data('elevateZoom');
-      $.fancybox(ez.getGalleryList());
-      return false;
-    });
+    // $("#zoom_01").bind("click", function (e) {
+    //   var ez = $('#zoom_01').data('elevateZoom');
+    //   $.fancybox(ez.getGalleryList());
+    //   return false;
+    // });
 
     setTimeout(function () {
       $('.zoomWrapper').height($('.zoomWrapper').width());
