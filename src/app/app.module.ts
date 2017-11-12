@@ -29,6 +29,8 @@ import { ProductBoxComponent } from './components/product-box/product-box.compon
 import { HomeKidsComponent } from './pages/home-kids/home-kids.component';
 import { SlickSliderComponent } from './common/slick-slider/slick-slider.component';
 import { SlickModule } from 'ngx-slick';
+import { LadyFashionComponent } from './pages/lady-fashion/lady-fashion.component';
+import { UIService } from "./shared/services/ui.service";
 
 
 @NgModule({
@@ -42,6 +44,7 @@ import { SlickModule } from 'ngx-slick';
     ProductBoxComponent,
     HomeKidsComponent,
     SlickSliderComponent,
+    LadyFashionComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -56,7 +59,7 @@ import { SlickModule } from 'ngx-slick';
   entryComponents: [
     ConfirmComponent, AlertComponent
   ],
-  providers: [ProductService, ProductDetailResolve, CategoryService, CartService, OrderService],
+  providers: [ProductService, ProductDetailResolve, CategoryService, CartService, OrderService, UIService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

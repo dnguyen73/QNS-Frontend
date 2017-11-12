@@ -100,8 +100,13 @@
     font-size: 16px;
 }
 
-.action-bar .title .icon{
+.action-bar .title .icon, .action-bar .back-select .icon{
     margin-right: 5px;
+}
+
+.action-bar .back-select{
+    text-align: right;
+    cursor: pointer;
 }
 
 a[data-toggle="collapse"] {
@@ -135,6 +140,12 @@ a[aria-expanded="true"]::before {
     }
 }
 
-/*Checkbox and Radio button*/
+/*Blinker*/
+.blinker {
+  animation: blinker .2s linear infinite;
+}
 
+@keyframes blinker {  
+  50% { opacity: 0; }
+}
 

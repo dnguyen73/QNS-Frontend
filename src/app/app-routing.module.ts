@@ -15,6 +15,7 @@ import { AlertComponent } from "./common/dialog/alert.component";
 import { ThankyouComponent } from "./pages/thankyou/thankyou.component";
 import { FemaleFashionComponent } from "./pages/female-fashion/female-fashion.component";
 import { KidsFashionComponent } from "./pages/kids-fashion/kids-fashion.component";
+import { LadyFashionComponent } from "./pages/lady-fashion/lady-fashion.component";
 
 const routes: Routes = [
     {
@@ -39,6 +40,21 @@ const routes: Routes = [
             {
                 path: 'female',
                 component: FemaleFashionComponent,
+                children: [
+                    //{ path: '', redirectTo: ':parentId', pathMatch: 'full' },
+                    {
+                        path: ':parentId',
+                        component: ProductListComponent
+                    },
+                    {
+                        path: ':parentId/:cid',
+                        component: ProductListComponent
+                    }
+                ]
+            },
+            {
+                path: 'lady',
+                component: LadyFashionComponent,
                 children: [
                     //{ path: '', redirectTo: ':parentId', pathMatch: 'full' },
                     {

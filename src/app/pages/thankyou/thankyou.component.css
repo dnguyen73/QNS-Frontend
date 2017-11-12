@@ -1,0 +1,129 @@
+.thankyou-message {
+    position: relative;
+    margin: auto;
+    border: 1px solid #ababab;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.thankyou-message .confirm{
+    margin-left: 80px;
+}
+
+.thankyou-message .icon-success{
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 20px;
+    left: 20px;
+    background: url("../../../assets/images/icons/ok.png");
+    background-size: 60px 60px;
+    background-repeat: no-repeat;
+}
+
+.thankyou-message h3{
+    color: #333;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.thankyou-message p{
+    color: #777;
+    line-height: 1.5em;
+    margin: 6px 0;
+}
+
+.order-summary, .ship-info{
+    border: 1px solid #ababab;
+    padding: 10px;
+}
+
+.order-summary h1, .ship-info h1{
+    font-size: 18px;
+    color: #de1545;
+}
+
+.order-summary h2, .ship-info h2{
+    font-size: 16px;
+    color: #de1545;
+}
+
+.order-summary .heading {
+    background: #f7f7f7;
+    margin: 15px 0;
+}
+
+.order-summary .heading > div {
+    padding: 6px 10px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.order-summary .content .item-image {
+    float: left;
+}
+
+.order-summary .content .item-image img {
+    border: 1px solid #d2d2d2;
+}
+
+.order-summary .content .item-info {
+    padding: 10px 0;
+    padding-left: 100px;
+}
+
+.order-summary .content .item-info .item-name {
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.order-summary .content .item-price, .order-summary .content .cart-price {
+    padding: 10px 0;
+    display: block;
+}
+
+.order-summary .content .price {
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.order-summary .foot-1 {
+    padding: 10px 0;
+    margin: 0;
+    font-weight: 700;
+}
+.order-summary .foot-2 {
+    padding: 10px 0;
+    color: #111;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.order-summary .foot-1.first {
+    border-top: 1px solid #ababab;
+    margin-top: 10px;
+}
+
+.order-summary .foot-1.last {
+    border-bottom: 1px solid #ababab;
+}
+
+.ship-info p{
+    padding: 6px 10px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.ship-info .receiver{
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ababab;
+}
+
+.btn-continue{
+    margin-top: 20px;
+}

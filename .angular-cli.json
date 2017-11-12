@@ -21,6 +21,7 @@
       "styles": [
         "styles.css",
         "common.css",
+        "bootstrap-float-label.css",
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/font-awesome/css/font-awesome.css",
         "../src/libs/magiczoomplus/jquery.fancybox.min.css",

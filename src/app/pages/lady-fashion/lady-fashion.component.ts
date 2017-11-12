@@ -7,12 +7,12 @@ import { UIService } from "../../shared/services/ui.service";
 declare var $: any;
 
 @Component({
-  selector: 'female-fashion',
-  templateUrl: './female-fashion.component.html',
-  styleUrls: ['./female-fashion.component.css'],
+  selector: 'lady-fashion',
+  templateUrl: './lady-fashion.component.html',
+  styleUrls: ['./lady-fashion.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class FemaleFashionComponent implements OnInit {
+export class LadyFashionComponent implements OnInit {
   defaultCategory: Category = new Category({
     id: 0,
     name: "Tất cả sản phẩm"
@@ -37,7 +37,7 @@ export class FemaleFashionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.fetchCategories(1);
+    this.fetchCategories(2);
   }
 
   //Get all categories belong to given parent id
@@ -51,9 +51,9 @@ export class FemaleFashionComponent implements OnInit {
   onSelect(category: Category): void {
     this.selectedCategory = category;
     if (category.id !== 0) {
-      this._router.navigate(["/female", 1, category.id]);
+      this._router.navigate(["/lady", 2, category.id]);
     } else {
-      this._router.navigate(["/female", 1]);
+      this._router.navigate(["/lady", 2]);
     }
 
     $('#sidebar').toggleClass('active');

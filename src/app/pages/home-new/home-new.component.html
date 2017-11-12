@@ -30,11 +30,19 @@
   <div class="tie best">
     <h2 class="no-padding no-margin"><span>Sản phẩm sale</span></h2>
   </div>
-  <!--List of new products-->
+  <!--List of sale products-->
   <div class="clearfix home-new-list">
     <div class="see-more">
-      <a>Xem tất cả >></a>
+      <a class="see-all">Xem tất cả >></a>
+      <div class="new-category d-none d-md-block">
+        <a [class.active]= "forSaleType == 0" (click)="selectSaleType(0)"><i class="icon fa fa-angle-double-right mr-2"></i>Thời trang nữ</a>
+        <a [class.active]= "forSaleType == 1" (click)="selectSaleType(1)"><i class="icon fa fa-angle-double-right mr-2"></i>Thời trang trung niên</a>
+      </div>
     </div>
+    <div class="new-category-mobile d-md-none">
+        <a [class.active]= "forSaleType == 0" (click)="selectSaleType(0)"><i class="icon fa fa-angle-double-right mr-2"></i>Thời trang nữ</a>
+        <a [class.active]= "forSaleType == 1" (click)="selectSaleType(1)"><i class="icon fa fa-angle-double-right mr-2"></i>Thời trang trung niên</a>
+      </div>
     <div class="row mt-2">
       <div class="col-lg-3 col-md-3 col-sm-4 mb-4" *ngFor="let product of saleProducts">
         <product-box [product]="product"></product-box>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from 'rxjs';
 import { of } from 'rxjs/observable/of';
@@ -15,7 +15,8 @@ declare var $: any;
 @Component({
   selector: 'qns-shopping-cart',
   templateUrl: './shopping-cart.component.html',
-  styleUrls: ['./shopping-cart.component.css']
+  styleUrls: ['./shopping-cart.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ShoppingCartComponent implements OnInit {
 
@@ -121,9 +122,12 @@ export class ShoppingCartComponent implements OnInit {
       .makeOrder(this.orderItem)
       .subscribe(
       (successOrder) => {
+        this.sessionStorage.store('tmpOrder', this.orderItem);
         //Clear shopping cart
         this.cartSvc.clear();
+
         this._router.navigate(['thankyou', this.orderItem.orderCode]);
+        //this._router.navigate(['thankyou']);
       }
       );
   }

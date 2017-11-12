@@ -15,21 +15,30 @@ declare var $: any;
 export class HeaderComponent implements OnInit {
 
   public shoppingCartItems$: Observable<CartItem[]>;
-  constructor(private cartSvc: CartService,  private _router: Router) { }
+  constructor(private cartSvc: CartService, private _router: Router) { }
 
   ngOnInit() {
     this.shoppingCartItems$ = this.cartSvc.getItems();
     this.shoppingCartItems$.subscribe(_ => _);
   }
 
-  gotoShoppingCart(){
+  gotoShoppingCart() {
     this._router.navigate(['cart']);
   }
 
   ngAfterViewInit() {
     // hide the nav bar on small screen
-    $('.nav-link').on('click', function () {
-      $('#navbarNav').removeClass('show');
+    // $('.nav-link').on('click', function () {
+    //   $('#navbarNav').removeClass('show');
+    // });
+
+    $(function () {
+      var navMain = $(".navbar-collapse"); // avoid dependency on #id
+      // "a:not([data-toggle])" - to avoid issues caused
+      // when you have dropdown inside navbar
+      navMain.on("click", "a:not([data-toggle])", null, function () {
+        navMain.collapse('hide');
+      });
     });
   }
 

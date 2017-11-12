@@ -67,3 +67,72 @@
     width: 1.5rem;
     height: 1.5rem;
 }
+
+/*SHIPPING PART*/
+.shipping label.has-float-label{
+    margin-bottom: 0;
+}
+.shipping .user-info, .shipping .total-info{
+    border: 1px solid #ababab;
+    padding: 10px;
+}
+
+.shipping .user-info h1, .shipping .total-info h1{
+    font-size: 18px;
+    color: #de1545;
+}
+
+.shipping .user-info h2, .shipping .total-info h2{
+    font-size: 16px;
+    color: #de1545;
+}
+
+.shipping input.ng-valid.ng-touched{
+    border-left: 5px solid green;
+}
+
+.shipping input.ng-invalid.ng-touched{
+    border-left: 5px solid red;
+}
+
+.shipping .error-msg{
+    color: red;
+    font-size: 12px;
+}
+
+.shipping .guide-msg{
+    color: #333;
+    font-size: 12px;
+    text-align: left;
+}
+
+.shipping .has-ok{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 10px;
+    right: 10px;
+    background: url("../../../assets/images/icons/check-mark.png");
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.shipping .email-section, .shipping .fullname-section, .shipping .phone-section, .shipping .address-section, .shipping .province-section{
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.total-info .action-btn{
+    border-top: 1px solid #ababab;
+    padding-top: 10px;
+}
+
+.total-info label{
+    font-weight: 700;
+}
+
+.total-info .sum label{
+    font-size: 18px;
+    color: #de1545;
+}

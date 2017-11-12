@@ -291,10 +291,7 @@ export class ProductDetailComponent implements OnInit {
     }
 
   }
-  viewDetail() {
-    this._router.navigate(['product', 'L73JUF']);
-  }
-
+  
   // ngAfterViewInit() {
   //   this.reloadGallery();
   // }

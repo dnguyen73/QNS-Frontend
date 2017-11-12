@@ -80,6 +80,36 @@ findRelateProductsByProductId
   }
 
   /**
+   * Grab all new product items for given parentId from loopback api
+   * Optional: top --- number of product return with DATE desc
+   */
+  fetchNewProductsByParentId(parentId: number, top?: number): Observable<Product[]> {
+    return this._http
+      .get(PRODUCT_URL + "/findNewest?pid=" + parentId + "&top=" + top)
+      .map(res => {
+        const products = res.json();
+        return products
+          .map((product) => new Product(product));
+      })
+      .catch(this.handleError);
+  }
+
+  /**
+   * Grab all new product items for given parentId from loopback api
+   * Optional: top --- number of product return with DATE desc
+   */
+  fetchSaleProductsByParentId(parentId: number, top?: number): Observable<Product[]> {
+    return this._http
+      .get(PRODUCT_URL + "/findSale?pid=" + parentId + "&top=" + top)
+      .map(res => {
+        const products = res.json();
+        return products
+          .map((product) => new Product(product));
+      })
+      .catch(this.handleError);
+  }
+
+  /**
    * Get one product for given product code from loopback api
    */
   findProductByCode(code: string): Observable<Product> {

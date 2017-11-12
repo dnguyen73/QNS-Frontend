@@ -2,13 +2,13 @@
 <div class="qns-topbar bg-light">
   <div class="container">
     <div class="row">
-      <div class="col-md-6 col-sm-6 col-6 no-padding pl-0">
+      <div class="col-md-8 col-sm-8 col-8 no-padding pl-0">
         <p class="no-margin mt-2">
-          <strong><a href="tel:0939808500"><i class="fa fa-phone"></i><span class="d-none d-sm-inline">0939808500</span></a></strong>|
-          <strong><a href="/"><i class="fa fa-facebook"></i><span class="d-none d-sm-inline">quynhnhuvu</span></a></strong>
+          <strong><a href="tel:0939808500"><i class="fa fa-phone"></i><span class=" d-sm-inline">0939808500</span></a></strong>|
+          <strong><a href="/"><i class="fa fa-facebook"></i><span class="d-sm-inline">quynhnhuvu</span></a></strong>
         </p>
       </div>
-      <div class="col-md-6 col-sm-6 col-6">
+      <div class="col-md-4 col-sm-4 col-4">
         <div class="form-inline my-2 float-right">
           <div class="input-group input-group-sm d-none d-sm-flex">
             <span class="input-group-btn">
@@ -17,11 +17,11 @@
             <input type="text" class="form-control" placeholder="Search for...">
           </div>
 
-          <a target="_blank" (click)="gotoShoppingCart()" class=" fa fa-shopping-cart"><span class="tiny-link d-sm-inline"> 
+          <!--<a target="_blank" (click)="gotoShoppingCart()" class=" fa fa-shopping-cart"><span class="tiny-link d-sm-inline"> 
         Your cart
         ({{(shoppingCartItems$ | async).length}})
         </span> 
-      </a>
+      </a>-->
         </div>
       </div>
     </div>
@@ -88,7 +88,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="#"><span>Trang chủ</span></a>
+          <a class="nav-link" [routerLink]="['/']"><span>Trang chủ</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/new']"><span>Sản phẩm mới</span></a>
@@ -97,10 +97,15 @@
           <a class="nav-link" [routerLink]="['/female', 1]"><span>Thời trang nữ</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/lady', 1]"><span>Thời trang trung niên</span></a>
+          <a class="nav-link" [routerLink]="['/lady', 2]"><span>Thời trang trung niên</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/kids"><span>Thời trang trẻ em</span></a>
+        </li>
+        <li class="nav-item sale">
+          <a class="nav-link" href="/sales"><span>Khuyến mãi</span>
+            <img src="../assets/images/icons/sale-1.png"/>
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/accessory"><span>Phụ kiện</span></a>
@@ -110,7 +115,7 @@
     
   </nav>
   <div class="mini-cart text-xs-center d-sm-none">
-      <a href="/cart" class="icon-cart"><img src="../assets/images/cart-59w-xl.png"></a>
+      <a [routerLink]="['/cart']" class="icon-cart"><img src="../assets/images/cart-59w-xl.png"></a>
       <div class="heading-cart text-xs-left">
         <span class="cartCount">{{(shoppingCartItems$ | async).length}}</span>
       </div>

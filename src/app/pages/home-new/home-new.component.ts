@@ -14,11 +14,12 @@ export class HomeNewComponent implements OnInit {
   newProducts: Product[] = [];
   saleProducts: Product[] = [];
   forNewType: number = 0;
+  forSaleType: number = 0;
   constructor(private _router: Router, private productSvc: ProductService) { }
 
   ngOnInit() {
-     this.fetchProducts(1);
-     this.fetchSaleProducts(1);
+     this.fetchNewProductsByParentId(1, 8);
+     this.fetchSaleProductsByParentId(1, 8);
   }
 
   //Get all products belong to given parent id
@@ -29,13 +30,7 @@ export class HomeNewComponent implements OnInit {
       });
   }
 
-  //Get all sale products belong to given parent id
-  fetchSaleProducts(parentId: number) {
-    this.productSvc.getProductsByParentId(parentId)
-      .subscribe((products) => {
-        this.saleProducts = products;
-      });
-  }
+  
 
   //Get all products belong to given parent id
   fetchProductsByCategory(categoryId: string) {
@@ -43,8 +38,40 @@ export class HomeNewComponent implements OnInit {
       .subscribe((products) => this.newProducts = products);
   }
 
+  //Get all new products belong to given parent id
+  fetchNewProductsByParentId(parentId: number, top?: number) {
+    this.productSvc.fetchNewProductsByParentId(parentId, top)
+      .subscribe((products) => this.newProducts = products);
+  }
+
+  //Get all sale products belong to given parent id
+  fetchSaleProductsByParentId(parentId: number, top?: number) {
+    this.productSvc.fetchSaleProductsByParentId(parentId, top)
+      .subscribe((products) => {
+        this.saleProducts = products;
+      });
+  }
+
   selectNewType(type: number){
     this.forNewType = type;
+    if(type === 0){
+      //Show Female fashion
+      this.fetchNewProductsByParentId(1, 8);
+    } else if (type === 1){
+      //Show Lady fashion
+      this.fetchNewProductsByParentId(2, 8);
+    }
+  }
+
+  selectSaleType(type: number){
+    this.forSaleType = type;
+    if(type === 0){
+      //Show Female fashion
+      this.fetchSaleProductsByParentId(1, 8);
+    } else if (type === 1){
+      //Show Lady fashion
+      this.fetchSaleProductsByParentId(2, 8);
+    }
   }
 
 }
