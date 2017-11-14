@@ -27,7 +27,8 @@
         "../src/libs/magiczoomplus/jquery.fancybox.min.css",
         "../node_modules/roboto-fontface/css/roboto/roboto-fontface.css",
         "../node_modules/slick-carousel/slick/slick.css",
-        "../node_modules/slick-carousel/slick/slick-theme.css"
+        "../node_modules/slick-carousel/slick/slick-theme.css",
+        "../node_modules/css-star-rating/dist/css/star-rating.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",

@@ -30,7 +30,7 @@
             <div class="col-4 image">
               <div class="item-left image-container">
                 <a>
-                  <img class="img-fluid" [src]="getImagePath(cartItem)">
+                  <img class="img-fluid" [src]="getImagePath(cartItem)" [routerLink]="['/product', cartItem.product.productCode]">
                 </a>
               </div>
             </div>

@@ -21,10 +21,10 @@
                         <div class="item row mb-1" *ngFor="let cartItem of cartItems">
                             <div class="col-9 col-md-6 text-left">
                                 <div class="item-image">
-                                    <a class="product-image" href="/" title=""><img alt="" [src]="getImagePath(cartItem)" width="80"></a>
+                                    <a class="product-image" [routerLink]="['/product', cartItem.product.productCode]" title=""><img alt="" [src]="getImagePath(cartItem)" width="80"></a>
                                 </div>
                                 <div class="item-info">
-                                    <p class="item-name"><a href="/" title="">{{cartItem.product.productName}}</a></p>
+                                    <p class="item-name"><a [routerLink]="['/product', cartItem.product.productCode]" title="">{{cartItem.product.productName}}</a></p>
                                 </div>
                             </div>
                             <div class="d-none col-md-3 text-right">

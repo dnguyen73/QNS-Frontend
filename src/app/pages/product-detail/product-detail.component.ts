@@ -12,6 +12,9 @@ import { DialogService } from "ng2-bootstrap-modal";
 import { ConfirmComponent } from "../../common/dialog/confirm.component";
 import { AlertComponent } from "../../common/dialog/alert.component";
 import { Observable } from "rxjs/Observable";
+import { Review } from "../../shared/models/review";
+import { OnRatingChangeEven } from "angular-star-rating";
+import { RatingService } from "../../shared/services/rating.service";
 
 declare var $: any;
 
@@ -60,8 +63,12 @@ export class ProductDetailComponent implements OnInit {
       }
     ]
   }
+  review: Review = new Review();
+  reviewList: Review[] = [];
+  avgRating: number = 0;
 
   @ViewChild('myModal') myModal: ElementRef;
+  @ViewChild('reviewModal') reviewModal: ElementRef;
   @ViewChild('myslider') myslider;
 
   constructor(
@@ -69,6 +76,7 @@ export class ProductDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private productSvc: ProductService,
     private cartSvc: CartService,
+    private ratingSvc: RatingService,
     private dialogService: DialogService
   ) {
     this.shoppingCartItems$ = this
@@ -158,10 +166,21 @@ export class ProductDetailComponent implements OnInit {
 
         //reload gallery
         let _t = this;
-        setTimeout(function(){
+        setTimeout(function () {
           _t.reloadGallery();
         }, 0);
-        //this.reloadGallery();
+
+        //Get all reviews of curent product
+        this.ratingSvc.getReviewsByProductCode(this.myProduct.productCode)
+          .subscribe((reviews) => {
+            this.reviewList = reviews;
+            let totalRating = 0;
+            for(let i=0; i<this.reviewList.length; i++){
+              totalRating += this.reviewList[i].rating;
+            }
+            this.avgRating = Math.round( (totalRating/this.reviewList.length) * 10 ) / 10;
+          });
+
       });
   }
 
@@ -287,14 +306,34 @@ export class ProductDetailComponent implements OnInit {
       $(this.myModal.nativeElement).modal('show');
     } else {
       //show warning dialog
-      this.showAlert('', 'Ban phai chon day du size va mau de tiep tuc');
+      this.showAlert('', 'Vui lòng chọn đầy đủ size và màu sản phẩm để tiếp tục !');
     }
 
   }
-  
-  // ngAfterViewInit() {
-  //   this.reloadGallery();
-  // }
+  public writeReview() {
+    $(this.reviewModal.nativeElement).modal('show');
+  }
+
+  public onRatingChange = ($event: OnRatingChangeEven) => {
+    this.review.rating = $event.rating;
+  };
+
+  public sendReview() {
+    if (this.review.rating > 0) {
+      this.review.productId = this.myProduct.id;
+      this.review.productCode = this.myProduct.productCode;
+      this.review.createdDate = new Date(Date.now());
+      this.review.status = false;
+      this.ratingSvc.submitReview(this.review)
+        .subscribe((res) => {
+          this.showAlert('', 'Cảm ơn bạn đã dành thời gian đánh giá.');
+          this.review = new Review();
+        })
+    } else {
+        this.showAlert('', 'Vui lòng đánh giá độ hài lòng.');
+    }
+
+  }
 
   //Reload gallery whenever navigating to another product within the same route
   reloadGallery() {
@@ -345,7 +384,9 @@ export class ProductDetailComponent implements OnInit {
       .addDialog(AlertComponent, { title: title, message: message }, { closeByClickingOutside: true, backdropColor: 'rgba(0, 0, 0, 0.5)' });
   }
 
-
+  viewDetail(product: Product) {
+    this._router.navigate(['product', product.productCode]);
+  }
 
 
 }

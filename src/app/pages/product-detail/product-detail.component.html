@@ -4,7 +4,7 @@
   <!-- Portfolio Item Heading -->
   <nav aria-label="breadcrumb" role="navigation" class="d-block">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i>  Home</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/']"><i class="fa fa-home"></i>  Home</a></li>
       <li class="breadcrumb-item" aria-current="page"><a [routerLink]="['/female', myProduct.parentId]">{{parentCategoryName}}</a></li>
       <li class="breadcrumb-item" aria-current="page"><a [routerLink]="['/female', myProduct.parentId, myProduct.categoryId]">{{categoryName}}</a></li>
       <li class="breadcrumb-item active" aria-current="page">{{myProduct.productName}}</li>
@@ -48,6 +48,15 @@
         <span class="line">|</span> Mã SP:
         <span class="text">{{myProduct.productCode}}</span>
       </div>
+      <div class="review-info">
+        <ul>
+          <li>
+            <star-rating-comp [starType]="'svg'" [staticColor]="'positive'" [readOnly]="true" [showHalfStars]="true" [rating]="avgRating"></star-rating-comp>
+          </li>
+          <li><span class="num">{{reviewList.length}}</span> <img class="user" src="../assets/images/icons/user.png" /></li>
+          <li><span class="line">|</span> <a class="action-link" (click)="writeReview()"><span>Viết nhận xét</span></a></li>
+        </ul>
+      </div>
 
       <div class="price-box">
         <span class="special-price" *ngIf="!myProduct.isOnSale"><span class="price product-price">{{myProduct.price | vnd}}</span></span>
@@ -90,15 +99,65 @@
       </div>
 
       <div class="action-btn mt-3">
-        <button type="button" class="btn btn-primary" (click)="addToCart()">Place Order</button>
+        <button type="button" class="btn btn-primary" (click)="addToCart()">Thêm vào giỏ</button>
       </div>
 
     </div>
 
   </div>
+
+  <div class="more-info mt-3 mt-md-0">
+    <nav class="nav nav-tabs" id="myTab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-detail-tab" data-toggle="tab" href="#nav-detail" role="tab" aria-controls="nav-detail"
+        aria-selected="true">Chi tiết</a>
+      <a class="nav-item nav-link" id="nav-review-tab" data-toggle="tab" href="#nav-review" role="tab" aria-controls="nav-review"
+        aria-selected="false">Đánh giá</a>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-detail" role="tabpanel" aria-labelledby="nav-detail-tab">...</div>
+      <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab">
+        <div class="d-flex flex-row rate-header">
+          <div class="col-6 text-left avg-rating">
+            <div class="media" *ngIf="reviewList.length>0">
+              <div class="media-left media-middle">
+                <h2>{{avgRating}}</h2>
+              </div>
+              <div class="media-body">
+                <span>
+                  <star-rating-comp [starType]="'svg'" [readOnly]="true" [staticColor]="'positive'" [showHalfStars]="true" [rating]="avgRating" [size]="'medium'"></star-rating-comp>
+                </span>
+                <p class="mb-1"><span class="num">{{reviewList.length}}</span><span><img class="user" src="../assets/images/icons/user.png" /></span></p>
+              </div>
+            </div>
+            <div *ngIf="reviewList.length==0">
+              <p>Chưa có đánh giá nào</p>
+            </div>
+          </div>
+          <div class="col-6 text-right">
+            <a class="action-link" (click)="writeReview()"><span>Viết nhận xét</span></a>
+          </div>
+        </div>
+        <div *ngIf="reviewList.length>0">
+          <div class="rate-comment" *ngFor="let rate of reviewList">
+            <div class="media">
+              <div class="media-left media-middle">
+                <div class="avatar"><img src="../assets/images/icons/user.png"></div>
+              </div>
+              <div class="media-body">
+                <span>{{rate.name}}</span>
+                <star-rating-comp [starType]="'svg'" [readOnly]="true" [staticColor]="'positive'" [showHalfStars]="true" [rating]="rate.rating" [size]="'small'"></star-rating-comp>
+              </div>
+            </div>
+            <p class="comment">{{rate.comment}}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
   <!-- /.row -->
   <!-- Related Products -->
-  <div class="relate-product-wrapper">
+  <div class="relate-product-wrapper mt-4">
     <h3>Sản phẩm liên quan</h3>
     <slick-slider #myslider *ngIf="relatedProducts" class="relate-slider" [options]="slideConfig">
       <div class="relate-box" *ngFor="let p of relatedProducts">
@@ -134,10 +193,10 @@
             <div class="item-popup" *ngFor="let cartItem of shoppingCartItems; let idx = index">
               <div style="width: 50%;" class="text-left">
                 <div class="item-image" *ngIf="selectedColor">
-                  <a class="product-image" href="/" title=""><img alt="" [src]="getImagePath(cartItem)" width="80"></a>
+                  <a class="product-image" (click)="viewDetail(cartItem.product)" data-dismiss="modal" title=""><img alt="" [src]="getImagePath(cartItem)" width="80"></a>
                 </div>
                 <div class="item-info">
-                  <p class="item-name"><a href="/" title="">{{cartItem.product.productName}}</a></p>
+                  <p class="item-name"><a [routerLink]="['/product', cartItem.product.productCode]" title="">{{cartItem.product.productName}}</a></p>
                   <p class="item-remove"><a class="remove-item-cart" (click)="removeItem(idx)"><i class="fa fa-close"></i> Xoá sản phẩm</a></p>
                   <p class="item-picked" *ngIf="myProduct.productCode == cartItem.product.productCode"><i class="fa fa-check"></i> Sản phẩm vừa thêm</p>
                 </div>
@@ -161,8 +220,16 @@
               </div>
             </div>
             <div class="tfoot-popup-2 clearfix">
-              <a class="button btn-proceed-checkout" title="Tiến hành thanh toán" [routerLink]="['/cart']"><span>Tiến hành thanh toán <i class="fa fa-long-arrow-right" aria-hidden="true"></i></span></a>
-              <a class="button btn-continue" title="Tiếp tục mua hàng" data-dismiss="modal"><span><span><i class="fa fa-caret-left" aria-hidden="true"></i> Tiếp tục mua hàng</span></span></a>
+              <button type="button" class="btn btn-primary btn-proceed-checkout" [disabled]="(shoppingCartItems$ | async).length == 0"
+                data-dismiss="modal" [routerLink]="['/cart']">
+                Tiến hành thanh toán
+              </button>
+              <!--<a class="button btn-proceed-checkout"  title="Tiến hành thanh toán">
+                <span>Tiến hành thanh toán <i class="fa fa-long-arrow-right" aria-hidden="true"></i></span>
+              </a>-->
+              <a class="button btn-continue" title="Tiếp tục mua hàng" data-dismiss="modal">
+                <span><i class="fa fa-caret-left" aria-hidden="true"></i> Tiếp tục mua hàng</span>
+              </a>
             </div>
           </div>
         </div>
@@ -189,8 +256,90 @@
             <div class="product-title">{{myProduct.productName}}</div>
             <div class="product-new-price"><span>{{myProduct.price | vnd}}</span></div>
           </div>
-        </div><button class="btn btn-block btn-outline-red" data-dismiss="modal">Tiếp tục mua hàng</button><a href="/checkout"
-          class="btn btn-block btn-red">Tiến hành thanh toán »</a></div>
+        </div>
+        <button class="btn btn-block btn-outline-red" data-dismiss="modal">Tiếp tục mua hàng</button>
+        <a [routerLink]="['/cart']" data-dismiss="modal" class="btn btn-block btn-red">Tiến hành thanh toán »</a>
+      </div>
     </div>
   </div>
+</div>
+
+<div #reviewModal class="review-popup modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <!--For large screen-->
+  <div class="modal-dialog d-md-block">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      <div class="modal-body">
+        <h4>Đánh giá</h4>
+        <star-rating-comp [starType]="'svg'" (onRatingChange)="onRatingChange($event)" [staticColor]="'positive'" [showHalfStars]="true"
+          [size]="'large'"></star-rating-comp>
+
+        <form #form="ngForm" (ngSubmit)="sendReview()">
+          <!--NAME SECTION-->
+          <div class="name-section">
+            <label class="has-float-label">
+              <input class="form-control" type="text" placeholder="name" name="name" required 
+                    [(ngModel)]="review.name" #name="ngModel"/>
+              <span>Nhập tên của bạn</span>
+            </label>
+            <div class="has-ok" *ngIf="(name.valid && name.touched)"></div>
+            <div class="error-msg" [hidden]="name.valid || name.untouched">
+              <div *ngIf="name.errors && name.errors.required">
+                Hãy nhập đây đủ họ tên
+              </div>
+            </div>
+          </div>
+
+          <!--EMAIL SECTION-->
+          <div class="email-section">
+            <label class="has-float-label">
+              <input class="form-control" type="text" placeholder="Email" name="email" required 
+                    [(ngModel)]="review.email" #email="ngModel"
+                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"/>
+              <span>Email</span>
+            </label>
+            <div class="has-ok" *ngIf="(email.valid && email.touched)"></div>
+            <div class="error-msg" [hidden]="email.valid || email.untouched">
+              <div *ngIf="email.errors && email.errors.required">
+                Hãy nhập địa chỉ email
+              </div>
+              <div *ngIf="email.errors && email.errors.pattern">
+                Email không hợp lệ
+              </div>
+            </div>
+          </div>
+          <!--TITLE SECTION-->
+          <div class="title-section">
+            <label class="has-float-label">
+              <input class="form-control" type="text" placeholder="title" name="title" required 
+                    [(ngModel)]="review.title" #title="ngModel"/>
+              <span>Tiêu đề</span>
+            </label>
+            <div class="has-ok" *ngIf="(title.valid && title.touched)"></div>
+            <div class="error-msg" [hidden]="title.valid || title.untouched">
+              <div *ngIf="title.errors && title.errors.required">
+                Tiêu đề
+              </div>
+            </div>
+          </div>
+          <!--NOTES SECTION-->
+          <div class="comment-section">
+            <label class="has-float-label">
+              <textarea #comment="ngModel" class="form-control" name="comment" rows="4" placeholder="Nội dung" [(ngModel)]="review.comment"></textarea>
+              <span>Nội dung</span>
+            </label>
+          </div>
+          <!--SUBMIT BUTTON-->
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid || !review.rating" data-dismiss="modal" (click)="sendReview()">Gửi</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
 </div>

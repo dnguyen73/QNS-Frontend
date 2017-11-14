@@ -131,6 +131,9 @@ export class ShoppingCartComponent implements OnInit {
       }
       );
   }
+  viewDetail(product: Product) {
+    this._router.navigate(['product', product.productCode]);
+  }
 
   ngAfterViewInit() {
     $('.zoomContainer').remove();
