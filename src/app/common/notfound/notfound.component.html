@@ -2,4 +2,49 @@
   <h1>404 Not Found</h1>
   <p>You may be lost. Go back <a routerLink="/">home</a></p>
 </div>
-<star-rating-comp [starType]="'svg'" [staticColor]="'positive'" [showHalfStars]="true" [rating]="2.63"></star-rating-comp>
+
+<h1>Kính chào quý khách
+  <%=user_name %>
+</h1>
+<p>
+  Shop QuynhNhu vừa nhận được đơn hàng #
+  <%=order_code %> của quý khách đặt ngày
+    <%= order_date %>. Chúng tôi sẽ liên hệ qua điện thoại để xác nhận trong thời gian sớm nhất.
+</p>
+<p>
+  Sau đây là thông tin chi tiết về đơn hàng:
+</p>
+
+<div class="user-info">
+  <h1>Thong tin khachs hang</h1>
+  <span>Duy</span><br>
+  <span>092092109</span><br>
+  <span>duynt@gmail.com</span><br>
+  <span>Dia chi</span><br>
+</div>
+
+<div class="order-info">
+  <h1>Thong tin don hang</h1>
+
+  <table>
+    <tr>
+      <th width="100px">San pham</th>
+      <th width="300px"></th>
+      <th width="100px">So luong</th>
+      <th width="100px">Thanh toan</th>
+    </tr>
+    <tr>
+      <td><img width="100px" src="http://localhost:3000/files/1/thumb/999-3.jpg" /></td>
+      <td>
+        <div class="item-info">
+          <p class="name">Ten san pham</p>
+          <p class="code">Ma code sp</p>
+          <p>40.000 VND</p>
+        </div>
+      </td>
+      <td><p>X 2</p></td>
+      <td class="amt"><p>80.000 VND</p></td>
+    </tr>
+  </table>
+
+</div>

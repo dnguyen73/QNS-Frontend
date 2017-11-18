@@ -8,6 +8,7 @@ export class Product {
     parentId: number; //Category code
     productName: string;
     description: string;
+    detailInfo: string;
     price: number;
     availableSizes: string[];
     availableColors: SelectColor[];

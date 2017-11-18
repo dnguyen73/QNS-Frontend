@@ -4,6 +4,7 @@ declare var $: any;
 @Injectable()
 export class UIService {
 
+
   constructor() { }
 
   /**
@@ -30,6 +31,13 @@ export class UIService {
     });
     $('.zoomContainer').remove();
   }
-  
+
+  handleContentFadeout(): void {
+    $('#sidebar').toggleClass('active');
+    $('.overlay').fadeOut();
+    if (window.matchMedia("(max-width: 575px)").matches) {
+      $('body').toggleClass('overflow-x-hide');
+    }
+  }
 
 }

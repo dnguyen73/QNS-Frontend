@@ -1,12 +1,13 @@
 <!-- Page Content -->
-<div class="container">
-  <div class="row">
-
+<div class="container mt-2">
+  <div class="row" *ngIf="products.length > 0">
     <div class="col-lg-4 col-md-4 col-sm-6 mb-4" *ngFor="let product of products">
       <product-box [product]="product"></product-box>
     </div>
-
   </div>
 
+  <div *ngIf="products.length==0">
+    <p>Chưa có sản phẩm nào</p>
+  </div>
 </div>
 <!-- /.container -->

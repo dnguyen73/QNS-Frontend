@@ -5,8 +5,8 @@
   <nav aria-label="breadcrumb" role="navigation" class="d-block">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a [routerLink]="['/']"><i class="fa fa-home"></i>  Home</a></li>
-      <li class="breadcrumb-item" aria-current="page"><a [routerLink]="['/female', myProduct.parentId]">{{parentCategoryName}}</a></li>
-      <li class="breadcrumb-item" aria-current="page"><a [routerLink]="['/female', myProduct.parentId, myProduct.categoryId]">{{categoryName}}</a></li>
+      <li class="breadcrumb-item" aria-current="page"><a [routerLink]="['/female']">{{parentCategoryName}}</a></li>
+      <li class="breadcrumb-item" aria-current="page"><a [routerLink]="['/female', myProduct.categoryId]">{{categoryName}}</a></li>
       <li class="breadcrumb-item active" aria-current="page">{{myProduct.productName}}</li>
     </ol>
   </nav>
@@ -114,7 +114,9 @@
         aria-selected="false">Đánh giá</a>
     </nav>
     <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show active" id="nav-detail" role="tabpanel" aria-labelledby="nav-detail-tab">...</div>
+      <div class="tab-pane fade show active" id="nav-detail" role="tabpanel" aria-labelledby="nav-detail-tab">
+        <div class="content pt-3" [innerHTML]="myProduct.detailInfo"></div>
+      </div>
       <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab">
         <div class="d-flex flex-row rate-header">
           <div class="col-6 text-left avg-rating">

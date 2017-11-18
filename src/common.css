@@ -82,11 +82,15 @@
     width: 10px;
 }
 
-
+#sidebarCollapse{
+    margin-left: 15px;
+    border-bottom: 1px solid #ddd;
+}
 #sidebarCollapse .breadcrumb {
     background-color: transparent !important;
-    padding: 5px 15px;
+    padding: 5px 0px;
     font-size: 13px;
+    margin-bottom: 5px;
 }
 
 #sidebarCollapse .breadcrumb .breadcrumb-item a, #sidebarCollapse .breadcrumb .breadcrumb-item.active, #sidebarCollapse .breadcrumb .breadcrumb-item:before{
@@ -94,7 +98,7 @@
 }
 
 .action-bar .title{
-    padding: 0px 15px;
+    padding: 0px;
     color: #834453;
     font-weight: 600;
     font-size: 16px;

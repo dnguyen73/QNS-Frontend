@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { routedComponents, AppRoutingModule } from "./app-routing.module";
@@ -33,6 +34,7 @@ import { StarRatingModule } from 'angular-star-rating';
 import { LadyFashionComponent } from './pages/lady-fashion/lady-fashion.component';
 import { UIService } from "./shared/services/ui.service";
 import { RatingService } from "./shared/services/rating.service";
+import { MessageService } from "./shared/services/message.service";
 
 
 @NgModule({
@@ -46,12 +48,13 @@ import { RatingService } from "./shared/services/rating.service";
     ProductBoxComponent,
     HomeKidsComponent,
     SlickSliderComponent,
-    LadyFashionComponent,
+    LadyFashionComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     BootstrapModalModule,
     HttpModule,
     SharedModule,
@@ -62,7 +65,7 @@ import { RatingService } from "./shared/services/rating.service";
   entryComponents: [
     ConfirmComponent, AlertComponent
   ],
-  providers: [ProductService, ProductDetailResolve, CategoryService, CartService, OrderService, RatingService, UIService],
+  providers: [ProductService, ProductDetailResolve, CategoryService, CartService, OrderService, RatingService, MessageService, UIService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

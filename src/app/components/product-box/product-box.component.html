@@ -2,7 +2,7 @@
   <a (click)="viewDetail(product)"><img class="card-img-top" [src]="product.images[0].filepath" alt=""></a>
   <div class="card-body">
     <h4 class="card-title">
-      <a href="#">{{product.productName}}</a>
+      <a [routerLink]="['/product', product.productCode]">{{product.productName}}</a>
     </h4>
     <div class="d-flex" *ngIf="!product.isOnSale">
       <div class="col-6 price">{{product.price | vnd}}</div>
@@ -13,7 +13,9 @@
     </div>
   </div>
   <div class="card-footer">
-    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+    <small class="text-muted">
+      <star-rating-comp [starType]="'svg'" [staticColor]="'default'" [readOnly]="true" [showHalfStars]="true" [rating]="avgRating"></star-rating-comp>
+    </small>
   </div>
 
   <!--Action button section-->

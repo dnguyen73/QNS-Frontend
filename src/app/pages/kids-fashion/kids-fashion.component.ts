@@ -12,7 +12,7 @@ declare var $: any;
 })
 export class KidsFashionComponent implements OnInit {
   defaultCategory: Category = new Category({
-    id: 0,
+    id: '',
     name: "Tat Ca SP"
   });
   selectedCategory: Category = this.defaultCategory;
@@ -34,7 +34,7 @@ export class KidsFashionComponent implements OnInit {
   }
   onSelect(category: Category): void {
     this.selectedCategory = category;
-    if (category.id !== 0) {
+    if (category.id !== '') {
       this._router.navigate(["/female", 1, category.id]);
     } else {
       this._router.navigate(["/female", 1]);

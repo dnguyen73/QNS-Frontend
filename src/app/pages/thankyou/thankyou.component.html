@@ -4,14 +4,14 @@
         <div class="icon-success"></div>
         <div class="confirm">
             <h3>Cảm ơn bạn đã đặt hàng</h3>
-            <p>Một email xác nhận đã được gửi tới duynt2010@gmail.com. Xin vui lòng kiểm tra email của bạn.</p>
+            <p>Một email xác nhận đã được gửi tới {{orderItem.userInfo.email}}. Xin vui lòng kiểm tra email của bạn.</p>
         </div>
     </div>
     <div class="row mt-3 mb-3">
         <div class="col-md-7">
 
             <div class="order-summary">
-                <h2>Đơn hàng #201939</h2>
+                <h2>Đơn hàng #{{orderItem.orderCode}}</h2>
                     <div class="row heading">
                         <div class="col-9 col-md-6 text-left">Sản phẩm</div>
                         <div class="d-none col-md-3 text-right">Đơn giá</div>

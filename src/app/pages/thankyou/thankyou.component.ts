@@ -32,6 +32,8 @@ export class ThankyouComponent implements OnInit {
     if (this.orderItem){
       this.cartItems = this.orderItem.items;
     }
+    //Clear session webstorage
+    this.sessionStorage.clear('tmpOrder');
   }
 
   public getImagePath(item: CartItem) {

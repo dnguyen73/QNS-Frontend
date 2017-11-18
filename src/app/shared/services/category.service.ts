@@ -5,12 +5,28 @@ import { environment } from './../../../environments/environment';
 import { Category } from "../models/categories";
 
 const CATEGORY_URL: string = environment.apiUrl + '/categories';
+const PRIMARY_CATEGORY: any[] = [
+  { parentId: 1, name: 'Thời trang nữ'},
+  { parentId: 2, name: 'Thời trang trung niên'},
+  { parentId: 3, name: 'Quần áo bé gái'},
+  { parentId: 4, name: 'Quần áo bé trai'}
+]
 
 @Injectable()
 export class CategoryService {
 
   constructor(private _http: Http) { }
 
+  /**
+   * Grab all category items for given parentId from loopback api
+   */
+  getPrimaryCategories(): Observable<Category[]> {
+    let list: Category[] = [];
+    list = PRIMARY_CATEGORY.map((o) => {
+      return new Category(o);
+    });
+    return Observable.of(list);
+  }
   /**
    * Grab all category items for given parentId from loopback api
    */

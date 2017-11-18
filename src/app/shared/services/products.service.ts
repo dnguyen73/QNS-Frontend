@@ -34,13 +34,26 @@ export class ProductService {
       })
       .catch(this.handleError);
   }
-findRelateProductsByProductId
+  
   /**
      * Grab all product items from loopback api
      */
   getAllProducts(): Observable<Product[]> {
     return this._http
       .get(PRODUCT_URL)
+      .map(res => {
+        const product = res.json();
+        return product.map((product) => new Product(product));
+      })
+      .catch(this.handleError);
+  }
+
+  /**
+     * Grab all product items from loopback api
+     */
+  getNewProductsInPeriod(days: number): Observable<Product[]> {
+    return this._http
+      .get(PRODUCT_URL + "/findNewestByDays?days=" + days)
       .map(res => {
         const product = res.json();
         return product.map((product) => new Product(product));
@@ -84,8 +97,14 @@ findRelateProductsByProductId
    * Optional: top --- number of product return with DATE desc
    */
   fetchNewProductsByParentId(parentId: number, top?: number): Observable<Product[]> {
+    let reqURL: string = '';
+    if (top){
+      reqURL = PRODUCT_URL + "/findNewest?pid=" + parentId + "&top=" + top;
+    } else{
+      reqURL = PRODUCT_URL + "/findNewest?pid=" + parentId + "&top=";
+    }
     return this._http
-      .get(PRODUCT_URL + "/findNewest?pid=" + parentId + "&top=" + top)
+      .get(reqURL)
       .map(res => {
         const products = res.json();
         return products
@@ -101,6 +120,34 @@ findRelateProductsByProductId
   fetchSaleProductsByParentId(parentId: number, top?: number): Observable<Product[]> {
     return this._http
       .get(PRODUCT_URL + "/findSale?pid=" + parentId + "&top=" + top)
+      .map(res => {
+        const products = res.json();
+        return products
+          .map((product) => new Product(product));
+      })
+      .catch(this.handleError);
+  }
+
+  /**
+   * Grab all new product items for given price range in specific Parent ID
+   */
+  fetchProductsByPriceInGroup(pid: number, min: number, max: number): Observable<Product[]> {
+    return this._http
+      .get(PRODUCT_URL + "/findByPriceRangeInGroup?pid=" + pid + "&min=" + min + "&max=" + max)
+      .map(res => {
+        const products = res.json();
+        return products
+          .map((product) => new Product(product));
+      })
+      .catch(this.handleError);
+  }
+
+  /**
+   * Grab all new product items for given price range in specific Category
+   */
+  fetchProductsByPriceInCategory(cid: string, min: number, max: number): Observable<Product[]> {
+    return this._http
+      .get(PRODUCT_URL + "/findByPriceRangeInCategory?cid=" + cid + "&min=" + min + "&max=" + max)
       .map(res => {
         const products = res.json();
         return products

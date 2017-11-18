@@ -1,35 +1,60 @@
 <!--SIDEBAR SUBMENU-->
-<div class="sidenav-wrapper d-md-flex">
+<div class="sidenav-wrapper d-md-flex container">
   <!-- Close Sidebar Button -->
 
   <nav id="sidebar">
-
     <!-- Sidebar Header -->
     <div class="sidebar-header">
-      <h3>Collapsible Sidebar</h3>
+      <h3><i class="icon fa fa-bars mr-1"></i>Danh mục</h3>
       <div id="dismiss" class="d-md-none">
         <i class="fa fa-remove" aria-hidden="true"></i>
       </div>
     </div>
 
-    <!-- Sidebar Links -->
-    <ul class="list-group">
-      <li *ngFor="let cat of categories" class="list-group-item" [class.active]="cat === selectedCategory" (click)="onSelect(cat)">
-        <span>{{cat.name}} </span>
+    <ul class="nav flex-column">
+      <li *ngFor="let cat of categories" class="nav-item" [class.active]="cat === selectedCategory" (click)="onSelect(cat)">
+        <a><i class="icon fa fa-angle-double-right"></i>{{cat.name}}</a>
+      </li>
+    </ul>
+
+
+    <!-- Sidebar Header -->
+    <div class="sidebar-header mt-2">
+      <h3><i class="icon fa fa-filter mr-1"></i>Chọn giá</h3>
+      <div id="dismiss" class="d-md-none">
+        <i class="fa fa-remove" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <ul class="nav flex-column">
+      <li *ngFor="let range of priceRange; let idx = index" class="nav-item" [class.active]="range === selectedPrice" (click)="onPriceSelect(idx)">
+        <a>
+          <i class="icon fa fa-square-o" *ngIf="!range.selected"></i>
+          <i class="icon fa fa-check-square-o" *ngIf="range.selected"></i>
+          {{range.label}}</a>
       </li>
     </ul>
   </nav>
 
   <div id="content" class="w-100">
-    <div id="sidebarCollapse" class="d-flex flex-row mb-2 action-bar">
-      <div class="d-md-none p-2" (click)="toggleSidebar()">
-        <i class="fa fa-arrow-circle-left"></i>
+    <div id="sidebarCollapse">
+      <div class="action-bar d-flex">
+        <div class="title col-6"><i class="icon fa fa-snowflake-o"></i>{{selectedCategory.name}}</div>
+        <div class="col-6 d-md-none back-select" >
+          <a><i class="icon fa fa-arrow-circle-left"></i>Lựa chọn</a>
+        </div>
       </div>
-      <div class="p-2">{{selectedCategory.description}}</div>
+      <nav aria-label="breadcrumb" role="navigation" class="d-block">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['/']"><i class="fa fa-home"></i>  Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page"><a [routerLink]="['/new']">Sản phẩm mới</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{selectedCategory.name}}</li>
+        </ol>
+      </nav>
     </div>
-    <!--<img id="zoom_01" src='https://magictoolbox.sirv.com/images/magiczoomplus/jeans-1-z.jpg?scale.width=56' data-zoom-image="https://magictoolbox.sirv.com/images/magiczoomplus/jeans-1-z.jpg"/>-->
-    <router-outlet></router-outlet>
-
+    <!--<router-outlet></router-outlet>-->
+    <product-list [products]="products"></product-list>
+    
     <div class="overlay">
     </div>
   </div>

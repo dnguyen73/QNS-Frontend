@@ -26,28 +26,18 @@ const routes: Routes = [
             {
                 path: 'home',
                 component: HomeComponent,
-                // children: [
-                //     { path: '', component: NewContentComponent}
-                // ]
             },
             {
                 path: 'new',
-                component: NewArrivalComponent,
-                children: [
-                    { path: ':cid', component: ProductListComponent }
-                ]
+                component: NewArrivalComponent
             },
             {
                 path: 'female',
                 component: FemaleFashionComponent,
                 children: [
-                    //{ path: '', redirectTo: ':parentId', pathMatch: 'full' },
+                    { path: '', component: ProductListComponent },
                     {
-                        path: ':parentId',
-                        component: ProductListComponent
-                    },
-                    {
-                        path: ':parentId/:cid',
+                        path: ':cid',
                         component: ProductListComponent
                     }
                 ]
@@ -56,31 +46,27 @@ const routes: Routes = [
                 path: 'lady',
                 component: LadyFashionComponent,
                 children: [
-                    //{ path: '', redirectTo: ':parentId', pathMatch: 'full' },
+                    { path: '', component: ProductListComponent },
                     {
-                        path: ':parentId',
-                        component: ProductListComponent
-                    },
-                    {
-                        path: ':parentId/:cid',
+                        path: ':cid',
                         component: ProductListComponent
                     }
                 ]
             },
             {
                 path: 'kids',
-                component: KidsFashionComponent,
-                children: [
-                    //{ path: '', redirectTo: ':parentId', pathMatch: 'full' },
-                    {
-                        path: ':parentId',
-                        component: ProductListComponent
-                    },
-                    {
-                        path: ':parentId/:cid',
-                        component: ProductListComponent
-                    }
-                ]
+                component: KidsFashionComponent
+                // children: [
+                //     //{ path: '', redirectTo: ':parentId', pathMatch: 'full' },
+                //     {
+                //         path: ':parentId',
+                //         component: ProductListComponent
+                //     },
+                //     {
+                //         path: ':parentId/:cid',
+                //         component: ProductListComponent
+                //     }
+                // ]
             },
             {
                 path: 'product/:code',

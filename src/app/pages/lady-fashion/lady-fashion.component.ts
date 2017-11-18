@@ -4,7 +4,11 @@ import { Router } from "@angular/router";
 import { CategoryService } from "../../shared/services/category.service";
 import { PriceRange } from "../../shared/models/priceRange";
 import { UIService } from "../../shared/services/ui.service";
+import { Product } from "../../shared/models/product";
+import { ProductService } from "../../shared/services/products.service";
+import { MessageService } from "../../shared/services/message.service";
 declare var $: any;
+const PARENT_ID: number = 2;
 
 @Component({
   selector: 'lady-fashion',
@@ -14,11 +18,11 @@ declare var $: any;
 })
 export class LadyFashionComponent implements OnInit {
   defaultCategory: Category = new Category({
-    id: 0,
+    id: '',
     name: "Tất cả sản phẩm"
   });
   priceRange: PriceRange[] = [
-    { min: 0, max: 0, label: "Tất cả giá", selected: true },
+    { min: 0, max: 1000000, label: "Tất cả giá", selected: true },
     { min: 0, max: 100000, label: "Ít hơn 100k", selected: false },
     { min: 100000, max: 200000, label: "Từ 100k đến 200k", selected: false },
     { min: 200000, max: 300000, label: "Từ 200k đến 300k", selected: false },
@@ -27,17 +31,30 @@ export class LadyFashionComponent implements OnInit {
   selectedCategory: Category = this.defaultCategory;
   selectedPrice: PriceRange = this.priceRange[0];
   categories: Category[] = [];
-  startWithAll: boolean = true;
-
+  products: Product[] = [];
+  tmpCategory: string = '';
 
   constructor(
     private _router: Router,
     private categorySvc: CategoryService,
+    private productSvc: ProductService,
+    private messageSvc: MessageService,
     private uiSvc: UIService
   ) { }
 
   ngOnInit() {
-    this.fetchCategories(2);
+    this.tmpCategory = '';
+    this.fetchCategories(PARENT_ID);
+    
+    //get initial category from the route params. This should be retrieved from the content component
+    this.messageSvc.getCID()
+      .subscribe((cid: string) => {
+        this.tmpCategory = cid;
+        if (cid === '') {
+          this.setSelectedCategory(cid);
+          this.resetPriceSelect();
+        }
+      });
   }
 
   //Get all categories belong to given parent id
@@ -46,24 +63,40 @@ export class LadyFashionComponent implements OnInit {
       .subscribe((categories) => {
         categories.splice(0, 0, this.defaultCategory);
         this.categories = categories;
+        //Wait for categories all loaded to set style for selected category on sidebar
+        this.setSelectedCategory(this.tmpCategory);
       });
   }
+
+  //Event handling when sub category is selected
+  //Reset the price range to ALL PRICE
+  //Change the URL route
   onSelect(category: Category): void {
     this.selectedCategory = category;
-    if (category.id !== 0) {
-      this._router.navigate(["/lady", 2, category.id]);
+    this.resetPriceSelect();
+
+    if (category.id !== '') {
+      this._router.navigate(["/lady", category.id]);
     } else {
-      this._router.navigate(["/lady", 2]);
+      this._router.navigate(["/lady"]);
     }
 
-    $('#sidebar').toggleClass('active');
-    $('.overlay').fadeOut();
-    if (window.matchMedia("(max-width: 575px)").matches) {
-      $('body').toggleClass('overflow-x-hide');
-    }
-
+    this.uiSvc.handleContentFadeout();
   }
 
+  /* 
+   * Reset the price select to ALL PRICE
+   */
+  resetPriceSelect() {
+    this.priceRange.forEach(function (item, index) {
+      item.selected = false;
+    });
+    this.priceRange[0].selected = true;
+    this.selectedPrice = this.priceRange[0];
+    this.messageSvc.sendPriceRange(this.priceRange[0]);
+  }
+
+  //Event Handling when price range is selected
   onPriceSelect(selectedIndex: number): void {
     this.priceRange.forEach(function (item, index) {
       item.selected = false;
@@ -71,19 +104,20 @@ export class LadyFashionComponent implements OnInit {
     this.priceRange[selectedIndex].selected = true;
     this.selectedPrice = this.priceRange[selectedIndex];
 
+    //publish price range selected
+    this.messageSvc.sendPriceRange(this.selectedPrice);
 
-    this.refreshProducts(this.selectedPrice);
-
-    $('#sidebar').toggleClass('active');
-    $('.overlay').fadeOut();
-    if (window.matchMedia("(max-width: 575px)").matches) {
-      $('body').toggleClass('overflow-x-hide');
-    }
-
+    this.uiSvc.handleContentFadeout();
   }
 
-  refreshProducts(priceRange: PriceRange) {
-
+  //Set active style for the category item when the route matches
+  //Pass in the category id --> set selective style for corresponding item.
+  setSelectedCategory(cid) {
+    for (let i = 0; i < this.categories.length; i++) {
+      if (this.categories[i].id === cid) {
+        this.selectedCategory = this.categories[i];
+      }
+    }
   }
 
   ngAfterViewInit() {

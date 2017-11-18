@@ -1,8 +1,16 @@
 .box-product{
     position: relative;
 }
+.box-product img:hover{
+    cursor: pointer;
+}
+
 .box-product .card-body{
     padding: .5rem;
+}
+
+.box-product.card:hover{
+    box-shadow: 1px 1px 10px #ababab;
 }
 
 .card-body .price, .card-body .sale{

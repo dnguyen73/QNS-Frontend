@@ -1,0 +1,26 @@
+.user-info h1, .order-info h1{
+    font-size: 16px;
+    text-decoration: underline;
+}    
+    
+.order-info{
+    margin-top: 20px;
+    float: left;
+}
+
+.item-info{
+    padding: 5px;
+}
+
+.item-info p.name{
+    font-weight: 700;
+    font-size: 14px;
+}
+.item-info p.code{
+    font-weight: 500;
+    font-size: 12px;
+    font-style: italic;
+}
+.amt{
+    font-weight: bold;
+}

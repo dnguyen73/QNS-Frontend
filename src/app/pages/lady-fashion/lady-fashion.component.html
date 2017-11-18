@@ -47,12 +47,13 @@
       <nav aria-label="breadcrumb" role="navigation" class="d-block">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a [routerLink]="['/']"><i class="fa fa-home"></i>  Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page"><a [routerLink]="['/lady', 2]">Thời trang trung niên</a></li>
+          <li class="breadcrumb-item active" aria-current="page"><a [routerLink]="['/lady']">Thời trang trung niên</a></li>
           <li class="breadcrumb-item active" aria-current="page">{{selectedCategory.name}}</li>
         </ol>
       </nav>
     </div>
     <router-outlet></router-outlet>
+    <!--<product-list [products]="products"></product-list>-->
 
     <div class="overlay">
     </div>

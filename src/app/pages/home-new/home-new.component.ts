@@ -41,7 +41,9 @@ export class HomeNewComponent implements OnInit {
   //Get all new products belong to given parent id
   fetchNewProductsByParentId(parentId: number, top?: number) {
     this.productSvc.fetchNewProductsByParentId(parentId, top)
-      .subscribe((products) => this.newProducts = products);
+      .subscribe((products) => {
+        this.newProducts = products
+      });
   }
 
   //Get all sale products belong to given parent id

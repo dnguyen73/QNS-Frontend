@@ -19,7 +19,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.shoppingCartItems$ = this.cartSvc.getItems();
-    this.shoppingCartItems$.subscribe(_ => _);
+    this.shoppingCartItems$.subscribe(_ => {
+      console.log('Good');
+    });
   }
 
   gotoShoppingCart() {

@@ -135,6 +135,10 @@ img.front-show{
     font-size: 14px;
  }
 
+ .detail-info .star-container{
+     z-index: 0;
+ }
+
  .detail-info h1.title-head{
     margin-top: 0;
     font-size: 1.28571em;
