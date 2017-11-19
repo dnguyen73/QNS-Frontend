@@ -15,7 +15,7 @@ export class HomeKidsComponent implements OnInit {
   constructor(private _router: Router, private productSvc: ProductService) { }
 
   ngOnInit() {
-     this.fetchProducts(1);
+     this.fetchProducts(3);
   }
 
   //Get all products belong to given parent id

@@ -115,15 +115,20 @@ img.front-show{
  /*.breadcrumb {
      margin-top: 15px;
  }*/
+ .product-detail .breadcrumb{
+     background: #fff !important;
+ }
 
  .breadcrumb li a{
      font-size: 14px;
-     text-decoration: none;
-     color: #555;
+     /*text-decoration: none;*/
+     color: #555 !important;
      font-weight: 700;
+     cursor: pointer;
  }
  .breadcrumb li a:hover{
-     color: #683642
+     color: #683642 !important;
+     text-decoration: underline;
  }
  .breadcrumb li.active{
     color: #777;

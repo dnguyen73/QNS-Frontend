@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 import { routedComponents, AppRoutingModule } from "./app-routing.module";
@@ -35,6 +36,7 @@ import { LadyFashionComponent } from './pages/lady-fashion/lady-fashion.componen
 import { UIService } from "./shared/services/ui.service";
 import { RatingService } from "./shared/services/rating.service";
 import { MessageService } from "./shared/services/message.service";
+import { SaleFashionComponent } from './pages/sale-fashion/sale-fashion.component';
 
 
 @NgModule({
@@ -48,7 +50,8 @@ import { MessageService } from "./shared/services/message.service";
     ProductBoxComponent,
     HomeKidsComponent,
     SlickSliderComponent,
-    LadyFashionComponent
+    LadyFashionComponent,
+    SaleFashionComponent
   ],
   imports: [
     AppRoutingModule,
@@ -59,6 +62,7 @@ import { MessageService } from "./shared/services/message.service";
     HttpModule,
     SharedModule,
     Ng2Webstorage,
+    NgxPaginationModule,
     SlickModule.forRoot(),
     StarRatingModule.forRoot()
   ],

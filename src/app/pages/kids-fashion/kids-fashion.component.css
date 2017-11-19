@@ -1,0 +1,16 @@
+.sub-header {
+    background: #eaf1e3;
+    padding: 8px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.sub-header.girl{
+    border-left: 5px solid #ef5075;
+    color: #ef5075;
+}
+
+.sub-header.boy {
+    border-left: 5px solid #5189ad;
+    color: #5189ad;
+}

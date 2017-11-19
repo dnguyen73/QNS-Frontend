@@ -46,6 +46,9 @@ export class ProductListComponent implements OnInit {
       case 'lady':
         this.PARENT_ID = 2;
         break;
+        case 'kids':
+        this.PARENT_ID = 3;
+        break;
       default:
         this.PARENT_ID = 1;
         break;

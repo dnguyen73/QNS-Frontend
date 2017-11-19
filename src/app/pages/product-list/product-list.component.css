@@ -1,0 +1,8 @@
+.qns-paging .ngx-pagination{
+    text-align: center;
+}
+.qns-paging .ngx-pagination li.current{
+    background: #fff;
+    color: #111;
+    border: 1px solid #834453;
+}

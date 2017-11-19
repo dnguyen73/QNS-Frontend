@@ -51,6 +51,19 @@ export class ProductService {
   /**
      * Grab all product items from loopback api
      */
+  getAllSaleProducts(): Observable<Product[]> {
+    return this._http
+      .get(PRODUCT_URL + "/findAllSale")
+      .map(res => {
+        const product = res.json();
+        return product.map((product) => new Product(product));
+      })
+      .catch(this.handleError);
+  }
+
+  /**
+     * Grab all product items from loopback api
+     */
   getNewProductsInPeriod(days: number): Observable<Product[]> {
     return this._http
       .get(PRODUCT_URL + "/findNewestByDays?days=" + days)

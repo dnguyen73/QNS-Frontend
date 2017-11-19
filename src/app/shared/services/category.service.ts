@@ -6,10 +6,9 @@ import { Category } from "../models/categories";
 
 const CATEGORY_URL: string = environment.apiUrl + '/categories';
 const PRIMARY_CATEGORY: any[] = [
-  { parentId: 1, name: 'Thời trang nữ'},
-  { parentId: 2, name: 'Thời trang trung niên'},
-  { parentId: 3, name: 'Quần áo bé gái'},
-  { parentId: 4, name: 'Quần áo bé trai'}
+  { parentId: 1, name: 'Thời trang nữ', route: 'female'},
+  { parentId: 2, name: 'Thời trang trung niên', route: 'lady'},
+  { parentId: 3, name: 'Quần áo trẻ em', route: 'kids'}
 ]
 
 @Injectable()
@@ -26,6 +25,17 @@ export class CategoryService {
       return new Category(o);
     });
     return Observable.of(list);
+  }
+
+  /**
+   * Find Parent Category for given parentId
+   */
+  getPrimaryCategory(parentId: number): Observable<Category> {
+    let cat: Category;
+    cat = PRIMARY_CATEGORY.find((o) => {
+      return o.parentId === parentId;
+    });
+    return Observable.of(cat);
   }
   /**
    * Grab all category items for given parentId from loopback api

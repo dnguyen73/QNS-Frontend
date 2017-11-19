@@ -15,6 +15,8 @@ import { Observable } from "rxjs/Observable";
 import { Review } from "../../shared/models/review";
 import { OnRatingChangeEven } from "angular-star-rating";
 import { RatingService } from "../../shared/services/rating.service";
+import { Category } from "../../shared/models/categories";
+import { CategoryService } from "../../shared/services/category.service";
 
 declare var $: any;
 
@@ -39,7 +41,7 @@ export class ProductDetailComponent implements OnInit {
 
   //category
   categoryName: string = "";
-  parentCategoryName: string = "";
+  parentCategory: Category;
 
   public shoppingCartItems$: Observable<CartItem[]>;
   public shoppingCartItems: CartItem[] = [];
@@ -75,6 +77,7 @@ export class ProductDetailComponent implements OnInit {
     private _router: Router,
     private route: ActivatedRoute,
     private productSvc: ProductService,
+    private categorySvc: CategoryService,
     private cartSvc: CartService,
     private ratingSvc: RatingService,
     private dialogService: DialogService
@@ -147,11 +150,13 @@ export class ProductDetailComponent implements OnInit {
 
         });
 
-        //get category info
+        //get sub category info
         this.productSvc.findCategoryByProductId(this.myProduct.id)
           .subscribe(c => this.categoryName = c.name);
 
-        this.parentCategoryName = this.productSvc.getParentCategory(this.myProduct.parentId);
+        //Get Parent category info
+        this.categorySvc.getPrimaryCategory(this.myProduct.parentId)
+          .subscribe(c => this.parentCategory = c);
 
         //get related products
         this.productSvc.getAllProducts()
@@ -386,6 +391,16 @@ export class ProductDetailComponent implements OnInit {
 
   viewDetail(product: Product) {
     this._router.navigate(['product', product.productCode]);
+  }
+
+  gotoParentCategoryPage(){
+    //[routerLink]="['/female']" 
+    this._router.navigate([this.parentCategory.route]);
+  }
+
+  gotoCategoryPage(){
+    //[routerLink]="['/female', myProduct.categoryId]"
+    this._router.navigate([this.parentCategory.route, this.myProduct.categoryId]);
   }
 
 

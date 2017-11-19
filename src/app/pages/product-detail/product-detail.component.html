@@ -5,8 +5,8 @@
   <nav aria-label="breadcrumb" role="navigation" class="d-block">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a [routerLink]="['/']"><i class="fa fa-home"></i>  Home</a></li>
-      <li class="breadcrumb-item" aria-current="page"><a [routerLink]="['/female']">{{parentCategoryName}}</a></li>
-      <li class="breadcrumb-item" aria-current="page"><a [routerLink]="['/female', myProduct.categoryId]">{{categoryName}}</a></li>
+      <li class="breadcrumb-item" aria-current="page"><a (click)="gotoParentCategoryPage()">{{parentCategory.name}}</a></li>
+      <li class="breadcrumb-item" aria-current="page"><a (click)="gotoCategoryPage()">{{categoryName}}</a></li>
       <li class="breadcrumb-item active" aria-current="page">{{myProduct.productName}}</li>
     </ol>
   </nav>

@@ -12,16 +12,8 @@
     </div>
 
     <ul class="nav flex-column">
-      <li class="nav-item" [class.active]="selectedCategory === defaultCategory" (click)="onSelect(defaultCategory)">
-        <a><i class="icon fa fa-angle-double-right"></i>{{defaultCategory.name}}</a>
-      </li>
-      <li class="sub-header girl">Bé gái</li>
-      <li *ngFor="let gcat of girlCategories" class="nav-item" [class.active]="gcat === selectedCategory" (click)="onSelect(gcat)">
-        <a><i class="icon fa fa-angle-double-right"></i>{{gcat.name}}</a>
-      </li>
-      <li class="sub-header boy">Bé trai</li>
-      <li *ngFor="let bcat of boyCategories" class="nav-item" [class.active]="bcat === selectedCategory" (click)="onSelect(bcat)">
-        <a><i class="icon fa fa-angle-double-right"></i>{{bcat.name}}</a>
+      <li *ngFor="let cat of categories" class="nav-item" [class.active]="cat === selectedCategory" (click)="onSelect(cat)">
+        <a><i class="icon fa fa-angle-double-right"></i>{{cat.name}}</a>
       </li>
     </ul>
 
@@ -55,14 +47,14 @@
       <nav aria-label="breadcrumb" role="navigation" class="d-block">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a [routerLink]="['/']"><i class="fa fa-home"></i>  Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page"><a [routerLink]="['/kids']">Thời trang trẻ em</a></li>
+          <li class="breadcrumb-item active" aria-current="page"><a [routerLink]="['/sale']">Sản phẩm sale</a></li>
           <li class="breadcrumb-item active" aria-current="page">{{selectedCategory.name}}</li>
         </ol>
       </nav>
     </div>
-    <router-outlet></router-outlet>
-    <!--<product-list [products]="products"></product-list>-->
-
+    <!--<router-outlet></router-outlet>-->
+    <product-list [products]="products"></product-list>
+    
     <div class="overlay">
     </div>
   </div>

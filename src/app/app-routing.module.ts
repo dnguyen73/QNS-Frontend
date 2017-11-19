@@ -16,6 +16,7 @@ import { ThankyouComponent } from "./pages/thankyou/thankyou.component";
 import { FemaleFashionComponent } from "./pages/female-fashion/female-fashion.component";
 import { KidsFashionComponent } from "./pages/kids-fashion/kids-fashion.component";
 import { LadyFashionComponent } from "./pages/lady-fashion/lady-fashion.component";
+import { SaleFashionComponent } from "./pages/sale-fashion/sale-fashion.component";
 
 const routes: Routes = [
     {
@@ -30,6 +31,10 @@ const routes: Routes = [
             {
                 path: 'new',
                 component: NewArrivalComponent
+            },
+            {
+                path: 'sales',
+                component: SaleFashionComponent
             },
             {
                 path: 'female',
@@ -55,18 +60,14 @@ const routes: Routes = [
             },
             {
                 path: 'kids',
-                component: KidsFashionComponent
-                // children: [
-                //     //{ path: '', redirectTo: ':parentId', pathMatch: 'full' },
-                //     {
-                //         path: ':parentId',
-                //         component: ProductListComponent
-                //     },
-                //     {
-                //         path: ':parentId/:cid',
-                //         component: ProductListComponent
-                //     }
-                // ]
+                component: KidsFashionComponent,
+                children: [
+                    { path: '', component: ProductListComponent },
+                    {
+                        path: ':cid',
+                        component: ProductListComponent
+                    }
+                ]   
             },
             {
                 path: 'product/:code',
