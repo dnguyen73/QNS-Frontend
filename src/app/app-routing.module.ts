@@ -105,6 +105,6 @@ export const routedComponents: any[] = [
     MainComponent,
     HomeComponent,
     HeaderComponent, FooterComponent, NotfoundComponent, NewArrivalComponent, ProductListComponent, ProductDetailComponent,
-    ShoppingCartComponent, ThankyouComponent,
+    ShoppingCartComponent, ThankyouComponent, FemaleFashionComponent, LadyFashionComponent, KidsFashionComponent, SaleFashionComponent,
     ConfirmComponent, AlertComponent
 ]

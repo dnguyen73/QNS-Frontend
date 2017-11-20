@@ -50,8 +50,8 @@ import { SaleFashionComponent } from './pages/sale-fashion/sale-fashion.componen
     ProductBoxComponent,
     HomeKidsComponent,
     SlickSliderComponent,
-    LadyFashionComponent,
-    SaleFashionComponent
+    // LadyFashionComponent,
+    // SaleFashionComponent
   ],
   imports: [
     AppRoutingModule,

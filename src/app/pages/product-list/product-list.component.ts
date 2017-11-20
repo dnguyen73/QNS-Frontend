@@ -17,6 +17,7 @@ export class ProductListComponent implements OnInit {
   @Input()
   products: Product[] = [];
   PARENT_ID: number = 1;
+  p: number;
   
 
   tmpProducts: Product[] = [];

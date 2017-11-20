@@ -25,7 +25,7 @@ export class ShoppingCartComponent implements OnInit {
   public shoppingCartItems: CartItem[] = [];
   public subtotal$: Observable<number>;
   public subtotal: number = 0;
-  private userInfo: ShippingInfo = {
+  public userInfo: ShippingInfo = {
     fullname: '',
     email: '',
     phone: '',
