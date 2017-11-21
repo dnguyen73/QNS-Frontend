@@ -109,13 +109,8 @@ export class ProductService {
    * Grab all new product items for given parentId from loopback api
    * Optional: top --- number of product return with DATE desc
    */
-  fetchNewProductsByParentId(parentId: number, top?: number): Observable<Product[]> {
-    let reqURL: string = '';
-    if (top){
-      reqURL = PRODUCT_URL + "/findNewest?pid=" + parentId + "&top=" + top;
-    } else{
-      reqURL = PRODUCT_URL + "/findNewest?pid=" + parentId + "&top=";
-    }
+  fetchNewProductsByParentId(parentId: number, days: number): Observable<Product[]> {
+    let reqURL: string = PRODUCT_URL + "/findNewest?pid=" + parentId + "&days=" + days;
     return this._http
       .get(reqURL)
       .map(res => {
@@ -131,8 +126,14 @@ export class ProductService {
    * Optional: top --- number of product return with DATE desc
    */
   fetchSaleProductsByParentId(parentId: number, top?: number): Observable<Product[]> {
+    let url : string = '';
+    if (!top){
+      url = PRODUCT_URL + "/findSale?pid=" + parentId;
+    } else{
+      url = PRODUCT_URL + "/findSale?pid=" + parentId + "&top=" + top;
+    }
     return this._http
-      .get(PRODUCT_URL + "/findSale?pid=" + parentId + "&top=" + top)
+      .get(url)
       .map(res => {
         const products = res.json();
         return products

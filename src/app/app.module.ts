@@ -37,6 +37,8 @@ import { UIService } from "./shared/services/ui.service";
 import { RatingService } from "./shared/services/rating.service";
 import { MessageService } from "./shared/services/message.service";
 import { SaleFashionComponent } from './pages/sale-fashion/sale-fashion.component';
+import { SaleProductListComponent } from './pages/sale-product-list/sale-product-list.component';
+import { ProvinceService } from "./shared/services/province.service";
 
 
 @NgModule({
@@ -50,6 +52,7 @@ import { SaleFashionComponent } from './pages/sale-fashion/sale-fashion.componen
     ProductBoxComponent,
     HomeKidsComponent,
     SlickSliderComponent,
+    SaleProductListComponent,
     // LadyFashionComponent,
     // SaleFashionComponent
   ],
@@ -69,7 +72,7 @@ import { SaleFashionComponent } from './pages/sale-fashion/sale-fashion.componen
   entryComponents: [
     ConfirmComponent, AlertComponent
   ],
-  providers: [ProductService, ProductDetailResolve, CategoryService, CartService, OrderService, RatingService, MessageService, UIService],
+  providers: [ProductService, ProductDetailResolve, CategoryService, CartService, OrderService, RatingService, ProvinceService, MessageService, UIService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

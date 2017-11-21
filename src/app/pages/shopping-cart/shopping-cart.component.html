@@ -227,17 +227,15 @@
               <div class="row d-none d-md-flex">
                 <label for="province" class="col-sm-3 col-form-label">Tỉnh thành</label>
                 <div class="col-sm-9">
-                  <select class="form-control" [(ngModel)]="userInfo.province" placeholder="province" name="province" >
-                    <option selected>Tp HCM</option>
-                    <option>Đồng Nai</option>
+                  <select #province   class="form-control" [(ngModel)]="selectedProvince" placeholder="province" (ngModelChange)="provinceSelected()" name="province" >
+                    <option *ngFor="let p of provinces" [ngValue]="p">{{p.name}}</option>
                   </select>
                 </div>
               </div>
             </div>
             <label class="has-float-label d-md-none">
-              <select class="form-control" [(ngModel)]="userInfo.province" name="province" >
-                    <option selected>Tp HCM</option>
-                    <option>Dong Nai</option>
+              <select class="form-control" name="province" [(ngModel)]="selectedProvince" placeholder="province" (ngModelChange)="provinceSelected()">
+                    <option *ngFor="let p of provinces" [ngValue]="p">{{p.name}}</option>
                   </select>
               <span>Tỉnh thành</span>
             </label>
@@ -246,6 +244,11 @@
             <div class="row d-flex">
               <div class="col-md-3"></div>
               <div class="col-md-9">
+                <div class="error-msg" *ngIf="!selectedProvince && province.touched">
+                  <div>
+                    Hãy chọn tỉnh thành
+                  </div>
+                </div>
                 <div class="guide-msg">
                   <div>
                     (Phí ship hàng thay đổi tuỳ theo tỉnh thành)

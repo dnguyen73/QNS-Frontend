@@ -1,0 +1,14 @@
+<!-- Page Content -->
+<div class="container mt-2">
+  <div class="row" *ngIf="products.length > 0">
+    <div class="col-lg-4 col-md-4 col-sm-6 mb-4" *ngFor="let product of products | paginate: { itemsPerPage: 4, currentPage: p }">
+      <product-box [product]="product"></product-box>
+    </div>
+  </div>
+  <pagination-controls class="qns-paging" (pageChange)="p = $event"></pagination-controls>
+
+  <div *ngIf="products.length==0">
+    <p>Chưa có sản phẩm nào</p>
+  </div>
+</div>
+<!-- /.container -->

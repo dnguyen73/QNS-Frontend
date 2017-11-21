@@ -8,9 +8,11 @@ export class MessageService {
     private price$ = new Subject<PriceRange>();
     //private cid$ = new Subject<string>();
     private cid$: BehaviorSubject<string> = new BehaviorSubject("");
+    private pid$: BehaviorSubject<number> = new BehaviorSubject(0);
 
     constructor() {
         this.cid$.subscribe(_ =>  _);
+        this.pid$.subscribe(_ =>  _);
     }
 
     sendPriceRange(range: PriceRange) {
@@ -31,5 +33,13 @@ export class MessageService {
 
     getCID(): Observable<string> {
         return this.cid$.asObservable();
+    }
+
+    sendPID(id: number) {
+        this.pid$.next(id);
+    }
+
+    getPID(): Observable<number> {
+        return this.pid$.asObservable();
     }
 }

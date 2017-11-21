@@ -10,6 +10,8 @@ import { ShippingInfo } from "../../shared/models/shippinginfo";
 import { LocalStorageService, SessionStorageService, SessionStorage } from 'ngx-webstorage';
 import { Order } from "../../shared/models/order";
 import { OrderService } from "../../shared/services/order.service";
+import { Province } from "../../shared/models/province";
+import { ProvinceService } from "../../shared/services/province.service";
 declare var $: any;
 
 @Component({
@@ -32,12 +34,18 @@ export class ShoppingCartComponent implements OnInit {
     province: '',
     address: ''
   };
+  public provinces: Province[] = [];
+  public selectedProvince: Province;
+  defaultProvince: Province = new Province({
+    name: "Chọn tỉnh thành",
+    code: "000"
+  });
 
   public orderItem: Order = new Order({
     userInfo: this.userInfo,
     orderCode: '',
     orderDate: new Date(),
-    shippingFee: 20000,
+    shippingFee: 0,
     orderAmount: 0,
     totalAmount: 0,
     items: [],
@@ -48,6 +56,7 @@ export class ShoppingCartComponent implements OnInit {
   constructor(
     private cartSvc: CartService, 
     private orderSvc: OrderService, 
+    private provinceSvc: ProvinceService, 
     private sessionStorage: SessionStorageService,
     private route: ActivatedRoute, 
     private _router: Router 
@@ -66,6 +75,12 @@ export class ShoppingCartComponent implements OnInit {
     //Init order object
     this.orderItem.orderAmount = this.subtotal;
     this.orderItem.items = this.shoppingCartItems;
+
+    this.provinceSvc.getAllProvinces()
+      .subscribe(provinces => {
+        provinces.splice(0, 0, this.defaultProvince);
+        this.provinces = provinces;
+      });
 
   }
 
@@ -100,6 +115,11 @@ export class ShoppingCartComponent implements OnInit {
       let newQty = --this.shoppingCartItems[itemIndex].quantity;
       this.cartSvc.updateQuantity(itemIndex, newQty);
     }
+  }
+
+  provinceSelected(){
+    this.userInfo.province = this.selectedProvince.name;
+    this.orderItem.shippingFee = this.selectedProvince.charge;
   }
 
   public UpdateQty(itemIndex: number) {

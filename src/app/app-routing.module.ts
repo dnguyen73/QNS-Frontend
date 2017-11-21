@@ -17,6 +17,8 @@ import { FemaleFashionComponent } from "./pages/female-fashion/female-fashion.co
 import { KidsFashionComponent } from "./pages/kids-fashion/kids-fashion.component";
 import { LadyFashionComponent } from "./pages/lady-fashion/lady-fashion.component";
 import { SaleFashionComponent } from "./pages/sale-fashion/sale-fashion.component";
+import { NewProductListComponent } from "./pages/new-product-list/new-product-list.component";
+import { SaleProductListComponent } from "./pages/sale-product-list/sale-product-list.component";
 
 const routes: Routes = [
     {
@@ -30,11 +32,25 @@ const routes: Routes = [
             },
             {
                 path: 'new',
-                component: NewArrivalComponent
+                component: NewArrivalComponent,
+                children: [
+                    { path: '', component: NewProductListComponent },
+                    {
+                        path: ':pid',
+                        component: NewProductListComponent
+                    }
+                ]
             },
             {
                 path: 'sales',
-                component: SaleFashionComponent
+                component: SaleFashionComponent,
+                children: [
+                    { path: '', component: SaleProductListComponent },
+                    {
+                        path: ':pid',
+                        component: SaleProductListComponent
+                    }
+                ]
             },
             {
                 path: 'female',
@@ -106,5 +122,6 @@ export const routedComponents: any[] = [
     HomeComponent,
     HeaderComponent, FooterComponent, NotfoundComponent, NewArrivalComponent, ProductListComponent, ProductDetailComponent,
     ShoppingCartComponent, ThankyouComponent, FemaleFashionComponent, LadyFashionComponent, KidsFashionComponent, SaleFashionComponent,
+    NewProductListComponent,
     ConfirmComponent, AlertComponent
 ]
