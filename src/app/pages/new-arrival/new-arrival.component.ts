@@ -43,6 +43,7 @@ export class NewArrivalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.uiSvc.handleScrollTop();
     this.getPrimaryCategories();
     //get initial category from the route params. This should be retrieved from the content component
     this.messageSvc.getPID()

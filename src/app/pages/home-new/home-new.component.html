@@ -7,7 +7,7 @@
   <!--List of new products-->
   <div class="clearfix home-new-list">
     <div class="see-more">
-      <a class="see-all">Xem tất cả >></a>
+      <a class="see-all" [routerLink]="['/new']">Xem tất cả >></a>
       <div class="new-category d-none d-md-block">
         <a [class.active]= "forNewType == 0" (click)="selectNewType(0)"><i class="icon fa fa-angle-double-right mr-2"></i>Thời trang nữ</a>
         <a [class.active]= "forNewType == 1" (click)="selectNewType(1)"><i class="icon fa fa-angle-double-right mr-2"></i>Thời trang trung niên</a>
@@ -33,7 +33,7 @@
   <!--List of sale products-->
   <div class="clearfix home-new-list">
     <div class="see-more">
-      <a class="see-all">Xem tất cả >></a>
+      <a class="see-all" [routerLink]="['/sales']">Xem tất cả >></a>
       <div class="new-category d-none d-md-block">
         <a [class.active]= "forSaleType == 0" (click)="selectSaleType(0)"><i class="icon fa fa-angle-double-right mr-2"></i>Thời trang nữ</a>
         <a [class.active]= "forSaleType == 1" (click)="selectSaleType(1)"><i class="icon fa fa-angle-double-right mr-2"></i>Thời trang trung niên</a>

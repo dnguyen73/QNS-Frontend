@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { NavigationEnd, Router } from "@angular/router";
 declare var $: any;
 
 @Injectable()
 export class UIService {
 
 
-  constructor() { }
+  constructor(private _router: Router) { }
 
   /**
      * Generate 9 digit order code randomly by 0..9
@@ -38,6 +39,16 @@ export class UIService {
     if (window.matchMedia("(max-width: 575px)").matches) {
       $('body').toggleClass('overflow-x-hide');
     }
+  }
+
+  handleScrollTop(): void {
+    window.scrollTo(0, 0);
+    this._router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0);
+    });
   }
 
 }

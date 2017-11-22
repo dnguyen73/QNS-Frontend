@@ -160,6 +160,10 @@
     padding: 15px 0 14px;
 }
 
+.qns-navbar li > a.is-active{
+    color: yellow !important;
+}
+
 .qns-navbar li > a:hover{
     color: yellow !important;
 }

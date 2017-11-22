@@ -83,4 +83,7 @@
     right: 0;
     font-size: 12px;
     font-style: italic;
+    text-decoration: underline !important;
+    color: #B03935 !important;
+    cursor: pointer;
 }

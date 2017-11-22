@@ -17,6 +17,7 @@ import { OnRatingChangeEven } from "angular-star-rating";
 import { RatingService } from "../../shared/services/rating.service";
 import { Category } from "../../shared/models/categories";
 import { CategoryService } from "../../shared/services/category.service";
+import { UIService } from "../../shared/services/ui.service";
 
 declare var $: any;
 
@@ -80,7 +81,8 @@ export class ProductDetailComponent implements OnInit {
     private categorySvc: CategoryService,
     private cartSvc: CartService,
     private ratingSvc: RatingService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private uiSvc: UIService
   ) {
     this.shoppingCartItems$ = this
       .cartSvc
@@ -102,13 +104,7 @@ export class ProductDetailComponent implements OnInit {
   //Default behavior: ngOnInit does not get called when navigating within same route.
   //However, route subcribe() will work every time route's param is changed.
   ngOnInit() {
-    window.scrollTo(0, 0);
-    this._router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
-      }
-      window.scrollTo(0, 0);
-    });
+    this.uiSvc.handleScrollTop();
   }
 
   //Check size or color available in stock

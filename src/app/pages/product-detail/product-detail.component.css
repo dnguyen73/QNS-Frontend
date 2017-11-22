@@ -58,7 +58,7 @@ img.front-show{
  .active img{border:1px solid #834453 !important;}
 
  .thumb-size{
-    width: 36px;
+    /*width: 36px;*/
     text-align: center;
     border: 1px solid #888;
     margin-right: 10px;
@@ -204,7 +204,7 @@ img.front-show{
 .option-picker ul li {
     margin-right: 5px;
     cursor: pointer;
-    padding: 3px 0;
+    padding: 3px 10px;
     display: inline-block;
     border: 1px solid #ccc;
     height: 36px;
