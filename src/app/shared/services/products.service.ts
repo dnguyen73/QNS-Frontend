@@ -109,8 +109,14 @@ export class ProductService {
    * Grab all new product items for given parentId from loopback api
    * Optional: top --- number of product return with DATE desc
    */
-  fetchNewProductsByParentId(parentId: number, days: number): Observable<Product[]> {
-    let reqURL: string = PRODUCT_URL + "/findNewest?pid=" + parentId + "&days=" + days;
+  fetchNewProductsByParentId(parentId: number, days: number, top?: number): Observable<Product[]> {
+    let reqURL: string = '';
+    if (!top){
+      reqURL = PRODUCT_URL + "/findNewest?pid=" + parentId + "&days=" + days;
+    } else {
+      reqURL = PRODUCT_URL + "/findNewest?pid=" + parentId + "&days=" + days + "&top=" + top;
+    }
+    
     return this._http
       .get(reqURL)
       .map(res => {
