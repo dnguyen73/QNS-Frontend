@@ -201,3 +201,13 @@
     text-align: center;
     color: #834453;
 }
+
+.contact ul{
+    margin: 0;
+    padding: 8px 0;
+}
+
+.contact ul a{
+    font-size: 12px;
+    cursor: pointer;
+}

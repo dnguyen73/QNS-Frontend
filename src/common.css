@@ -87,7 +87,7 @@
     border-bottom: 1px solid #ddd;
 }
 #sidebarCollapse .breadcrumb {
-    background-color: transparent !important;
+    background-color: #fff !important;
     padding: 5px 0px;
     font-size: 13px;
     margin-bottom: 5px;

@@ -1,0 +1,40 @@
+.contactus{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.contactus h1{
+    font-size: 20px;
+    color: #834453;
+    text-decoration: underline;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+.contactus .title{
+    font-size: 14px;
+    font-weight: 700;
+}
+.contactus .content{
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+}
+
+.contactus .content a{
+    color: #834453;
+}
+
+.contactus .breadcrumb{
+    padding: 0;
+    border-bottom: 1px solid #ababab;
+    border-radius: 0;
+    background: #fff;
+}
+
+.contactus .breadcrumb a{
+    color: #834453;
+    font-weight: 700;
+}
+
+agm-map {
+  height: 300px;
+}

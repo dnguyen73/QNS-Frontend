@@ -19,6 +19,7 @@ import { LadyFashionComponent } from "./pages/lady-fashion/lady-fashion.componen
 import { SaleFashionComponent } from "./pages/sale-fashion/sale-fashion.component";
 import { NewProductListComponent } from "./pages/new-product-list/new-product-list.component";
 import { SaleProductListComponent } from "./pages/sale-product-list/sale-product-list.component";
+import { ContactusComponent } from "./pages/statics/contactus/contactus.component";
 
 const routes: Routes = [
     {
@@ -29,6 +30,10 @@ const routes: Routes = [
             {
                 path: 'home',
                 component: HomeComponent,
+            },
+            {
+                path: 'contactus',
+                component: ContactusComponent,
             },
             {
                 path: 'new',

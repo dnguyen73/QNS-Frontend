@@ -1,0 +1,21 @@
+<div class="contactus container">
+  <nav aria-label="breadcrumb" role="navigation" class="d-block">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/']"><i class="fa fa-home"></i>  Trang chủ</a></li>
+      <li class="breadcrumb-item active" aria-current="page"><span>Liên hệ</span></li>
+    </ol>
+  </nav>
+  <h1>Thời Trang phong cách Quỳnh Như </h1>
+  <p><span class="title">Website: </span><span class="content"><a href="http://shopquynhnhu.com/">http://shopquynhnhu.com</a></span>    </p>
+  <p><span class="title">Facebook: </span><span class="content"><a href="https://www.facebook.com/Quynh-Nhu-Fashion-291991231276915">https://www.facebook.com/Quynh-Nhu-Fashion</a> </span></p>
+  <p><span class="title">Địa chỉ: </span><span class="content">531 Hoà Bình, huyện Nhơn Trạch, Đồng Nai </span></p>
+  <p><span class="title">Điện thoại: </span><span class="content">0979.925.075 - 02513.519.060 </span></p>
+  <p><span class="title">Giờ mở cửa: </span><span class="content">8h - 22h mỗi ngày (kể cả ngày lễ, chủ nhật)</span></p>
+  <p><span class="title">Email: </span><span class="content">fashion.quynhnhu@gmail.com</span></p>
+
+  <div class="map">
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="18">
+      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
+  </div>
+</div>

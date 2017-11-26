@@ -39,6 +39,8 @@ import { MessageService } from "./shared/services/message.service";
 import { SaleFashionComponent } from './pages/sale-fashion/sale-fashion.component';
 import { SaleProductListComponent } from './pages/sale-product-list/sale-product-list.component';
 import { ProvinceService } from "./shared/services/province.service";
+import { ContactusComponent } from './pages/statics/contactus/contactus.component';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -53,6 +55,7 @@ import { ProvinceService } from "./shared/services/province.service";
     HomeKidsComponent,
     SlickSliderComponent,
     SaleProductListComponent,
+    ContactusComponent,
     // LadyFashionComponent,
     // SaleFashionComponent
   ],
@@ -67,7 +70,10 @@ import { ProvinceService } from "./shared/services/province.service";
     Ng2Webstorage,
     NgxPaginationModule,
     SlickModule.forRoot(),
-    StarRatingModule.forRoot()
+    StarRatingModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBKanVn1oYARVOn_mMz-2YMGRbokTWVaZ8'
+    })
   ],
   entryComponents: [
     ConfirmComponent, AlertComponent
