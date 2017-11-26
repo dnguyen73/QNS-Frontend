@@ -1,11 +1,13 @@
-import { Component, Input, ElementRef, AfterViewInit, AfterContentInit} from '@angular/core';
+import { Component, Input, ElementRef, AfterViewInit, AfterContentInit, ViewEncapsulation } from '@angular/core';
 declare var jQuery: any;
 
 @Component({
     selector: 'slick-slider',
     template: `
         <ng-content></ng-content>
-    `
+    `,
+    styleUrls: ['./slick-slider.component.css'],
+    encapsulation: ViewEncapsulation.None
 })
 export class SlickSliderComponent implements AfterContentInit{
     @Input() options: any;

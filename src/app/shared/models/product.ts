@@ -17,6 +17,7 @@ export class Product {
     totalQuantity: number;
     isOnSale: boolean;
     discount: number;
+    discountPrice: number;
     createdDate: Date;
     originalVendor: string;
     categoryId: string;

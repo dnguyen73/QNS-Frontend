@@ -28,6 +28,10 @@ export class HeaderComponent implements OnInit {
     this._router.navigate(['cart']);
   }
 
+  gotoFacebook(){
+    window.open("https://www.facebook.com/Quynh-Nhu-Fashion-291991231276915/", "_blank");
+  }
+
   ngAfterViewInit() {
     // hide the nav bar on small screen
     // $('.nav-link').on('click', function () {

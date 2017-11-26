@@ -11,11 +11,11 @@ const FILE_URL: string = environment.apiUrl + '/attachments';
 const SIZE_URL: string = environment.apiUrl + '/sizes';
 const PRODUCT_URL: string = environment.apiUrl + '/products';
 
- export enum ParentCategory{
-   "Thời trang nữ" = 1,
-   "Thời trang trung niên",
-   "Thời trang trẻ em"
- }
+export enum ParentCategory {
+  "Thời trang nữ" = 1,
+  "Thời trang trung niên",
+  "Thời trang trẻ em"
+}
 @Injectable()
 export class ProductService {
 
@@ -34,7 +34,7 @@ export class ProductService {
       })
       .catch(this.handleError);
   }
-  
+
   /**
      * Grab all product items from loopback api
      */
@@ -59,8 +59,20 @@ export class ProductService {
         return product.map((product) => new Product(product));
       })
       .catch(this.handleError);
-  }
+  } 
 
+  /**
+       * Grab all product items from loopback api
+       */
+  getRelatedProducts(pCode: string, top: number): Observable<Product[]> {
+    return this._http
+      .get(PRODUCT_URL + "/findRelation?code=" + pCode + "&top=" + top)
+      .map(res => {
+        const product = res.json();
+        return product.map((product) => new Product(product));
+      })
+      .catch(this.handleError);
+  }
   /**
      * Grab all product items from loopback api
      */
@@ -111,12 +123,12 @@ export class ProductService {
    */
   fetchNewProductsByParentId(parentId: number, days: number, top?: number): Observable<Product[]> {
     let reqURL: string = '';
-    if (!top){
+    if (!top) {
       reqURL = PRODUCT_URL + "/findNewest?pid=" + parentId + "&days=" + days;
     } else {
       reqURL = PRODUCT_URL + "/findNewest?pid=" + parentId + "&days=" + days + "&top=" + top;
     }
-    
+
     return this._http
       .get(reqURL)
       .map(res => {
@@ -132,10 +144,10 @@ export class ProductService {
    * Optional: top --- number of product return with DATE desc
    */
   fetchSaleProductsByParentId(parentId: number, top?: number): Observable<Product[]> {
-    let url : string = '';
-    if (!top){
+    let url: string = '';
+    if (!top) {
       url = PRODUCT_URL + "/findSale?pid=" + parentId;
-    } else{
+    } else {
       url = PRODUCT_URL + "/findSale?pid=" + parentId + "&top=" + top;
     }
     return this._http

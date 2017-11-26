@@ -97,7 +97,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   public itemSubTotal(item: CartItem) {
-    return item.quantity * item.product.price;
+    return item.quantity * item.unitPrice;
   }
 
   public numOfItems() {

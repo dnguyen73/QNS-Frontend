@@ -204,7 +204,7 @@
                 </div>
               </div>
               <div style="width: 15%;" class="text-right">
-                <div class="item-price"><span class="price">{{cartItem.product.price | vnd}}</span></div>
+                <div class="item-price"><span class="price">{{cartItem.unitPrice | vnd}}</span></div>
               </div>
               <div style="width: 15%;" class="text-center">
                 <button class="reduced items-count btn-minus" type="button" (click)="DownQty(idx)">–</button>
@@ -256,7 +256,7 @@
           </div>
           <div class="media-body">
             <div class="product-title">{{myProduct.productName}}</div>
-            <div class="product-new-price"><span>{{myProduct.price | vnd}}</span></div>
+            <div class="product-new-price"><span>{{myProduct.isOnSale ? myProduct.discountPrice:myProduct.price | vnd}}</span></div>
           </div>
         </div>
         <button class="btn btn-block btn-outline-red" data-dismiss="modal">Tiếp tục mua hàng</button>

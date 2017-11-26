@@ -4,8 +4,8 @@
     <div class="row">
       <div class="col-md-8 col-sm-8 col-8 no-padding pl-0">
         <p class="no-margin mt-2">
-          <strong><a href="tel:0939808500"><i class="fa fa-phone"></i><span class=" d-sm-inline">0939808500</span></a></strong>|
-          <strong><a href="/"><i class="fa fa-facebook"></i><span class="d-sm-inline">quynhnhuvu</span></a></strong>
+          <strong><a href="tel:0979925075"><i class="fa fa-phone"></i><span class=" d-sm-inline">0979925075</span></a></strong>|
+          <strong><a (click)="gotoFacebook()"><i class="fa fa-facebook"></i><span class="d-sm-inline">quynhnhuvu</span></a></strong>
         </p>
       </div>
       <div class="col-md-4 col-sm-4 col-4">
@@ -57,7 +57,7 @@
             </div>
             <div class="media-body">
               <span class="feature-title">Đặt hàng nhanh</span><br>
-              <p>Gọi ngay <b>1900.6750</b></p>
+              <p>Gọi ngay <a href="tel:0979925075"><b>0979.925.075</b></a></p>
             </div>
           </div>
         </div>
@@ -100,10 +100,10 @@
           <a class="nav-link" [routerLink]="['/lady']" [routerLinkActive]="['is-active']"><span>Thời trang trung niên</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/kids" [routerLinkActive]="['is-active']"><span>Thời trang trẻ em</span></a>
+          <a class="nav-link" [routerLink]="['/kids']" [routerLinkActive]="['is-active']"><span>Thời trang trẻ em</span></a>
         </li>
         <li class="nav-item sale">
-          <a class="nav-link" href="/sales" [routerLinkActive]="['is-active']"><span>Khuyến mãi</span>
+          <a class="nav-link" [routerLink]="['/sales']" [routerLinkActive]="['is-active']"><span>Khuyến mãi</span>
             <img src="../assets/images/icons/sale-1.png"/>
           </a>
         </li>

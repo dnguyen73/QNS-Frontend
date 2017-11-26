@@ -155,7 +155,7 @@ export class ProductDetailComponent implements OnInit {
           .subscribe(c => this.parentCategory = c);
 
         //get related products
-        this.productSvc.getAllProducts()
+        this.productSvc.getRelatedProducts(this.myProduct.productCode, 8)
           .subscribe(products => {
             this.relatedProducts = products;
             let _thisObject = this;
@@ -220,7 +220,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   public itemSubTotal(item: CartItem) {
-    return item.quantity * item.product.price;
+    return item.quantity * item.unitPrice;
   }
 
   public numOfItems() {
@@ -301,7 +301,7 @@ export class ProductDetailComponent implements OnInit {
         size: this.selectedSize,
         color: this.selectedColor.description,
         colorPath: this.selectedColor.filename,
-        unitPrice: this.myProduct.price
+        unitPrice: (this.myProduct.isOnSale) ? this.myProduct.discountPrice: this.myProduct.price
       });
       this.cartSvc.addItemToCart(newCartItem);
       $(this.myModal.nativeElement).modal('show');

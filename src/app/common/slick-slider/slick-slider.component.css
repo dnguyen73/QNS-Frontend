@@ -1,0 +1,25 @@
+.slick-arrow{
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ababab;
+    background: #fff;
+    opacity: 1;
+    top: -10px !important;
+    right: 10px;
+}
+
+.slick-arrow:before{
+    font-size: 25px;
+    color: #834453;
+    font-family: 'Roboto'
+}
+
+.slick-next{
+    right: 10px !important;
+}
+
+.slick-prev{
+    right: 45px !important;
+    left: unset !important;
+    
+}
