@@ -196,10 +196,16 @@ export class ProductDetailComponent implements OnInit {
   }
 
   getColorFilePath(color: SelectColor) {
+    if (!color){
+      return "";
+    }
     return environment.FILE_HOST_URL + "/" + color.parentId + "/thumb/" + color.filename;
   }
 
   public getImagePath(item: CartItem) {
+    if (!item){
+      return "";
+    }
     return environment.FILE_HOST_URL + "/" + item.product.parentId + "/thumb/" + item.colorPath;
   }
 
@@ -281,6 +287,7 @@ export class ProductDetailComponent implements OnInit {
     for (let i=0; i<this.myProduct.images.length; i++){
       if (this.myProduct.images[i].filename === item.filename){
         imgIdx = i;
+        this.selectedImage = this.myProduct.images[i];
         break;
       }
     }

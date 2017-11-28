@@ -32,11 +32,17 @@
     font-size: 14px;
     padding-top: 2px;
 }
-
+.card-title {
+    margin-bottom: .2rem;
+}
 .card-title a{
     color: #666;
     font-size: 16px;
     font-weight: 700;
+}
+
+.card-footer{
+    padding: .3rem 1.25rem;
 }
 
 .product-action{

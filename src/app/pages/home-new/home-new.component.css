@@ -79,11 +79,14 @@
 
 .see-more .see-all{
     position: absolute;
-    top: 0;
-    right: 0;
+    top: -5px;
+    right: 5px;
     font-size: 12px;
     font-style: italic;
-    text-decoration: underline !important;
+    font-weight: 700;
     color: #B03935 !important;
     cursor: pointer;
+    border: 1px solid #B03935;
+    border-radius: 3px;
+    padding: 1px 5px;
 }

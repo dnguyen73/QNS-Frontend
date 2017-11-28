@@ -6,8 +6,8 @@ export class QnsPricePipe implements PipeTransform {
   transform(value: string, args: string[]): any {
     if (!value) return value;
 
-    var currencyPipe = new CurrencyPipe("VND");
+    var currencyPipe = new CurrencyPipe("vi-VN");
     value = currencyPipe.transform(value, "VND", true);
-    return value.substr(1) + ' đ';
+    return value.substr(2) + ' đ';
   }
 }

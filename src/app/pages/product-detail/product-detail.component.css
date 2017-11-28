@@ -500,6 +500,12 @@ img.front-show{
 .relate-product-wrapper .relate-box{
     padding: 10px;
 }
+.relate-product-wrapper .relate-box .price{
+    font-size: 14px;
+}
+.relate-product-wrapper .relate-box .sale{
+    font-size: 12px;
+}
 .relate-product-wrapper h3{
     font-size: 20px;
     color: #83444C;

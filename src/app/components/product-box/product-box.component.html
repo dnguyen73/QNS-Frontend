@@ -5,11 +5,11 @@
       <a [routerLink]="['/product', product.productCode]">{{product.productName}}</a>
     </h4>
     <div class="d-flex" *ngIf="!product.isOnSale">
-      <div class="col-6 price">{{product.price | vnd}}</div>
+      <div class="price">{{product.price | vnd}}</div>
     </div>
     <div class="d-flex" *ngIf="product.isOnSale">
-      <div class="col-6 price">{{product.discountPrice | vnd}}</div>
-      <div class="col-6 sale">{{product.price | vnd}}</div>
+      <div class="col-md-6 price">{{product.discountPrice | vnd}}</div>
+      <div class="col-md-6 sale">{{product.price | vnd}}</div>
     </div>
   </div>
   <div class="card-footer">
@@ -19,9 +19,9 @@
   </div>
 
   <!--Action button section-->
-  <div class="product-action">
+  <!--<div class="product-action">
     <a class="fa fa-shopping-basket add_to_cart" title="Cho vào giỏ hàng"></a>
     <a class="fa fa-expand add_to_cart" title="Xem nhanh"></a>
-  </div>
+  </div>-->
   <div class="sale-corner" *ngIf="product.isOnSale"></div>
 </div>
