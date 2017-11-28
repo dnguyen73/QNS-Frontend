@@ -59,7 +59,7 @@ export class ProductService {
         return product.map((product) => new Product(product));
       })
       .catch(this.handleError);
-  } 
+  }
 
   /**
        * Grab all product items from loopback api
@@ -86,17 +86,37 @@ export class ProductService {
       .catch(this.handleError);
   }
 
+  // /**
+  //  * Grab all product items for given parentId from loopback api
+  //  */
+  // getProductsByParentId(pId: number, top?: number): Observable<Product[]> {
+  //   return this._http
+  //     .get(PRODUCT_URL)
+  //     .map(res => {
+  //       const products = res.json();
+  //       return products
+  //         .filter(p => p.parentId === +pId)
+  //         .map((product) => new Product(product));
+  //     })
+  //     .catch(this.handleError);
+  // }
+
   /**
    * Grab all product items for given parentId from loopback api
    */
-  getProductsByParentId(pId: number): Observable<Product[]> {
+  getProductsByParentId(pId: number, top?: number): Observable<Product[]> {
+    let reqURL: string = '';
+    if (!top) {
+      reqURL = PRODUCT_URL + "/findByParentId?parentId=" + pId;
+    } else {
+      reqURL = PRODUCT_URL + "/findByParentId?parentId=" + pId + "&top=" + top;
+    }
+
     return this._http
-      .get(PRODUCT_URL)
+      .get(reqURL)
       .map(res => {
         const products = res.json();
-        return products
-          .filter(p => p.parentId === +pId)
-          .map((product) => new Product(product));
+        return products.map((p) => new Product(p));
       })
       .catch(this.handleError);
   }
@@ -104,12 +124,19 @@ export class ProductService {
   /**
    * Grab all product items for given category Id from loopback api
    */
-  getProductsByCategoryId(cId: string): Observable<Product[]> {
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('categoryId', cId);
+  getProductsByCategoryId(cId: string, top?: number): Observable<Product[]> {
+    // let params: URLSearchParams = new URLSearchParams();
+    // params.set('categoryId', cId);
+    // params.set('top', top.toString());
+    let reqURL: string = '';
+    if (!top) {
+      reqURL = PRODUCT_URL + "/findByCategory?categoryId=" + cId;
+    } else {
+      reqURL = PRODUCT_URL + "/findByCategory?categoryId=" + cId + "&top=" + top;
+    }
 
     return this._http
-      .get(PRODUCT_URL + "/findByCategory", { search: params })
+      .get(reqURL)
       .map(res => {
         const products = res.json();
         return products.map((p) => new Product(p));

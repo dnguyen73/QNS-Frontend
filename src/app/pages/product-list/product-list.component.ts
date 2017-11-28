@@ -77,6 +77,7 @@ export class ProductListComponent implements OnInit {
 
   //Get all Female products by sub category
   fetchProductsByCategory(categoryId: string) {
+    //limit top 8 latest products
     this.productSvc.getProductsByCategoryId(categoryId)
       .subscribe((products) => {
         this.tmpProducts = products;

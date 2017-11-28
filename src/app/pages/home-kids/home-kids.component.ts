@@ -15,12 +15,12 @@ export class HomeKidsComponent implements OnInit {
   constructor(private _router: Router, private productSvc: ProductService) { }
 
   ngOnInit() {
-     this.fetchProducts(3);
+     this.fetchProducts(3, 8);
   }
 
   //Get all products belong to given parent id
-  fetchProducts(parentId: number) {
-    this.productSvc.getProductsByParentId(parentId)
+  fetchProducts(parentId: number, top: number) {
+    this.productSvc.getProductsByParentId(parentId, top)
       .subscribe((products) => {
         this.kidProducts = products;
       });

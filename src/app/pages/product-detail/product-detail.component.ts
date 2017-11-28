@@ -271,11 +271,20 @@ export class ProductDetailComponent implements OnInit {
         s.activated = !item.selected;
       }
     }
-
     //set for cart item
     // this.selectedColor = (item.selected) ? item.description : "";
     // this.selectedColorPath = (item.selected) ? item.filename : "";
     this.selectedColor = (item.selected) ? item : null;
+
+    //trigger click event on image gallery
+    let imgIdx = 0;
+    for (let i=0; i<this.myProduct.images.length; i++){
+      if (this.myProduct.images[i].filename === item.filename){
+        imgIdx = i;
+        break;
+      }
+    }
+    $($(".gal-content").children().eq(imgIdx).find('a')[0]).trigger('click');
   }
 
   qtyUp() {
