@@ -155,6 +155,10 @@ export class ShoppingCartComponent implements OnInit {
     this._router.navigate(['product', product.productCode]);
   }
 
+  goHome(){
+    this._router.navigate(['home']);
+  }
+
   ngAfterViewInit() {
     $('.zoomContainer').remove();
   }

@@ -207,9 +207,9 @@
                 <div class="item-price"><span class="price">{{cartItem.unitPrice | vnd}}</span></div>
               </div>
               <div style="width: 15%;" class="text-center">
-                <button class="reduced items-count btn-minus" type="button" (click)="DownQty(idx)">–</button>
-                <input type="text" maxlength="12" min="0" class="input-text number-sidebar" [(ngModel)]="cartItem.quantity" (ngModelChange)="UpdateQty(idx)">
-                <button class="increase items-count btn-plus" type="button" (click)="UpQty(idx)">+</button>
+                <button class="items-count" type="button" (click)="DownQty(idx)">–</button>
+                <input type="text" maxlength="12" min="0" class="input-text number-sidebar" [disabled]="true" [(ngModel)]="cartItem.quantity" (ngModelChange)="UpdateQty(idx)">
+                <button class="items-count" type="button" (click)="UpQty(idx)">+</button>
               </div>
               <div style="width: 20%;" class="text-right"><span class="cart-price"> <span class="price">{{itemSubTotal(cartItem) | vnd}}</span> </span>
               </div>

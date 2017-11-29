@@ -1,318 +1,326 @@
 <div class="shopping-cart container">
-  <div class="my-2">
+  <div class="header">
     <div class="d-flex justify-content-between align-content-end">
       <div class="heading">Giỏ hàng của bạn</div>
-      <div class="heading">{{subtotal | vnd}}</div>
+      <div class="heading">Tiền hàng</div>
     </div>
     <div class="d-flex justify-content-between align-content-start">
       <div class="sub-heading">{{numOfItems()}}</div>
-      <div class="sub-heading">Tiền hàng</div>
+      <div class="sub-heading">{{subtotal | vnd}}</div>
     </div>
 
   </div>
 
-
-  <div class="order-items">
-    <div class="order-item-labels d-none d-md-block">
-      <div class="d-flex flex-row">
-        <div class="col-md-6 col-sm-6"><span class="prod-label">Sản phẩm</span></div>
-        <div class="col-sm-2 qty-header text-center">Số lượng</div>
-        <div class="col-sm-2 col-xs-3 text-right">Đơn giá</div>
-        <div class="col-sm-2 col-xs-5 text-right"><span class="total-label">Thành tiền</span></div>
-      </div>
+  <div *ngIf="subtotal==0" class="empty">
+    <p>Chưa có sản phẩm nào trong giỏ hàng của bạn.</p>
+    <div class="text-center mb-3">
+      <button type="button" class="btn btn-primary" (click)="goHome()">Quay về trang chủ</button>
     </div>
+  </div>
 
-    <!--Order item list-->
-    <div class="order-item show" *ngFor="let cartItem of shoppingCartItems; let idx = index">
-      <div class="order-item-container row my-2">
-        <div class="col-md-6 basic-info">
-          <div class="row row-flex">
-            <div class="col-4 image">
-              <div class="item-left image-container">
-                <a>
-                  <img class="img-fluid" [src]="getImagePath(cartItem)" [routerLink]="['/product', cartItem.product.productCode]">
-                </a>
-              </div>
-            </div>
-            <div class="col-8 details">
-              <div class="product-details">
-                <!--<product-info>-->
-                <a class="product-link">
-                  <div data-ui="brand-name"><strong>{{cartItem.product.productName}}</strong></div>
-                  <div data-ui="item-name">{{cartItem.product.description}}</div>
-                </a>
-                <div data-ui="item-color">{{cartItem.color}}</div>
-                <div data-ui="item-size">{{cartItem.size}}</div>
-                <div data-ui="item-sku" class="sku">#{{cartItem.product.productCode}}</div>
-                <!--</product-info>-->
-                <div class="d-flex mt-2">
-                  <button data-ui="remove-item-btn" class="btn btn-outline-dark btn-xs" (click)="removeItem(idx)"><span>Xoá sản phẩm</span></button>
+  <div *ngIf="subtotal>0">
+    <div class="order-items">
+      <div class="order-item-labels d-none d-md-block">
+        <div class="d-flex flex-row">
+          <div class="col-md-6 col-sm-6"><span class="prod-label">Sản phẩm</span></div>
+          <div class="col-sm-2 qty-header text-center">Số lượng</div>
+          <div class="col-sm-2 col-xs-3 text-right">Đơn giá</div>
+          <div class="col-sm-2 col-xs-5 text-right"><span class="total-label">Thành tiền</span></div>
+        </div>
+      </div>
+
+      <!--Order item list-->
+      <div class="order-item show" *ngFor="let cartItem of shoppingCartItems; let idx = index">
+        <div class="order-item-container row my-2">
+          <div class="col-md-6 basic-info">
+            <div class="row row-flex">
+              <div class="col-4 image">
+                <div class="item-left image-container">
+                  <a>
+                    <img class="img-fluid" [src]="getImagePath(cartItem)" [routerLink]="['/product', cartItem.product.productCode]">
+                  </a>
                 </div>
               </div>
-              <!--end product-details-->
+              <div class="col-8 details">
+                <div class="product-details">
+                  <!--<product-info>-->
+                  <a class="product-link">
+                    <div data-ui="brand-name"><strong>{{cartItem.product.productName}}</strong></div>
+                    <div data-ui="item-name">{{cartItem.product.description}}</div>
+                  </a>
+                  <div data-ui="item-color">{{cartItem.color}}</div>
+                  <div data-ui="item-size">{{cartItem.size}}</div>
+                  <div data-ui="item-sku" class="sku">#{{cartItem.product.productCode}}</div>
+                  <!--</product-info>-->
+                  <div class="d-flex mt-2">
+                    <button data-ui="remove-item-btn" class="btn btn-outline-dark btn-xs" (click)="removeItem(idx)"><span>Xoá sản phẩm</span></button>
+                  </div>
+                </div>
+                <!--end product-details-->
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-6 extended-info my-3">
-          <div class="d-flex flex-row">
-            <div class="col-md-offset-2 col-sm-4 p-0">
-              <div class="d-flex flex-row align-items-center quantity">
-                <div class="d-flex">
-                  <button type="button" class="btn btn-outline-secondary btn-qty mr-1" (click)="DownQty(idx)">-</button>
-                </div>
-                <input type="number" class="form-control" [(ngModel)]="cartItem.quantity" (ngModelChange)="UpdateQty(idx)">
-                <div class="d-flex">
-                  <button type="button" class="btn btn-outline-secondary btn-qty ml-1" (click)="UpQty(idx)">+</button>
+          <div class="col-md-6 extended-info my-3">
+            <div class="d-flex flex-row">
+              <div class="col-md-offset-2 col-sm-4 p-0">
+                <div class="text-center">
+                  <button class="items-count" type="button" (click)="DownQty(idx)">–</button>
+                  <input type="text" maxlength="12" min="0" class="input-text number-sidebar" [disabled]="true" [(ngModel)]="cartItem.quantity" (ngModelChange)="UpdateQty(idx)">
+                  <button class="items-count" type="button" (click)="UpQty(idx)">+</button>
                 </div>
               </div>
-            </div>
-            <div class="col-sm-4 col-xs-3 text-right">
-              <div class="price-container">
-                <div data-ui="unit-price">{{cartItem.unitPrice | vnd}}</div>
+              <div class="col-sm-4 col-xs-3 text-right">
+                <div class="price-container">
+                  <div data-ui="unit-price">{{cartItem.unitPrice | vnd}}</div>
+                </div>
               </div>
-            </div>
-            <div class="col-sm-4 col-xs-5 text-right">
-              <div class="total-container">
-                <div data-ui="item-total-price"><strong>{{itemSubTotal(cartItem) | vnd}}</strong></div>
+              <div class="col-sm-4 col-xs-5 text-right">
+                <div class="total-container">
+                  <div data-ui="item-total-price"><strong>{{itemSubTotal(cartItem) | vnd}}</strong></div>
+                </div>
               </div>
-            </div>
-            <!--<div class="col-md-offset-2 col-md-10">
+              <!--<div class="col-md-offset-2 col-md-10">
             </div>-->
 
+            </div>
           </div>
-        </div>
-        <!--<div class="d-flex flex-row d-sm-none text-right">
+          <!--<div class="d-flex flex-row d-sm-none text-right">
               <div class="btn-container">
                 <button data-ui="remove-item-btn" class="btn btn-outline-dark btn-xs"> Remove </button>
               </div>
             </div>-->
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="shipping">
-    <div class="row my-2">
-      <div class="col-md-8">
-        <form class="user-info">
-          <h2>Thông tin khách hàng</h2>
-          <!--FULLNAME SECTION-->
-          <div class="fullname-section">
-            <div [ngClass]="{'has-error': (fullname.invalid && fullname.touched)}">
-              <div class="row d-none d-md-flex">
-                <label for="fullname" class="col-sm-3 col-form-label">Tên khách hàng</label>
-                <div class="col-sm-9">
-                  <input type="text" #fullname="ngModel" class="form-control" name="fullname" placeholder="Tên đầy đủ" [(ngModel)]="userInfo.fullname" required>
+    <div class="shipping">
+      <div class="row my-2">
+        <div class="col-md-8">
+          <form class="user-info">
+            <h2>Thông tin khách hàng</h2>
+            <!--FULLNAME SECTION-->
+            <div class="fullname-section">
+              <div [ngClass]="{'has-error': (fullname.invalid && fullname.touched)}">
+                <div class="row d-none d-md-flex">
+                  <label for="fullname" class="col-sm-3 col-form-label">Tên khách hàng</label>
+                  <div class="col-sm-9">
+                    <input type="text" #fullname="ngModel" class="form-control" name="fullname" placeholder="Tên đầy đủ" [(ngModel)]="userInfo.fullname"
+                      required>
+                  </div>
                 </div>
               </div>
-            </div>
-            <label class="has-float-label d-md-none">
+              <label class="has-float-label d-md-none">
               <input class="form-control" type="text" placeholder="fullname" name="fullname" required 
                     [(ngModel)]="userInfo.fullname" #fullname="ngModel"/>
               <span>Tên đầy đủ</span>
             </label>
-            <div class="has-ok" *ngIf="(fullname.valid && fullname.touched)"></div>
+              <div class="has-ok" *ngIf="(fullname.valid && fullname.touched)"></div>
 
-            <div class="row d-flex">
-              <div class="col-sm-3"></div>
-              <div class="col-sm-9">
-                <div class="error-msg" [hidden]="fullname.valid || fullname.untouched">
-                  <div *ngIf="fullname.errors && fullname.errors.required">
-                    Hãy nhập đây đủ họ tên
+              <div class="row d-flex">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                  <div class="error-msg" [hidden]="fullname.valid || fullname.untouched">
+                    <div *ngIf="fullname.errors && fullname.errors.required">
+                      Hãy nhập đây đủ họ tên
+                    </div>
                   </div>
                 </div>
               </div>
+
             </div>
-            
-          </div>
-          <!--EMAIL SECTION-->
-          <div class="email-section">
-            <div [ngClass]="{'has-error': (email.invalid && email.touched)}">
-              <div class="row d-none d-md-flex">
-                <label for="email" class="col-sm-3 col-form-label">Email</label>
-                <div class="col-sm-9">
-                  <input type="email" #email="ngModel" class="form-control" name="email" placeholder="Email" [(ngModel)]="userInfo.email" required
-                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+            <!--EMAIL SECTION-->
+            <div class="email-section">
+              <div [ngClass]="{'has-error': (email.invalid && email.touched)}">
+                <div class="row d-none d-md-flex">
+                  <label for="email" class="col-sm-3 col-form-label">Email</label>
+                  <div class="col-sm-9">
+                    <input type="email" #email="ngModel" class="form-control" name="email" placeholder="Email" [(ngModel)]="userInfo.email" required
+                      pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                  </div>
                 </div>
               </div>
-            </div>
-            <label class="has-float-label d-md-none">
+              <label class="has-float-label d-md-none">
               <input class="form-control" type="text" placeholder="Email" name="email" required 
                     [(ngModel)]="userInfo.email" #email="ngModel"
                     pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"/>
               <span>Email</span>
             </label>
-            <div class="has-ok" *ngIf="(email.valid && email.touched)"></div>
+              <div class="has-ok" *ngIf="(email.valid && email.touched)"></div>
 
-            <div class="row d-flex">
-              <div class="col-sm-3"></div>
-              <div class="col-sm-9">
-                <div class="error-msg" [hidden]="email.valid || email.untouched">
-                  <div *ngIf="email.errors && email.errors.required">
-                    Hãy nhập địa chỉ email
-                  </div>
-                  <div *ngIf="email.errors && email.errors.pattern">
-                    Email không hợp lệ
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-          <!--PHONE SECTION-->
-          <div class="phone-section">
-            <div [ngClass]="{'has-error': (phone.invalid && phone.touched)}">
-              <div class="row d-none d-md-flex">
-                <label for="phone" class="col-sm-3 col-form-label">Số điện thoại</label>
+              <div class="row d-flex">
+                <div class="col-sm-3"></div>
                 <div class="col-sm-9">
-                  <input type="phone" #phone="ngModel" class="form-control" name="phone" placeholder="Số điện thoại" [(ngModel)]="userInfo.phone" required
-                    pattern="^[0-9]*">
+                  <div class="error-msg" [hidden]="email.valid || email.untouched">
+                    <div *ngIf="email.errors && email.errors.required">
+                      Hãy nhập địa chỉ email
+                    </div>
+                    <div *ngIf="email.errors && email.errors.pattern">
+                      Email không hợp lệ
+                    </div>
+                  </div>
                 </div>
               </div>
+
             </div>
-            <label class="has-float-label d-md-none">
+            <!--PHONE SECTION-->
+            <div class="phone-section">
+              <div [ngClass]="{'has-error': (phone.invalid && phone.touched)}">
+                <div class="row d-none d-md-flex">
+                  <label for="phone" class="col-sm-3 col-form-label">Số điện thoại</label>
+                  <div class="col-sm-9">
+                    <input type="phone" #phone="ngModel" class="form-control" name="phone" placeholder="Số điện thoại" [(ngModel)]="userInfo.phone"
+                      required pattern="^[0-9]*">
+                  </div>
+                </div>
+              </div>
+              <label class="has-float-label d-md-none">
               <input class="form-control" type="text" placeholder="phone" name="phone" required 
                     [(ngModel)]="userInfo.phone" #phone="ngModel"
                     pattern="^[0-9]*"/>
               <span>Số điện thoại</span>
             </label>
-            <div class="has-ok" *ngIf="(phone.valid && phone.touched)"></div>
+              <div class="has-ok" *ngIf="(phone.valid && phone.touched)"></div>
 
-            <div class="row d-flex">
-              <div class="col-sm-3"></div>
-              <div class="col-sm-9">
-                <div class="error-msg" [hidden]="phone.valid || phone.untouched">
-                  <div *ngIf="phone.errors && phone.errors.required">
-                    Hãy nhập số điện thoại
-                  </div>
-                  <div *ngIf="phone.errors && phone.errors.pattern">
-                    Số điện thoại không hợp lệ
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-          <!--ADDRESS SECTION-->
-          <div class="address-section">
-            <div [ngClass]="{'has-error': (address.invalid && address.touched)}">
-              <div class="row d-none d-md-flex">
-                <label for="address" class="col-sm-3 col-form-label">Địa chỉ</label>
+              <div class="row d-flex">
+                <div class="col-sm-3"></div>
                 <div class="col-sm-9">
-                  <input type="address" #address="ngModel" class="form-control" name="address" placeholder="Địa chỉ" [(ngModel)]="userInfo.address" required>
+                  <div class="error-msg" [hidden]="phone.valid || phone.untouched">
+                    <div *ngIf="phone.errors && phone.errors.required">
+                      Hãy nhập số điện thoại
+                    </div>
+                    <div *ngIf="phone.errors && phone.errors.pattern">
+                      Số điện thoại không hợp lệ
+                    </div>
+                  </div>
                 </div>
               </div>
+
             </div>
-            <label class="has-float-label d-md-none">
+            <!--ADDRESS SECTION-->
+            <div class="address-section">
+              <div [ngClass]="{'has-error': (address.invalid && address.touched)}">
+                <div class="row d-none d-md-flex">
+                  <label for="address" class="col-sm-3 col-form-label">Địa chỉ</label>
+                  <div class="col-sm-9">
+                    <input type="address" #address="ngModel" class="form-control" name="address" placeholder="Địa chỉ" [(ngModel)]="userInfo.address"
+                      required>
+                  </div>
+                </div>
+              </div>
+              <label class="has-float-label d-md-none">
               <input class="form-control" type="text" placeholder="address" name="address" required 
                     [(ngModel)]="userInfo.address" #address="ngModel"/>
               <span>Địa chỉ</span>
             </label>
-            <div class="has-ok" *ngIf="(address.valid && address.touched)"></div>
+              <div class="has-ok" *ngIf="(address.valid && address.touched)"></div>
 
-            <div class="row d-flex">
-              <div class="col-sm-3"></div>
-              <div class="col-sm-9">
-                <div class="error-msg" [hidden]="address.valid || address.untouched">
-                  <div *ngIf="address.errors && address.errors.required">
-                    Hãy nhập địa chỉ
+              <div class="row d-flex">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                  <div class="error-msg" [hidden]="address.valid || address.untouched">
+                    <div *ngIf="address.errors && address.errors.required">
+                      Hãy nhập địa chỉ
+                    </div>
                   </div>
                 </div>
               </div>
+
             </div>
-            
-          </div>
-          <!--PROVINCE SECTION-->
-          <div class="province-section">
-            <div>
-              <div class="row d-none d-md-flex">
-                <label for="province" class="col-sm-3 col-form-label">Tỉnh thành</label>
-                <div class="col-sm-9">
-                  <select #province   class="form-control" [(ngModel)]="selectedProvince" placeholder="province" (ngModelChange)="provinceSelected()" name="province" >
+            <!--PROVINCE SECTION-->
+            <div class="province-section">
+              <div>
+                <div class="row d-none d-md-flex">
+                  <label for="province" class="col-sm-3 col-form-label">Tỉnh thành</label>
+                  <div class="col-sm-9">
+                    <select #province class="form-control" [(ngModel)]="selectedProvince" placeholder="province" (ngModelChange)="provinceSelected()"
+                      name="province">
                     <option *ngFor="let p of provinces" [ngValue]="p">{{p.name}}</option>
                   </select>
+                  </div>
                 </div>
               </div>
-            </div>
-            <label class="has-float-label d-md-none">
+              <label class="has-float-label d-md-none">
               <select class="form-control" name="province" [(ngModel)]="selectedProvince" placeholder="province" (ngModelChange)="provinceSelected()">
                     <option *ngFor="let p of provinces" [ngValue]="p">{{p.name}}</option>
                   </select>
               <span>Tỉnh thành</span>
             </label>
-            <!--<div class="has-ok" *ngIf="(province.valid && province.touched)"></div>-->
+              <!--<div class="has-ok" *ngIf="(province.valid && province.touched)"></div>-->
 
-            <div class="row d-flex">
-              <div class="col-md-3"></div>
-              <div class="col-md-9">
-                <div class="error-msg" *ngIf="!selectedProvince && province.touched">
-                  <div>
-                    Hãy chọn tỉnh thành
+              <div class="row d-flex">
+                <div class="col-md-3"></div>
+                <div class="col-md-9">
+                  <div class="error-msg" *ngIf="!selectedProvince && province.touched">
+                    <div>
+                      Hãy chọn tỉnh thành
+                    </div>
                   </div>
-                </div>
-                <div class="guide-msg">
-                  <div>
-                    (Phí ship hàng thay đổi tuỳ theo tỉnh thành)
+                  <div class="guide-msg">
+                    <div>
+                      (Phí ship hàng thay đổi tuỳ theo tỉnh thành)
+                    </div>
                   </div>
                 </div>
               </div>
+
             </div>
-            
-          </div>
-          <!--NOTES SECTION-->
-          <div class="note-section">
-            <div>
-              <div class="row d-none d-md-flex">
-                <label for="address" class="col-sm-3 col-form-label">Ghi chú</label>
-                <div class="col-sm-9">
-                  <textarea #notes="ngModel" class="form-control" name="notes" rows="4" placeholder="Bạn có yêu cầu gì thêm?" [(ngModel)]="orderItem.notes"></textarea>
+            <!--NOTES SECTION-->
+            <div class="note-section">
+              <div>
+                <div class="row d-none d-md-flex">
+                  <label for="address" class="col-sm-3 col-form-label">Ghi chú</label>
+                  <div class="col-sm-9">
+                    <textarea #notes="ngModel" class="form-control" name="notes" rows="4" placeholder="Bạn có yêu cầu gì thêm?" [(ngModel)]="orderItem.notes"></textarea>
+                  </div>
                 </div>
               </div>
-            </div>
-            <label class="has-float-label d-md-none">
+              <label class="has-float-label d-md-none">
               <textarea #notes="ngModel" class="form-control" name="notes" rows="4" placeholder="Bạn có yêu cầu gì thêm?" [(ngModel)]="orderItem.notes"></textarea>
               <span>Ghi chú</span>
             </label>
-          </div>
+            </div>
 
-        </form>
-      </div>
-      <div class="col-md-4">
-        <div class="total-info mt-3 mt-md-0">
-          <h2>Thông tin thanh toán</h2>
-          <div class="row">
-            <div class="col-7">
-              <label>Tiền hàng</label>
+          </form>
+        </div>
+        <div class="col-md-4">
+          <div class="total-info mt-3 mt-md-0">
+            <h2>Thông tin thanh toán</h2>
+            <div class="row">
+              <div class="col-7">
+                <label>Tiền hàng</label>
+              </div>
+              <div class="col-5 text-right">
+                <label>{{subtotal | vnd}}</label>
+              </div>
             </div>
-            <div class="col-5 text-right">
-              <label>{{subtotal | vnd}}</label>
+            <div class="row">
+              <div class="col-7">
+                <label>Phí vận chuyển</label>
+              </div>
+              <div class="col-5 text-right">
+                <label>{{orderItem.shippingFee | vnd}}</label>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-7">
-              <label>Phí vận chuyển</label>
+            <div class="row sum mt-4">
+              <div class="col-7">
+                <label>Số tiền thanh toán</label>
+              </div>
+              <div class="col-5 text-right">
+                <label>{{(subtotal + orderItem.shippingFee) | vnd}}</label>
+              </div>
             </div>
-            <div class="col-5 text-right">
-              <label>{{orderItem.shippingFee | vnd}}</label>
-            </div>
-          </div>
-          <div class="row sum mt-4">
-            <div class="col-7">
-              <label>Số tiền thanh toán</label>
-            </div>
-            <div class="col-5 text-right">
-              <label>{{(subtotal + orderItem.shippingFee) | vnd}}</label>
-            </div>
-          </div>
-          <div class="d-flex mt-2 justify-content-between align-content-center action-btn">
-            <div class="">
-              <a [routerLink]="['/']">Tiếp tục mua hàng</a>
-            </div>
-            <div class="">
-              <button type="button" class="btn btn-primary" (click)="checkout()">Đặt hàng</button>
+            <div class="d-flex mt-2 justify-content-between align-content-center action-btn">
+              <div class="">
+                <a [routerLink]="['/']">Tiếp tục mua hàng</a>
+              </div>
+              <div class="">
+                <button type="button" class="btn btn-primary" (click)="checkout()">Đặt hàng</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </div>
