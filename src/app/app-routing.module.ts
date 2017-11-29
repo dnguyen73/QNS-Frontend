@@ -20,6 +20,7 @@ import { SaleFashionComponent } from "./pages/sale-fashion/sale-fashion.componen
 import { NewProductListComponent } from "./pages/new-product-list/new-product-list.component";
 import { SaleProductListComponent } from "./pages/sale-product-list/sale-product-list.component";
 import { ContactusComponent } from "./pages/statics/contactus/contactus.component";
+import { QnaComponent } from "./pages/statics/qna/qna.component";
 
 const routes: Routes = [
     {
@@ -34,6 +35,10 @@ const routes: Routes = [
             {
                 path: 'contactus',
                 component: ContactusComponent,
+            },
+            {
+                path: 'qna',
+                component: QnaComponent,
             },
             {
                 path: 'new',
@@ -128,5 +133,5 @@ export const routedComponents: any[] = [
     HeaderComponent, FooterComponent, NotfoundComponent, NewArrivalComponent, ProductListComponent, ProductDetailComponent,
     ShoppingCartComponent, ThankyouComponent, FemaleFashionComponent, LadyFashionComponent, KidsFashionComponent, SaleFashionComponent,
     NewProductListComponent,
-    ConfirmComponent, AlertComponent
+    ConfirmComponent, AlertComponent, QnaComponent
 ]
