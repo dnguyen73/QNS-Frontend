@@ -1,0 +1,19 @@
+@media (max-width: 576px){
+    .modal-dialog {
+        margin: 20px;
+    }
+}
+
+alert .modal-header, alert .modal-footer{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+alert .modal-header h4{
+    font-size: 14px;
+    color: #834453;
+}
+
+alert .modal-footer .btn{
+    padding: 5px 20px;
+}

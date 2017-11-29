@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
 
 export interface AlertModel {
@@ -12,7 +12,7 @@ export interface AlertModel {
                 <div class="modal-content">
                    <div class="modal-header">
                      <button type="button" class="close" (click)="close()" >&times;</button>
-                     <h4 class="modal-title">{{title || 'Alert!'}}</h4>
+                     <h4 class="modal-title">{{title || 'Shopquynhnhu.com!'}}</h4>
                    </div>
                    <div class="modal-body">
                     <div [innerHTML]="message"></div>
@@ -21,7 +21,9 @@ export interface AlertModel {
                      <button type="button" class="btn btn-primary" (click)="close()">OK</button>
                    </div>
                 </div>
-             </div>`
+             </div>`,
+  styleUrls: ['./alert.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class AlertComponent extends DialogComponent<AlertModel, null> implements AlertModel {
@@ -33,8 +35,8 @@ export class AlertComponent extends DialogComponent<AlertModel, null> implements
 
   ngOnInit() {
     document.getElementsByTagName('body')[0].classList.add('modal-open');
- }
-  ngOnDestroy(){
+  }
+  ngOnDestroy() {
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
- }
+  }
 }
