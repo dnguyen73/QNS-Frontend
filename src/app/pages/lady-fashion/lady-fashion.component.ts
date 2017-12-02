@@ -7,6 +7,7 @@ import { UIService } from "../../shared/services/ui.service";
 import { Product } from "../../shared/models/product";
 import { ProductService } from "../../shared/services/products.service";
 import { MessageService } from "../../shared/services/message.service";
+import { SizeRange } from "../../shared/models/sizeRange";
 declare var $: any;
 const PARENT_ID: number = 2;
 
@@ -28,8 +29,21 @@ export class LadyFashionComponent implements OnInit {
     { min: 200000, max: 300000, label: "Từ 200k đến 300k", selected: false },
     { min: 300000, max: 1000000, label: "Hơn 300k", selected: false }
   ];
+
+  sizeRange: SizeRange[] = [
+    { label: "Chọn size", selected: true },
+    { label: "S", selected: false },
+    { label: "M", selected: false },
+    { label: "L", selected: false },
+    { label: "XL", selected: false },
+    { label: "2XL", selected: false },
+    { label: "3XL", selected: false },
+    { label: "Free", selected: false }
+  ];
+  
   selectedCategory: Category = this.defaultCategory;
   selectedPrice: PriceRange = this.priceRange[0];
+  selectedSize: SizeRange = this.sizeRange[0];
   categories: Category[] = [];
   products: Product[] = [];
   tmpCategory: string = '';
@@ -47,12 +61,13 @@ export class LadyFashionComponent implements OnInit {
     this.fetchCategories(PARENT_ID);
     
     //get initial category from the route params. This should be retrieved from the content component
-    this.messageSvc.getCID()
-      .subscribe((cid: string) => {
-        this.tmpCategory = cid;
-        if (cid === '') {
-          this.setSelectedCategory(cid);
+    this.messageSvc.getLID()
+      .subscribe((lid: string) => {
+        this.tmpCategory = lid;
+        if (lid === '') {
+          this.setSelectedCategory(lid);
           this.resetPriceSelect();
+          this.resetSizeSelect();
         }
       });
   }
@@ -74,6 +89,7 @@ export class LadyFashionComponent implements OnInit {
   onSelect(category: Category): void {
     this.selectedCategory = category;
     this.resetPriceSelect();
+    this.resetSizeSelect();
 
     if (category.id !== '') {
       this._router.navigate(["/lady", category.id]);
@@ -96,6 +112,18 @@ export class LadyFashionComponent implements OnInit {
     this.messageSvc.sendPriceRange(this.priceRange[0]);
   }
 
+  /* 
+   * Reset the size select to ALL SIZE
+   */
+  resetSizeSelect() {
+    this.sizeRange.forEach(function (item, index) {
+      item.selected = false;
+    });
+    this.sizeRange[0].selected = true;
+    this.selectedSize = this.sizeRange[0];
+    this.messageSvc.sendSizeRange(this.sizeRange[0]);
+  }
+
   //Event Handling when price range is selected
   onPriceSelect(selectedIndex: number): void {
     this.priceRange.forEach(function (item, index) {
@@ -108,6 +136,13 @@ export class LadyFashionComponent implements OnInit {
     this.messageSvc.sendPriceRange(this.selectedPrice);
 
     this.uiSvc.handleContentFadeout();
+  }
+
+  //Event Handling when price range is selected
+  onSizeSelect(selectedVal: SizeRange): void {
+    this.selectedSize = selectedVal;
+    // //publish price range selected
+    this.messageSvc.sendSizeRange(this.selectedSize);
   }
 
   //Set active style for the category item when the route matches

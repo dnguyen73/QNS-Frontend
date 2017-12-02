@@ -41,6 +41,8 @@ import { SaleProductListComponent } from './pages/sale-product-list/sale-product
 import { ProvinceService } from "./shared/services/province.service";
 import { ContactusComponent } from './pages/statics/contactus/contactus.component';
 import { AgmCoreModule } from '@agm/core';
+import { KidsProductListComponent } from './pages/kids-product-list/kids-product-list.component';
+import { LadyProductListComponent } from './pages/lady-product-list/lady-product-list.component';
 
 
 @NgModule({
@@ -56,6 +58,8 @@ import { AgmCoreModule } from '@agm/core';
     SlickSliderComponent,
     SaleProductListComponent,
     ContactusComponent,
+    KidsProductListComponent,
+    LadyProductListComponent,
     // LadyFashionComponent,
     // SaleFashionComponent
   ],

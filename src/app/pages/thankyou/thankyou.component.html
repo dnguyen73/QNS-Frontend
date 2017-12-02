@@ -64,15 +64,16 @@
         <div class="col-md-5 mt-3 mt-md-0">
             <div class="ship-info">
                 <h2>Thông tin thanh toán</h2>
+                <p>{{orderItem.userInfo.fullname}}</p>
+                <p>{{orderItem.userInfo.address}}</p>
+                <p>{{orderItem.userInfo.email}}</p>
+                <p>{{orderItem.userInfo.phone}}</p>
+                <p class="note">{{orderItem.notes}}</p>
+                <!--<h2 class="receiver">Thông tin nhận hàng</h2>
                 <p>Nguyen Van A</p>
                 <p>Quan 5 Ho Chi Minh</p>
                 <p>test@gmail.com</p>
-                <p>09839917973</p>
-                <h2 class="receiver">Thông tin nhận hàng</h2>
-                <p>Nguyen Van A</p>
-                <p>Quan 5 Ho Chi Minh</p>
-                <p>test@gmail.com</p>
-                <p>09839917973</p>
+                <p>09839917973</p>-->
             </div>
             <div class="btn-continue text-right">
                 <button class="btn btn-primary" type="button" [routerLink]="['/']">Tiếp tục mua hàng</button>

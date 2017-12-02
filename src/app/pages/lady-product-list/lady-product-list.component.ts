@@ -4,25 +4,27 @@ import { ProductService } from "../../shared/services/products.service";
 import { Product } from "../../shared/models/product";
 import { MessageService } from "../../shared/services/message.service";
 import { PriceRange } from "../../shared/models/priceRange";
+import { SizeRange } from "../../shared/models/sizeRange";
 declare var $: any; 
 
 @Component({
-  selector: 'product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css'],
+  selector: 'lady-product-list',
+  templateUrl: './lady-product-list.component.html',
+  styleUrls: ['./lady-product-list.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class ProductListComponent implements OnInit {
+export class LadyProductListComponent implements OnInit {
 
   @Input()
   products: Product[] = [];
-  PARENT_ID: number = 1;
+  PARENT_ID: number = 2;
   p: number;
   
 
   tmpProducts: Product[] = [];
-  selectedCID: string = "";
+  selectedLID: string = "";
   selectedPriceRange: PriceRange = { min: 0, max: 1000000, label: "Tất cả giá", selected: true };
+  selectedSizeRange: SizeRange = { label: "Tất cả size", selected: true };
 
   constructor(
     private route: ActivatedRoute,
@@ -33,43 +35,42 @@ export class ProductListComponent implements OnInit {
     this.messageSvc.getPriceRange()
       .subscribe((range: PriceRange) => {
         this.selectedPriceRange = range;
-        this.updateProductList(range);
+        this.updateProductListByPrice(range);
+      });
+
+    this.messageSvc.getSizeRange()
+      .subscribe((sr: SizeRange) => {
+        this.selectedSizeRange = sr;
+        this.updateProductListBySize(sr);
       });
 
   }
 
-  getParentIdFromRoute(){
-    var pathname =this._router.url.split('/')[1];
-    switch(pathname){
-      case 'female':
-        this.PARENT_ID = 1;
-        break;
-      case 'lady':
-        this.PARENT_ID = 2;
-        break;
-      default:
-        this.PARENT_ID = 1;
-        break;
-    }
-  }
-
   ngOnInit() {
-    this.getParentIdFromRoute();
     this.route.params.subscribe(
       params => {
-        if (!params['cid']) {
+        if (!params['lid']) {
           //Get all Female products
           this.fetchProductsByParent();
-          this.messageSvc.sendCID(this.selectedCID);
+          this.messageSvc.sendLID(this.selectedLID);
         } else {
           //Get all Female products under selected sub category.
-          this.selectedCID = params['cid'];
-          this.messageSvc.sendCID(this.selectedCID);
-          this.fetchProductsByCategory(this.selectedCID);
+          this.selectedLID = params['lid'];
+          this.messageSvc.sendLID(this.selectedLID);
+          this.fetchProductsByCategory(this.selectedLID);
         }
 
       }
     );
+  }
+
+  //refresh loading all products
+  refreshAllProducts() {
+    if (this.selectedLID !== '') {
+      this.fetchProductsByCategory(this.selectedLID);
+    } else {
+      this.fetchProductsByParent();
+    }
   }
 
   //Get all Female products by sub category
@@ -96,10 +97,21 @@ export class ProductListComponent implements OnInit {
   }
 
   //Update the product list as soon as the price range filter is selected
-  updateProductList(range: PriceRange) {
+  updateProductListByPrice(range: PriceRange) {
     this.products = this.tmpProducts.filter(p => {
       return (p.price >= range.min) && (p.price <= range.max);
     })
+  }
+
+  //Update the product list as soon as the price range filter is selected
+  updateProductListBySize(range: SizeRange) {
+    if (range.label === "Chọn size") {
+      this.refreshAllProducts();
+    } else {
+      this.products = this.tmpProducts.filter(p => {
+        return (p.availableSizes.indexOf(range.label) > -1);
+      })
+    }
   }
 
   ngAfterViewInit() {

@@ -21,6 +21,9 @@ import { NewProductListComponent } from "./pages/new-product-list/new-product-li
 import { SaleProductListComponent } from "./pages/sale-product-list/sale-product-list.component";
 import { ContactusComponent } from "./pages/statics/contactus/contactus.component";
 import { QnaComponent } from "./pages/statics/qna/qna.component";
+import { KidsProductListComponent } from "./pages/kids-product-list/kids-product-list.component";
+import { FemaleProductListComponent } from "./pages/female-product-list/female-product-list.component";
+import { LadyProductListComponent } from "./pages/lady-product-list/lady-product-list.component";
 
 const routes: Routes = [
     {
@@ -66,10 +69,10 @@ const routes: Routes = [
                 path: 'female',
                 component: FemaleFashionComponent,
                 children: [
-                    { path: '', component: ProductListComponent },
+                    { path: '', component: FemaleProductListComponent },
                     {
-                        path: ':cid',
-                        component: ProductListComponent
+                        path: ':fid',
+                        component: FemaleProductListComponent
                     }
                 ]
             },
@@ -77,10 +80,10 @@ const routes: Routes = [
                 path: 'lady',
                 component: LadyFashionComponent,
                 children: [
-                    { path: '', component: ProductListComponent },
+                    { path: '', component: LadyProductListComponent },
                     {
-                        path: ':cid',
-                        component: ProductListComponent
+                        path: ':lid',
+                        component: LadyProductListComponent
                     }
                 ]
             },
@@ -88,10 +91,10 @@ const routes: Routes = [
                 path: 'kids',
                 component: KidsFashionComponent,
                 children: [
-                    { path: '', component: ProductListComponent },
+                    { path: '', component: KidsProductListComponent },
                     {
-                        path: ':cid',
-                        component: ProductListComponent
+                        path: ':kid',
+                        component: KidsProductListComponent
                     }
                 ]   
             },
@@ -132,6 +135,6 @@ export const routedComponents: any[] = [
     HomeComponent,
     HeaderComponent, FooterComponent, NotfoundComponent, NewArrivalComponent, ProductListComponent, ProductDetailComponent,
     ShoppingCartComponent, ThankyouComponent, FemaleFashionComponent, LadyFashionComponent, KidsFashionComponent, SaleFashionComponent,
-    NewProductListComponent,
+    NewProductListComponent, FemaleProductListComponent, KidsProductListComponent, LadyProductListComponent,
     ConfirmComponent, AlertComponent, QnaComponent
 ]
