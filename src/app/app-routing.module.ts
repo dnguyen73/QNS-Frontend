@@ -6,7 +6,6 @@ import { HomeComponent } from "./pages/home/home.component";
 import { HeaderComponent } from "./common/header/header.component";
 import { FooterComponent } from "./common/footer/footer.component";
 import { NewArrivalComponent } from "./pages/new-arrival/new-arrival.component";
-import { ProductListComponent } from "./pages/product-list/product-list.component";
 import { ProductDetailResolve } from "./pages/product-detail/product-detail-resolve.service";
 import { ProductDetailComponent } from "./pages/product-detail/product-detail.component";
 import { ShoppingCartComponent } from "./pages/shopping-cart/shopping-cart.component";
@@ -133,7 +132,7 @@ export class AppRoutingModule { }
 export const routedComponents: any[] = [
     MainComponent,
     HomeComponent,
-    HeaderComponent, FooterComponent, NotfoundComponent, NewArrivalComponent, ProductListComponent, ProductDetailComponent,
+    HeaderComponent, FooterComponent, NotfoundComponent, NewArrivalComponent, ProductDetailComponent,
     ShoppingCartComponent, ThankyouComponent, FemaleFashionComponent, LadyFashionComponent, KidsFashionComponent, SaleFashionComponent,
     NewProductListComponent, FemaleProductListComponent, KidsProductListComponent, LadyProductListComponent,
     ConfirmComponent, AlertComponent, QnaComponent

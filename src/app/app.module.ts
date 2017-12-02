@@ -50,18 +50,12 @@ import { LadyProductListComponent } from './pages/lady-product-list/lady-product
     AppComponent,
     routedComponents,
     QnsPricePipe,
-    FemaleFashionComponent,
-    KidsFashionComponent,
     HomeNewComponent,
     ProductBoxComponent,
     HomeKidsComponent,
     SlickSliderComponent,
     SaleProductListComponent,
     ContactusComponent,
-    KidsProductListComponent,
-    LadyProductListComponent,
-    // LadyFashionComponent,
-    // SaleFashionComponent
   ],
   imports: [
     AppRoutingModule,
