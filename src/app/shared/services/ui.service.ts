@@ -36,10 +36,11 @@ export class UIService {
   }
 
   handleContentFadeout(): void {
-    $('#sidebar').toggleClass('active');
+    
     $('.overlay').fadeOut();
     if (window.matchMedia("(max-width: 575px)").matches) {
       $('body').toggleClass('overflow-x-hide');
+      $('#sidebar').toggleClass('active');
     }
   }
 

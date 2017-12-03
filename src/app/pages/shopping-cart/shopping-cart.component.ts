@@ -13,6 +13,7 @@ import { OrderService } from "../../shared/services/order.service";
 import { Province } from "../../shared/models/province";
 import { ProvinceService } from "../../shared/services/province.service";
 import { UIService } from "../../shared/services/ui.service";
+import { LoaderService } from "../../shared/services/loader.service";
 declare var $: any;
 
 @Component({
@@ -59,6 +60,7 @@ export class ShoppingCartComponent implements OnInit {
     private orderSvc: OrderService,
     private provinceSvc: ProvinceService,
     private uiSvc: UIService,
+    private loaderService: LoaderService,
     private sessionStorage: SessionStorageService,
     private route: ActivatedRoute,
     private _router: Router
@@ -133,6 +135,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   public checkout(): void {
+    this.loaderService.show();
     if (this.checkFormValid()){
       this.orderItem.orderCode = this.orderSvc.generateUid();
     this.orderItem.items = this.shoppingCartItems;
@@ -150,6 +153,7 @@ export class ShoppingCartComponent implements OnInit {
         this.cartSvc.clear();
 
         this._router.navigate(['thankyou', this.orderItem.orderCode]);
+        this.loaderService.hide();
         //this._router.navigate(['thankyou']);
       }
       );
