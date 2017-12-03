@@ -12,6 +12,7 @@ import { Order } from "../../shared/models/order";
 import { OrderService } from "../../shared/services/order.service";
 import { Province } from "../../shared/models/province";
 import { ProvinceService } from "../../shared/services/province.service";
+import { UIService } from "../../shared/services/ui.service";
 declare var $: any;
 
 @Component({
@@ -54,13 +55,14 @@ export class ShoppingCartComponent implements OnInit {
   });
 
   constructor(
-    private cartSvc: CartService, 
-    private orderSvc: OrderService, 
-    private provinceSvc: ProvinceService, 
+    private cartSvc: CartService,
+    private orderSvc: OrderService,
+    private provinceSvc: ProvinceService,
+    private uiSvc: UIService,
     private sessionStorage: SessionStorageService,
-    private route: ActivatedRoute, 
-    private _router: Router 
-  ){
+    private route: ActivatedRoute,
+    private _router: Router
+  ) {
     this.shoppingCartItems$ = this
       .cartSvc
       .getItems();
@@ -117,7 +119,7 @@ export class ShoppingCartComponent implements OnInit {
     }
   }
 
-  provinceSelected(){
+  provinceSelected() {
     this.userInfo.province = this.selectedProvince.name;
     this.orderItem.shippingFee = this.selectedProvince.charge;
   }
@@ -131,7 +133,8 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   public checkout(): void {
-    this.orderItem.orderCode = this.orderSvc.generateUid();
+    if (this.checkFormValid()){
+      this.orderItem.orderCode = this.orderSvc.generateUid();
     this.orderItem.items = this.shoppingCartItems;
     this.orderItem.userInfo = this.userInfo;
     this.orderItem.orderAmount = this.subtotal
@@ -150,13 +153,29 @@ export class ShoppingCartComponent implements OnInit {
         //this._router.navigate(['thankyou']);
       }
       );
+    } else {
+      this.uiSvc.showAlert('', 'Vui lòng điền đầy đủ thông tin để tiếp tục !');
+    }
+    
   }
   viewDetail(product: Product) {
     this._router.navigate(['product', product.productCode]);
   }
 
-  goHome(){
+  goHome() {
     this._router.navigate(['home']);
+  }
+
+  checkFormValid() {
+    return (this.isNotEmpty(this.userInfo.fullname)
+            && this.isNotEmpty(this.userInfo.address)
+            && this.isNotEmpty(this.userInfo.phone)
+            && this.isNotEmpty(this.userInfo.email)
+            && this.isNotEmpty(this.userInfo.province));
+  }
+
+  isNotEmpty(str: string): boolean {
+    return str && str.length > 0; // Or any other logic, removing whitespace, etc.
   }
 
   ngAfterViewInit() {

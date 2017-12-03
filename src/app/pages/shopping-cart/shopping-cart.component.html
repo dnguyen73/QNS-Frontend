@@ -65,7 +65,8 @@
               <div class="col-md-offset-2 col-sm-4 p-0">
                 <div class="text-center">
                   <button class="items-count" type="button" (click)="DownQty(idx)">–</button>
-                  <input type="text" maxlength="12" min="0" class="input-text number-sidebar" [disabled]="true" [(ngModel)]="cartItem.quantity" (ngModelChange)="UpdateQty(idx)">
+                  <input type="text" maxlength="12" min="0" class="input-text number-sidebar" [disabled]="true" [(ngModel)]="cartItem.quantity"
+                    (ngModelChange)="UpdateQty(idx)">
                   <button class="items-count" type="button" (click)="UpQty(idx)">+</button>
                 </div>
               </div>
@@ -256,9 +257,7 @@
                     </div>
                   </div>
                   <div class="guide-msg">
-                    <div>
                       (Phí ship hàng thay đổi tuỳ theo tỉnh thành)
-                    </div>
                   </div>
                 </div>
               </div>
@@ -278,6 +277,15 @@
               <textarea #notes="ngModel" class="form-control" name="notes" rows="4" placeholder="Bạn có yêu cầu gì thêm?" [(ngModel)]="orderItem.notes"></textarea>
               <span>Ghi chú</span>
             </label>
+              <div class="row d-flex">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                  <div class="guide-msg">
+                      (Trường hợp địa chỉ người nhận khác với địa chỉ ở trên, xin vui lòng ghi rõ vào phần ghi chú)
+                  </div>
+                </div>
+              </div>
+
             </div>
 
           </form>

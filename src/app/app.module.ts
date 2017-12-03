@@ -43,6 +43,7 @@ import { ContactusComponent } from './pages/statics/contactus/contactus.componen
 import { AgmCoreModule } from '@agm/core';
 import { KidsProductListComponent } from './pages/kids-product-list/kids-product-list.component';
 import { LadyProductListComponent } from './pages/lady-product-list/lady-product-list.component';
+import { LoaderService } from "./shared/services/loader.service";
 
 
 @NgModule({
@@ -76,7 +77,7 @@ import { LadyProductListComponent } from './pages/lady-product-list/lady-product
   entryComponents: [
     ConfirmComponent, AlertComponent
   ],
-  providers: [ProductService, ProductDetailResolve, CategoryService, CartService, OrderService, RatingService, ProvinceService, MessageService, UIService],
+  providers: [ProductService, ProductDetailResolve, CategoryService, CartService, OrderService, RatingService, ProvinceService, LoaderService, MessageService, UIService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

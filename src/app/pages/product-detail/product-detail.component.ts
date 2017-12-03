@@ -323,7 +323,7 @@ export class ProductDetailComponent implements OnInit {
       $(this.myModal.nativeElement).modal('show');
     } else {
       //show warning dialog
-      this.showAlert('', 'Vui lòng chọn đầy đủ size và màu sản phẩm để tiếp tục !');
+      this.uiSvc.showAlert('', 'Vui lòng chọn đầy đủ size và màu sản phẩm để tiếp tục !');
     }
 
   }
@@ -343,11 +343,11 @@ export class ProductDetailComponent implements OnInit {
       this.review.status = false;
       this.ratingSvc.submitReview(this.review)
         .subscribe((res) => {
-          this.showAlert('', 'Cảm ơn bạn đã dành thời gian đánh giá.');
+          this.uiSvc.showAlert('', 'Cảm ơn bạn đã dành thời gian đánh giá.');
           this.review = new Review();
         })
     } else {
-        this.showAlert('', 'Vui lòng đánh giá độ hài lòng.');
+        this.uiSvc.showAlert('', 'Vui lòng đánh giá độ hài lòng.');
     }
 
   }
@@ -396,10 +396,10 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
-  showAlert(title, message) {
-    this.dialogService
-      .addDialog(AlertComponent, { title: title, message: message }, { closeByClickingOutside: true, backdropColor: 'rgba(0, 0, 0, 0.5)' });
-  }
+  // showAlert(title, message) {
+  //   this.dialogService
+  //     .addDialog(AlertComponent, { title: title, message: message }, { closeByClickingOutside: true, backdropColor: 'rgba(0, 0, 0, 0.5)' });
+  // }
 
   viewDetail(product: Product) {
     this._router.navigate(['product', product.productCode]);

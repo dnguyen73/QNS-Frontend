@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ProductService } from "../../shared/services/products.service";
 import { Product } from "../../shared/models/product";
 import { MessageService } from "../../shared/services/message.service";
 import { PriceRange } from "../../shared/models/priceRange";
 import { SizeRange } from "../../shared/models/sizeRange";
+import { LoaderService } from "../../shared/services/loader.service";
+import { Subscription } from "rxjs/Rx";
 declare var $: any;
 
 @Component({
@@ -24,20 +26,23 @@ export class KidsProductListComponent implements OnInit {
   selectedKID: string = "";
   selectedPriceRange: PriceRange = { min: 0, max: 1000000, label: "Tất cả giá", selected: true };
   selectedSizeRange: SizeRange = { label: "Tất cả size", selected: true };
+  sizeSubscription: Subscription;
+  priceSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private _router: Router,
     private productSvc: ProductService,
-    private messageSvc: MessageService) {
+    private messageSvc: MessageService,
+    private loaderService: LoaderService) {
 
-    this.messageSvc.getPriceRange()
+    this.priceSubscription = this.messageSvc.getPriceRange()
       .subscribe((pr: PriceRange) => {
         this.selectedPriceRange = pr;
         this.updateProductListByPrice(pr);
       });
 
-    this.messageSvc.getSizeRange()
+    this.sizeSubscription = this.messageSvc.getSizeRange()
       .subscribe((sr: SizeRange) => {
         this.selectedSizeRange = sr;
         this.updateProductListBySize(sr);
@@ -76,6 +81,7 @@ export class KidsProductListComponent implements OnInit {
   //Get all Female products by sub category
   fetchProductsByCategory(categoryId: string) {
     //limit top 8 latest products
+    this.loaderService.show();
     this.productSvc.getProductsByCategoryId(categoryId)
       .subscribe((products) => {
         this.tmpProducts = products;
@@ -84,11 +90,17 @@ export class KidsProductListComponent implements OnInit {
             && (p.price <= this.selectedPriceRange.max);
           //&& (p.availableSizes.indexOf(this.selectedSizeRange.label) > -1);
         });
+        this.loaderService.hide();
+        // let _t = this;
+        // setTimeout(function () {
+        //   _t.loaderService.hide();
+        // }, 2000);
       });
   }
 
   //Get all Female products
   fetchProductsByParent() {
+    this.loaderService.show();
     this.productSvc.getProductsByParentId(this.PARENT_ID)
       .subscribe((products) => {
         this.tmpProducts = products;
@@ -96,6 +108,11 @@ export class KidsProductListComponent implements OnInit {
           return (p.price >= this.selectedPriceRange.min)
             && (p.price <= this.selectedPriceRange.max);
         });
+        this.loaderService.hide();
+        // let _t = this;
+        // setTimeout(function () {
+        //   _t.loaderService.hide();
+        // }, 2000);
       });
   }
 
@@ -109,7 +126,8 @@ export class KidsProductListComponent implements OnInit {
   //Update the product list as soon as the price range filter is selected
   updateProductListBySize(range: SizeRange) {
     if (range.label === "Chọn size") {
-      this.refreshAllProducts();
+      //this.refreshAllProducts();
+      this.products = this.tmpProducts;
     } else {
       this.products = this.tmpProducts.filter(p => {
         return this.filterProductBySize(p.availableSizes, range.label);
@@ -130,7 +148,7 @@ export class KidsProductListComponent implements OnInit {
       let pMax = +pVal[1];
 
       //check to accept condition
-      if (pMax >= selectedMin && pMin <= selectedMax){
+      if (pMax >= selectedMin && pMin <= selectedMax) {
         return true;
       }
     }
@@ -144,6 +162,12 @@ export class KidsProductListComponent implements OnInit {
 
   viewDetail(product: Product) {
     this._router.navigate(['product', product.productCode]);
+  }
+
+  ngOnDestroy() {
+    //this.messageSvc.clearSizeRange();
+    this.sizeSubscription.unsubscribe();
+    this.priceSubscription.unsubscribe();
   }
 
 }

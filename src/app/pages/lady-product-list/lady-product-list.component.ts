@@ -5,6 +5,8 @@ import { Product } from "../../shared/models/product";
 import { MessageService } from "../../shared/services/message.service";
 import { PriceRange } from "../../shared/models/priceRange";
 import { SizeRange } from "../../shared/models/sizeRange";
+import { LoaderService } from "../../shared/services/loader.service";
+import { Subscription } from "rxjs/Rx";
 declare var $: any; 
 
 @Component({
@@ -25,20 +27,23 @@ export class LadyProductListComponent implements OnInit {
   selectedLID: string = "";
   selectedPriceRange: PriceRange = { min: 0, max: 1000000, label: "Tất cả giá", selected: true };
   selectedSizeRange: SizeRange = { label: "Tất cả size", selected: true };
+  sizeSubscription: Subscription;
+  priceSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private _router: Router,
     private productSvc: ProductService,
-    private messageSvc: MessageService) {
+    private messageSvc: MessageService,
+    private loaderService: LoaderService) {
 
-    this.messageSvc.getPriceRange()
+    this.priceSubscription = this.messageSvc.getPriceRange()
       .subscribe((range: PriceRange) => {
         this.selectedPriceRange = range;
         this.updateProductListByPrice(range);
       });
 
-    this.messageSvc.getSizeRange()
+    this.sizeSubscription = this.messageSvc.getSizeRange()
       .subscribe((sr: SizeRange) => {
         this.selectedSizeRange = sr;
         this.updateProductListBySize(sr);
@@ -76,23 +81,27 @@ export class LadyProductListComponent implements OnInit {
   //Get all Female products by sub category
   fetchProductsByCategory(categoryId: string) {
     //limit top 8 latest products
+    this.loaderService.show();
     this.productSvc.getProductsByCategoryId(categoryId)
       .subscribe((products) => {
         this.tmpProducts = products;
         this.products = products.filter(p => {
           return (p.price >= this.selectedPriceRange.min) && (p.price <= this.selectedPriceRange.max);
         });
+        this.loaderService.hide();
       });
   }
 
   //Get all Female products
   fetchProductsByParent() {
+    this.loaderService.show();
     this.productSvc.getProductsByParentId(this.PARENT_ID)
       .subscribe((products) => {
         this.tmpProducts = products;
         this.products = products.filter(p => {
           return (p.price >= this.selectedPriceRange.min) && (p.price <= this.selectedPriceRange.max);
         });
+        this.loaderService.hide();
       });
   }
 
@@ -106,7 +115,8 @@ export class LadyProductListComponent implements OnInit {
   //Update the product list as soon as the price range filter is selected
   updateProductListBySize(range: SizeRange) {
     if (range.label === "Chọn size") {
-      this.refreshAllProducts();
+      //this.refreshAllProducts();
+      this.products = this.tmpProducts;
     } else {
       this.products = this.tmpProducts.filter(p => {
         return (p.availableSizes.indexOf(range.label) > -1);
@@ -120,6 +130,12 @@ export class LadyProductListComponent implements OnInit {
 
   viewDetail(product: Product) {
     this._router.navigate(['product', product.productCode]);
+  }
+
+  ngOnDestroy() {
+    //this.messageSvc.clearSizeRange();
+    this.sizeSubscription.unsubscribe();
+    this.priceSubscription.unsubscribe();
   }
 
 }

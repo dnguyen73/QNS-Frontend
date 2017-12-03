@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from "@angular/router";
+import { AlertComponent } from "../../common/dialog/alert.component";
+import { DialogService } from "ng2-bootstrap-modal";
 declare var $: any;
 
 @Injectable()
 export class UIService {
 
 
-  constructor(private _router: Router) { }
+  constructor(private _router: Router, private _dialogService: DialogService) { }
 
   /**
      * Generate 9 digit order code randomly by 0..9
@@ -49,6 +51,11 @@ export class UIService {
       }
       window.scrollTo(0, 0);
     });
+  }
+
+  showAlert(title, message) {
+    this._dialogService
+      .addDialog(AlertComponent, { title: title, message: message }, { closeByClickingOutside: true, backdropColor: 'rgba(0, 0, 0, 0.5)' });
   }
 
 }
