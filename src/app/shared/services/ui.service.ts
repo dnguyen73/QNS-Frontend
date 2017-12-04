@@ -18,13 +18,17 @@ export class UIService {
     // if dismiss or overlay was clicked
     $('#dismiss, .overlay').on('click', function () {
       // hide the sidebar
-      $('#sidebar').removeClass('active');
+      $('#sidebar').toggleClass('active');
+      setTimeout(function(){
+        $('#sidebar').attr('z-index', 0);
+      }, 3000);
       // fade out the overlay
       $('.overlay').fadeOut();
       $('body').toggleClass('overflow-x-hide');
     });
 
     $('#sidebarCollapse .back-select a').on('click', function () {
+      $('#sidebar').attr('z-index', 1);
       $('#sidebar').toggleClass('active');
       $('.overlay').fadeIn();
       $('#content').toggleClass('expanded');
@@ -41,6 +45,10 @@ export class UIService {
     if (window.matchMedia("(max-width: 575px)").matches) {
       $('body').toggleClass('overflow-x-hide');
       $('#sidebar').toggleClass('active');
+      setTimeout(function(){
+        $('#sidebar').attr('z-index', 0);
+      }, 3000);
+      
     }
   }
 

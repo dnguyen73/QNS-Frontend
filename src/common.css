@@ -7,20 +7,21 @@
 } 
 
 #sidebar {
-    margin-left: -200%;
+    margin-left: -220%;
     min-width: 100%;
     min-height: 100vh;
-    transition: all 0.7s;
+    transition: all 1s;
     position: absolute;
     top:0;
     left: 0;
+    z-index: 1;
 }
 
 #sidebar.active {
     margin-left: 0;
     overflow-x: hidden;
     background: #fff;
-    z-index: 1;
+    
 }
 
 #sidebar .sidebar-header h3{

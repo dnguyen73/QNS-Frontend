@@ -18,6 +18,7 @@ import { RatingService } from "../../shared/services/rating.service";
 import { Category } from "../../shared/models/categories";
 import { CategoryService } from "../../shared/services/category.service";
 import { UIService } from "../../shared/services/ui.service";
+import { LoaderService } from "../../shared/services/loader.service";
 
 declare var $: any;
 
@@ -82,8 +83,12 @@ export class ProductDetailComponent implements OnInit {
     private cartSvc: CartService,
     private ratingSvc: RatingService,
     private dialogService: DialogService,
-    private uiSvc: UIService
+    private uiSvc: UIService,
+    private loaderService: LoaderService
   ) {
+
+    //Start loading progress
+    this.loaderService.show();
     this.shoppingCartItems$ = this
       .cartSvc
       .getItems();
@@ -169,6 +174,7 @@ export class ProductDetailComponent implements OnInit {
         let _t = this;
         setTimeout(function () {
           _t.reloadGallery();
+          _t.loaderService.hide();
         }, 0);
 
         //Get all reviews of curent product
