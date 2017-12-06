@@ -12,6 +12,7 @@ declare var $: any;
 const PARENT_ID: number = 1;
 
 
+
 @Component({
   selector: 'female-fashion',
   templateUrl: './female-fashion.component.html',
@@ -36,7 +37,7 @@ export class FemaleFashionComponent implements OnInit {
     { label: "M", selected: false },
     { label: "L", selected: false },
     { label: "XL", selected: false },
-    { label: "Free", selected: false }
+    { label: "Free Size", selected: false }
   ];
   
   selectedCategory: Category = this.defaultCategory;
@@ -136,7 +137,7 @@ export class FemaleFashionComponent implements OnInit {
     this.uiSvc.handleContentFadeout();
   }
 
-    //Event Handling when price range is selected
+  //Event Handling when price range is selected
   onSizeSelect(selectedVal: SizeRange): void {
     this.selectedSize = selectedVal;
     // //publish price range selected

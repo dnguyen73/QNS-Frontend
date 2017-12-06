@@ -7,7 +7,49 @@ import { PriceRange } from "../../shared/models/priceRange";
 import { ProductService } from "../../shared/services/products.service";
 import { UIService } from "../../shared/services/ui.service";
 import { MessageService } from "../../shared/services/message.service";
+import { SizeRange } from "../../shared/models/sizeRange";
 declare var $: any;
+const DEFAULT_SIZE: SizeRange[] = [
+  { label: "Chọn size", selected: true }
+];
+const F_SIZE: SizeRange[] = [
+  { label: "Chọn size", selected: true },
+  { label: "S", selected: false },
+  { label: "M", selected: false },
+  { label: "L", selected: false },
+  { label: "XL", selected: false },
+  { label: "Free Size", selected: false }
+];
+const L_SIZE: SizeRange[] = [
+  { label: "Chọn size", selected: true },
+  { label: "S", selected: false },
+  { label: "M", selected: false },
+  { label: "L", selected: false },
+  { label: "XL", selected: false },
+  { label: "2XL", selected: false },
+  { label: "3XL", selected: false },
+  { label: "Free Size", selected: false }
+];
+
+const K_SIZE: SizeRange[] = [
+  { label: "Chọn size", selected: true },
+  { label: "7kg ~ 9kg", selected: false },
+  { label: "9kg ~ 11kg", selected: false },
+  { label: "11kg ~ 13kg", selected: false },
+  { label: "13kg ~ 15kg", selected: false },
+  { label: "15kg ~ 17kg", selected: false },
+  { label: "17kg ~ 19kg", selected: false },
+  { label: "19kg ~ 21kg", selected: false },
+  { label: "21kg ~ 23kg", selected: false },
+  { label: "23kg ~ 25kg", selected: false },
+  { label: "25kg ~ 27kg", selected: false },
+  { label: "27kg ~ 29kg", selected: false },
+  { label: "29kg ~ 31kg", selected: false },
+  { label: "31kg ~ 33kg", selected: false },
+  { label: "33kg ~ 35kg", selected: false },
+  { label: "35kg ~ 37kg", selected: false },
+  { label: "37kg ~ 40kg", selected: false }
+];
 
 
 @Component({
@@ -21,6 +63,7 @@ export class NewArrivalComponent implements OnInit {
     parentId: 0,
     name: "Tất cả sản phẩm"
   });
+  sizeRange: SizeRange[] = DEFAULT_SIZE;
   priceRange: PriceRange[] = [
     { min: 0, max: 1000000, label: "Tất cả giá", selected: true },
     { min: 0, max: 100000, label: "Ít hơn 100k", selected: false },
@@ -30,6 +73,7 @@ export class NewArrivalComponent implements OnInit {
   ];
   selectedCategory: Category = this.defaultCategory;
   selectedPrice: PriceRange = this.priceRange[0];
+  selectedSize: SizeRange = this.sizeRange[0];
   categories: Category[] = [];
   products: Product[] = [];
   tempParentId = 0;
@@ -49,10 +93,9 @@ export class NewArrivalComponent implements OnInit {
     this.messageSvc.getPID()
       .subscribe((pid: number) => {
         this.tempParentId = pid;
-        if (pid === 0) {
-          this.setSelectedCategory(pid);
-          this.resetPriceSelect();
-        }
+        this.setSelectedCategory(pid);
+        this.resetPriceSelect();
+        this.resetSizeSelect(pid);
       });
   }
 
@@ -65,7 +108,7 @@ export class NewArrivalComponent implements OnInit {
 
         //Wait for categories all loaded to set style for selected category on sidebar
         let _t = this;
-        setTimeout(function(){
+        setTimeout(function () {
           _t.setSelectedCategory(_t.tempParentId);
         }, 0)
       });
@@ -77,6 +120,7 @@ export class NewArrivalComponent implements OnInit {
   onSelect(category: Category): void {
     this.selectedCategory = category;
     this.resetPriceSelect();
+    this.resetSizeSelect(category.parentId);
 
     if (category.parentId !== 0) {
       this._router.navigate(["/new", category.parentId]);
@@ -85,7 +129,13 @@ export class NewArrivalComponent implements OnInit {
     }
 
     this.uiSvc.handleContentFadeout();
+  }
 
+  //Event Handling when price range is selected
+  onSizeSelect(selectedVal: SizeRange): void {
+    this.selectedSize = selectedVal;
+    // //publish price range selected
+    this.messageSvc.sendSizeRange(this.selectedSize);
   }
 
   /* 
@@ -98,6 +148,27 @@ export class NewArrivalComponent implements OnInit {
     this.priceRange[0].selected = true;
     this.selectedPrice = this.priceRange[0];
     this.messageSvc.sendPriceRange(this.priceRange[0]);
+  }
+
+  /* 
+   * Reset the size select to ALL SIZE
+   */
+  resetSizeSelect(pid: number) {
+    switch (pid) {
+      case 1:
+        this.sizeRange = F_SIZE;
+        break;
+      case 2:
+        this.sizeRange = L_SIZE;
+        break;
+      case 3:
+        this.sizeRange = K_SIZE;
+        break;
+      default:
+        this.sizeRange = DEFAULT_SIZE;
+        break;
+    }
+    this.selectedSize = this.sizeRange[0];
   }
 
   onPriceSelect(selectedIndex: number): void {

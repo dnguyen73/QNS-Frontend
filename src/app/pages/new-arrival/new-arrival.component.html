@@ -37,7 +37,7 @@
   </nav>
 
   <div id="content" class="w-100">
-    <div id="sidebarCollapse">
+    <!--<div id="sidebarCollapse">
       <div class="action-bar d-flex">
         <div class="title col-6"><i class="icon fa fa-snowflake-o"></i>{{selectedCategory.name}}</div>
         <div class="col-6 d-md-none back-select" >
@@ -46,7 +46,27 @@
       </div>
       <nav aria-label="breadcrumb" role="navigation" class="d-block">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a [routerLink]="['/']"><i class="fa fa-home"></i>  Home</a></li>
+          <li class="breadcrumb-item"><a [routerLink]="['/']"><i class="fa fa-home"></i>  Trang chủ</a></li>
+          <li class="breadcrumb-item active" aria-current="page"><a [routerLink]="['/new']">Sản phẩm mới</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{selectedCategory.name}}</li>
+        </ol>
+      </nav>
+    </div>-->
+    <div id="sidebarCollapse">
+      <div class="row action-bar">
+        <div class="title d-none d-md-block col-md-6"><i class="icon fa fa-snowflake-o"></i>{{selectedCategory.name}}</div>
+        <div class="col-6 d-md-none back-select">
+          <a><i class="icon fa fa-arrow-circle-left"></i>Chọn danh mục</a>
+        </div>
+        <div class="col-6 text-right size-select">
+            <select class="custom-select" dir="rtl" required [ngModel]="selectedSize" (ngModelChange)="onSizeSelect($event)">
+              <option *ngFor="let size of sizeRange" [ngValue]="size">{{size.label}}</option>
+            </select>
+        </div>
+      </div>
+      <nav aria-label="breadcrumb" role="navigation" class="d-block">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['/']"><i class="fa fa-home"></i>  Trang chủ</a></li>
           <li class="breadcrumb-item active" aria-current="page"><a [routerLink]="['/new']">Sản phẩm mới</a></li>
           <li class="breadcrumb-item active" aria-current="page">{{selectedCategory.name}}</li>
         </ol>
