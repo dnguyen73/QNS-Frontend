@@ -19,6 +19,7 @@ const PARENT_ID: number = 3;
   encapsulation: ViewEncapsulation.None
 })
 export class KidsFashionComponent implements OnInit {
+  displayCategory: string = "Chọn danh mục";
   defaultCategory: Category = new Category({
     id: '',
     name: "Tất cả sản phẩm"
@@ -110,6 +111,7 @@ export class KidsFashionComponent implements OnInit {
       this._router.navigate(["/kids"]);
     }
 
+    this.displayCategory = category.name;
     this.uiSvc.handleContentFadeout();
   }
 
@@ -172,6 +174,7 @@ export class KidsFashionComponent implements OnInit {
     for (let i = 0; i < this.categories.length; i++) {
       if (this.categories[i].id === cid) {
         this.selectedCategory = this.categories[i];
+        this.displayCategory = this.selectedCategory.name;
       }
     }
   }

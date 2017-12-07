@@ -41,7 +41,7 @@
       <div class="row action-bar">
         <div class="title d-none d-md-block col-md-6"><i class="icon fa fa-snowflake-o"></i>{{selectedCategory.name}}</div>
         <div class="col-6 d-md-none back-select">
-          <a><i class="icon fa fa-arrow-circle-left"></i>Chọn danh mục</a>
+          <a><i class="icon fa fa-arrow-circle-left"></i>{{displayCategory}}</a>
         </div>
         <div class="col-6 text-right size-select">
             <select class="custom-select" dir="rtl" required [ngModel]="selectedSize" (ngModelChange)="onSizeSelect($event)">

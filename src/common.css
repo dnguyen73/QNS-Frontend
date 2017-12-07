@@ -143,6 +143,14 @@
         border: none;
         height: auto;
     }
+
+    .relate-product-wrapper .relate-box .card-title a {
+        font-size: 14px !important;
+    }
+
+    .relate-product-wrapper .relate-box .price {
+        font-size: 12px !important;
+    }
 }
 
 a[data-toggle="collapse"] {

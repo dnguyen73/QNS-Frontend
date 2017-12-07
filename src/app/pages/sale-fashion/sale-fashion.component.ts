@@ -59,6 +59,7 @@ const K_SIZE: SizeRange[] = [
   encapsulation: ViewEncapsulation.None
 })
 export class SaleFashionComponent implements OnInit {
+  displayCategory: string = "Chọn danh mục";
   defaultCategory: Category = new Category({
     parentId: 0,
     name: "Tất cả sản phẩm"
@@ -128,6 +129,7 @@ export class SaleFashionComponent implements OnInit {
       this._router.navigate(["/sales"]);
     }
 
+    this.displayCategory = category.name;
     this.uiSvc.handleContentFadeout();
 
   }
@@ -191,6 +193,7 @@ export class SaleFashionComponent implements OnInit {
     for (let i = 0; i < this.categories.length; i++) {
       if (this.categories[i].parentId === pid) {
         this.selectedCategory = this.categories[i];
+        this.displayCategory = this.selectedCategory.name;
       }
     }
   }

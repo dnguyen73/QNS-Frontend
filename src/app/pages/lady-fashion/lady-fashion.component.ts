@@ -18,6 +18,7 @@ const PARENT_ID: number = 2;
   encapsulation: ViewEncapsulation.None
 })
 export class LadyFashionComponent implements OnInit {
+  displayCategory: string = "Chọn danh mục";
   defaultCategory: Category = new Category({
     id: '',
     name: "Tất cả sản phẩm"
@@ -97,6 +98,7 @@ export class LadyFashionComponent implements OnInit {
       this._router.navigate(["/lady"]);
     }
 
+    this.displayCategory = category.name;
     this.uiSvc.handleContentFadeout();
   }
 
@@ -151,6 +153,7 @@ export class LadyFashionComponent implements OnInit {
     for (let i = 0; i < this.categories.length; i++) {
       if (this.categories[i].id === cid) {
         this.selectedCategory = this.categories[i];
+        this.displayCategory = this.selectedCategory.name;
       }
     }
   }
