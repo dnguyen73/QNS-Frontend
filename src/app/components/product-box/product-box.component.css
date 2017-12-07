@@ -1,8 +1,12 @@
 .box-product{
     position: relative;
 }
-.box-product img:hover{
+
+.box-product a{
     cursor: pointer;
+} 
+.box-product a:hover{
+    outline: none;
 }
 
 .box-product .card-body{

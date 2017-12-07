@@ -15,50 +15,18 @@
             <a><h2 class="no-margin">Bé trai</h2></a>
           </div>
           <div class="kid-cate d-flex flex-wrap">
-            <div class="col-6 item">
-              <a><img src="../../assets/images/icons/b-shirt.png"></a>
-              <h5>Áo</h5>
-            </div>
-            <div class="col-6 item">
-              <a><img src="../../assets/images/icons/b-short.png"></a>
-              <h5>Quần</h5>
-            </div>
-            <div class="col-6 item">
-              <a><img src="../../assets/images/icons/b-set.png"></a>
-              <h5>Set bộ</h5>
-            </div>
-            <div class="col-6 item">
-              <a><img src="../../assets/images/icons/b-balo.png"></a>
-              <h5>Ba lỗ</h5>
+            <div class="col-6 item" *ngFor="let itm of boyIcons" (click)="gotoKids(itm.id)">
+              <a><img [src]="itm.srcIcon"></a>
+              <h5>{{itm.name}}</h5>
             </div>
           </div>
           <div class="kid-title for-x">
             <a><h2 class="no-margin">Bé gái</h2></a>
           </div>
           <div class="kid-cate d-flex flex-wrap">
-            <div class="col-6 item">
-              <a><img src="../../assets/images/icons/g-shirt.png"></a>
-              <h5>Áo thun</h5>
-            </div>
-            <div class="col-6 item">
-              <a><img src="../../assets/images/icons/g-dress.png"></a>
-              <h5>Đầm</h5>
-            </div>
-            <div class="col-6 item">
-              <a><img src="../../assets/images/icons/g-skirt.png"></a>
-              <h5>Váy</h5>
-            </div>
-            <div class="col-6 item">
-              <a><img src="../../assets/images/icons/g-short.png"></a>
-              <h5>Quần</h5>
-            </div>
-            <div class="col-6 item last">
-              <a><img src="../../assets/images/icons/g-jacket.png"></a>
-              <h5>Áo khoác</h5>
-            </div>
-            <div class="col-6 item last">
-              <a><img src="../../assets/images/icons/b-set.png"></a>
-              <h5>Set bộ</h5>
+            <div class="col-6 item" *ngFor="let itm of girlIcons" (click)="gotoKids(itm.id)">
+              <a><img [src]="itm.srcIcon"></a>
+              <h5>{{itm.name}}</h5>
             </div>
           </div>
         </div>

@@ -38,7 +38,7 @@ export class FemaleFashionComponent implements OnInit {
     { label: "M", selected: false },
     { label: "L", selected: false },
     { label: "XL", selected: false },
-    { label: "Free Size", selected: false }
+    { label: "Free size", selected: false }
   ];
   
   selectedCategory: Category = this.defaultCategory;

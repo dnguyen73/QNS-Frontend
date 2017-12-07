@@ -18,7 +18,7 @@ const F_SIZE: SizeRange[] = [
   { label: "M", selected: false },
   { label: "L", selected: false },
   { label: "XL", selected: false },
-  { label: "Free Size", selected: false }
+  { label: "Free size", selected: false }
 ];
 const L_SIZE: SizeRange[] = [
   { label: "Chọn size", selected: true },
@@ -28,7 +28,7 @@ const L_SIZE: SizeRange[] = [
   { label: "XL", selected: false },
   { label: "2XL", selected: false },
   { label: "3XL", selected: false },
-  { label: "Free Size", selected: false }
+  { label: "Free size", selected: false }
 ];
 
 const K_SIZE: SizeRange[] = [

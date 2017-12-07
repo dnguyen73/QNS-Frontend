@@ -45,6 +45,11 @@
     border-top: 1px solid #e3e3e3;
     text-align: center;
     align-items: center;
+    cursor: pointer;
+}
+
+.kid-cate .item:hover{
+    box-shadow: 0 0 2px 1px #f25a59;
 }
 
 .kid-cate .item img{
