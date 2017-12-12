@@ -40,7 +40,7 @@
                             <span>Tạm tính: </span>
                         </div>
                         <div class="col-6 text-right pr-0">
-                            <span class="total-price">{{orderItem.orderAmount |vnd}}</span>
+                            <span class="total-price">{{orderItem.orderAmount | vnd}}</span>
                         </div>
                     </div>
                     <div class="row foot-1 last">
@@ -48,7 +48,8 @@
                             <span>Phí vận chuyển: </span>
                         </div>
                         <div class="col-6 text-right pr-0">
-                            <span class="total-price">{{orderItem.shippingFee |vnd}}</span>
+                            <!--<span class="total-price">{{orderItem.shippingFee |vnd}}</span>-->
+                            <span class="total-price">(Chưa bao gồm)</span>
                         </div>
                     </div>
                     <div class="row foot-2">
@@ -56,7 +57,8 @@
                             <h1>Tổng cộng: </h1>
                         </div>
                         <div class="col-6 text-right">
-                            <h1 class="total-price">{{orderItem.totalAmount |vnd}}</h1>
+                            <!--<h1 class="total-price">{{orderItem.totalAmount |vnd}}</h1>-->
+                            <h1 class="total-price">{{orderItem.orderAmount | vnd}}</h1>
                         </div>
                     </div>
             </div>

@@ -135,32 +135,33 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   public checkout(): void {
-    this.loaderService.show();
-    if (this.checkFormValid()){
+    if (this.checkFormValid()) {
+      this.loaderService.show();
+
       this.orderItem.orderCode = this.orderSvc.generateUid();
-    this.orderItem.items = this.shoppingCartItems;
-    this.orderItem.userInfo = this.userInfo;
-    this.orderItem.orderAmount = this.subtotal
-    this.orderItem.totalAmount = this.subtotal + this.orderItem.shippingFee;
+      this.orderItem.items = this.shoppingCartItems;
+      this.orderItem.userInfo = this.userInfo;
+      this.orderItem.orderAmount = this.subtotal
+      this.orderItem.totalAmount = this.subtotal + this.orderItem.shippingFee;
 
-    //Call api to submit orderItem
-    this.orderSvc
-      .makeOrder(this.orderItem)
-      .subscribe(
-      (successOrder) => {
-        this.sessionStorage.store('tmpOrder', this.orderItem);
-        //Clear shopping cart
-        this.cartSvc.clear();
+      //Call api to submit orderItem
+      this.orderSvc
+        .makeOrder(this.orderItem)
+        .subscribe(
+        (successOrder) => {
+          this.sessionStorage.store('tmpOrder', this.orderItem);
+          //Clear shopping cart
+          this.cartSvc.clear();
 
-        this._router.navigate(['thankyou', this.orderItem.orderCode]);
-        this.loaderService.hide();
-        //this._router.navigate(['thankyou']);
-      }
-      );
+          this._router.navigate(['thankyou', this.orderItem.orderCode]);
+          this.loaderService.hide();
+          //this._router.navigate(['thankyou']);
+        }
+        );
     } else {
       this.uiSvc.showAlert('', 'Vui lòng điền đầy đủ thông tin để tiếp tục !');
     }
-    
+
   }
   viewDetail(product: Product) {
     this._router.navigate(['product', product.productCode]);
@@ -172,10 +173,10 @@ export class ShoppingCartComponent implements OnInit {
 
   checkFormValid() {
     return (this.isNotEmpty(this.userInfo.fullname)
-            && this.isNotEmpty(this.userInfo.address)
-            && this.isNotEmpty(this.userInfo.phone)
-            && this.isNotEmpty(this.userInfo.email)
-            && this.isNotEmpty(this.userInfo.province));
+      && this.isNotEmpty(this.userInfo.address)
+      && this.isNotEmpty(this.userInfo.phone)
+      && this.isNotEmpty(this.userInfo.email)
+      && this.isNotEmpty(this.userInfo.province));
   }
 
   isNotEmpty(str: string): boolean {

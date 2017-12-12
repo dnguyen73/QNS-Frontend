@@ -498,13 +498,20 @@ img.front-show{
 }
 
 .relate-product-wrapper .relate-box{
-    padding: 10px 2px;
+    padding: 10px 5px;
 }
 .relate-product-wrapper .relate-box .price{
     font-size: 14px;
 }
 .relate-product-wrapper .relate-box .sale{
     font-size: 12px;
+}
+
+.relate-product-wrapper .slick-active:first{
+    padding-left: 0px;
+}
+.relate-product-wrapper .slick-active:last-child{
+    padding-right: 0px;
 }
 .relate-product-wrapper h3{
     font-size: 20px;

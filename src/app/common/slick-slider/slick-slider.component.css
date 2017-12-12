@@ -15,11 +15,11 @@
 }
 
 .slick-next{
-    right: 10px !important;
+    right: 2px !important;
 }
 
 .slick-prev{
-    right: 45px !important;
+    right: 35px !important;
     left: unset !important;
     
 }

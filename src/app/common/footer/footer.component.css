@@ -75,12 +75,7 @@
     text-transform: uppercase;
 }
 
-.footer-menu ul li a {
-    color: #777;
-    font-size: 14px;
-    line-height: 24px;
-}
-.footer-info p{
+.footer-info ul li, .footer-menu ul li a {
     color: #777;
     font-size: 14px;
     line-height: 24px;
