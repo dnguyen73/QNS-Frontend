@@ -44,6 +44,9 @@ import { AgmCoreModule } from '@agm/core';
 import { KidsProductListComponent } from './pages/kids-product-list/kids-product-list.component';
 import { LadyProductListComponent } from './pages/lady-product-list/lady-product-list.component';
 import { LoaderService } from "./shared/services/loader.service";
+import { AccessoryComponent } from './pages/accessory/accessory.component';
+import { AccessoryProductListComponent } from './pages/accessory-product-list/accessory-product-list.component';
+import { PolicyService } from "./shared/services/policy.service";
 
 
 @NgModule({
@@ -57,6 +60,8 @@ import { LoaderService } from "./shared/services/loader.service";
     SlickSliderComponent,
     SaleProductListComponent,
     ContactusComponent,
+    AccessoryComponent,
+    AccessoryProductListComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -77,7 +82,7 @@ import { LoaderService } from "./shared/services/loader.service";
   entryComponents: [
     ConfirmComponent, AlertComponent
   ],
-  providers: [ProductService, ProductDetailResolve, CategoryService, CartService, OrderService, RatingService, ProvinceService, LoaderService, MessageService, UIService],
+  providers: [ProductService, ProductDetailResolve, CategoryService, CartService, OrderService, RatingService, ProvinceService, PolicyService, LoaderService, MessageService, UIService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

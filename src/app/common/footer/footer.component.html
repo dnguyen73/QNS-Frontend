@@ -36,12 +36,10 @@
 					<div class="footer-menu">
 						<h4 class="footer-menu-heading">Hướng dẫn</h4>
 						<ul>
-
-							<li><a [routerLink]="['/qna']">Giao nhận &amp; thanh toán</a></li>
-
-							<li><a [routerLink]="['/qna']">Hướng dẫn mua hàng</a></li>
-
-							<li><a [routerLink]="['/qna']">Đổi trả &amp; bảo hành</a></li>
+							<li><a [routerLink]="['/qna']" fragment="guide">Hướng dẫn mua hàng</a></li>
+							<li><a [routerLink]="['/qna']" fragment="payment">Phương thức thanh toán</a></li>
+							<li><a [routerLink]="['/qna']" fragment="shipping">Chính sách giao hàng</a></li>
+							<li><a [routerLink]="['/qna']" fragment="refund">Chính sách đổi trả</a></li>
 
 						</ul>
 					</div>

@@ -8,7 +8,8 @@ const CATEGORY_URL: string = environment.apiUrl + '/categories';
 const PRIMARY_CATEGORY: any[] = [
   { parentId: 1, name: 'Thời trang nữ', route: 'female'},
   { parentId: 2, name: 'Thời trang trung niên', route: 'lady'},
-  { parentId: 3, name: 'Quần áo trẻ em', route: 'kids'}
+  { parentId: 3, name: 'Quần áo trẻ em', route: 'kids'},
+  { parentId: 4, name: 'Phụ kiện', route: 'accessory'}
 ]
 
 @Injectable()

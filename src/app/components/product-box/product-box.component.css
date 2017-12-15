@@ -4,6 +4,7 @@
 
 .box-product a{
     cursor: pointer;
+    outline: none;
 } 
 .box-product a:hover{
     outline: none;

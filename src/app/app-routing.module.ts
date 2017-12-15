@@ -23,6 +23,8 @@ import { QnaComponent } from "./pages/statics/qna/qna.component";
 import { KidsProductListComponent } from "./pages/kids-product-list/kids-product-list.component";
 import { FemaleProductListComponent } from "./pages/female-product-list/female-product-list.component";
 import { LadyProductListComponent } from "./pages/lady-product-list/lady-product-list.component";
+import { AccessoryProductListComponent } from "./pages/accessory-product-list/accessory-product-list.component";
+import { AccessoryComponent } from "./pages/accessory/accessory.component";
 
 const routes: Routes = [
     {
@@ -98,6 +100,17 @@ const routes: Routes = [
                 ]   
             },
             {
+                path: 'accessory',
+                component: AccessoryComponent,
+                children: [
+                    { path: '', component: AccessoryProductListComponent },
+                    {
+                        path: ':aid',
+                        component: AccessoryProductListComponent
+                    }
+                ]   
+            },
+            {
                 path: 'product/:code',
                 component: ProductDetailComponent,
                 resolve: {
@@ -134,6 +147,6 @@ export const routedComponents: any[] = [
     HomeComponent,
     HeaderComponent, FooterComponent, NotfoundComponent, NewArrivalComponent, ProductDetailComponent,
     ShoppingCartComponent, ThankyouComponent, FemaleFashionComponent, LadyFashionComponent, KidsFashionComponent, SaleFashionComponent,
-    NewProductListComponent, FemaleProductListComponent, KidsProductListComponent, LadyProductListComponent,
+    NewProductListComponent, FemaleProductListComponent, KidsProductListComponent, LadyProductListComponent, AccessoryComponent, AccessoryProductListComponent,
     ConfirmComponent, AlertComponent, QnaComponent
 ]

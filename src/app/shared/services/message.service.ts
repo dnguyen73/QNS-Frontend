@@ -12,12 +12,14 @@ export class MessageService {
     private fid$: BehaviorSubject<string> = new BehaviorSubject("");
     private lid$: BehaviorSubject<string> = new BehaviorSubject("");
     private kid$: BehaviorSubject<string> = new BehaviorSubject("");
+    private aid$: BehaviorSubject<string> = new BehaviorSubject("");
     private pid$: BehaviorSubject<number> = new BehaviorSubject(0);
 
     constructor() {
         this.fid$.subscribe(_ =>  _);
         this.lid$.subscribe(_ =>  _);
         this.kid$.subscribe(_ =>  _);
+        this.aid$.subscribe(_ =>  _);
         this.pid$.subscribe(_ =>  _);
     }
 
@@ -67,6 +69,14 @@ export class MessageService {
 
     getKID(): Observable<string> {
         return this.kid$.asObservable();
+    }
+
+    sendAID(id: string) {
+        this.aid$.next(id);
+    }
+
+    getAID(): Observable<string> {
+        return this.aid$.asObservable();
     }
 
     sendPID(id: number) {
