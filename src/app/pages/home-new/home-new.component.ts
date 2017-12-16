@@ -21,7 +21,7 @@ export class HomeNewComponent implements OnInit {
 
   ngOnInit() {
      this.fetchNewProductsByParentId(1, NUM_OF_DAYS, 8);
-     this.fetchSaleProductsByParentId(1, 8);
+     //this.fetchSaleProductsByParentId(1, 8);
   }
 
   //Get all products belong to given parent id

@@ -49,7 +49,8 @@
 }
 
 .kid-cate .item:hover{
-    box-shadow: 0 0 2px 1px #f25a59;
+    /*box-shadow: 0 0 0.5px 1px #f25a59;*/
+    border-bottom: 3px solid #f13aa6;
 }
 
 .kid-cate .item img{
