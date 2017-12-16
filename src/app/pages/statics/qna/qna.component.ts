@@ -50,7 +50,7 @@ export class QnaComponent implements OnInit {
         $('html, body').animate({
           scrollTop: $('#' + _this.fragment).offset().top
         }, 500);
-      }, 0);
+      }, 1000);
     } catch (e) { }
   }
 
