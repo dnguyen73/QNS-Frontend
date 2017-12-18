@@ -43,6 +43,7 @@ export class QnaComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    $('.zoomContainer').remove();
     try {
       let _this = this;
       setTimeout(function () {

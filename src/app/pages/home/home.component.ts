@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-
+declare var $: any;
 
 @Component({
   selector: 'app-home',
@@ -9,7 +9,9 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class HomeComponent {
 
+  ngAfterViewInit() {
+    $('.zoomContainer').remove();
+  }
 
-  
 
 }
