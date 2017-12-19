@@ -55,10 +55,10 @@
 
 /*Header Content - Logo Part*/
 .box-logo, .box-cart{
-    margin: 25px auto 10px;
+    margin: 10px auto 10px;
 }
 .box-logo img{
-    width: 165px;
+    width: 12rem;
     height: auto;
 }
 .box-cart img{
