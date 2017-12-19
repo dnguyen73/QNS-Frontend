@@ -149,6 +149,17 @@
         top: 0;
         right: 70%;
     }
+    .box-logo img{
+        width: 10rem;
+    }
+
+    .qns-header-top .feature .feature-title{
+        font-size: 14px;
+    }
+
+    .qns-header-top .feature p{
+        font-size: 12px;
+    }
 }
 
 .qns-navbar li > a{
