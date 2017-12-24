@@ -124,6 +124,8 @@ export class ProductDetailComponent implements OnInit {
     this.route.data
       .subscribe((data: { product: Product }) => {
         this.myProduct = data.product;
+        this.myProduct.description = (data.product.description) ? data.product.description : "Đang cập nhật";
+        this.myProduct.detailInfo = (data.product.detailInfo) ? data.product.detailInfo : "Đang cập nhật";
         this.selectedImage = this.myProduct.images[0];
         this.sizeList = [];
         this.colorList = [];
