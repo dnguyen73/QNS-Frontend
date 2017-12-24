@@ -24,7 +24,7 @@ export class UIService {
       }, 3000);
       // fade out the overlay
       $('.overlay').fadeOut();
-      $('body').toggleClass('overflow-x-hide');
+      //$('body').removeClass('overflow-x-hide');
     });
 
     $('#sidebarCollapse .back-select a').on('click', function () {
@@ -34,7 +34,7 @@ export class UIService {
       $('#content').toggleClass('expanded');
       $('.collapse.in').toggleClass('in');
       $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-      $('body').toggleClass('overflow-x-hide');
+      //$('body').addClass('overflow-x-hide');
     });
     $('.zoomContainer').remove();
   }
@@ -43,7 +43,7 @@ export class UIService {
     
     $('.overlay').fadeOut();
     if (window.matchMedia("(max-width: 575px)").matches) {
-      $('body').toggleClass('overflow-x-hide');
+      //$('body').toggleClass('overflow-x-hide');
       $('#sidebar').toggleClass('active');
       setTimeout(function(){
         $('#sidebar').attr('z-index', 0);

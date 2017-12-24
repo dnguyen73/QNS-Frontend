@@ -11,7 +11,6 @@ export interface AlertModel {
   template: `<div class="modal-dialog">
                 <div class="modal-content">
                    <div class="modal-header">
-                     <button type="button" class="close" (click)="close()" >&times;</button>
                      <h4 class="modal-title">{{title || 'Shopquynhnhu.com!'}}</h4>
                    </div>
                    <div class="modal-body">
@@ -40,3 +39,4 @@ export class AlertComponent extends DialogComponent<AlertModel, null> implements
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
   }
 }
+// <button type="button" class="close" (click)="close()" >&times;</button>

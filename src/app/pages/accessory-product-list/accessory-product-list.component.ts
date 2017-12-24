@@ -6,6 +6,7 @@ import { MessageService } from "../../shared/services/message.service";
 import { PriceRange } from "../../shared/models/priceRange";
 import { LoaderService } from "../../shared/services/loader.service";
 import { Subscription } from "rxjs/Rx";
+import { UIService } from "../../shared/services/ui.service";
 declare var $: any; 
 
 @Component({
@@ -32,6 +33,7 @@ export class AccessoryProductListComponent implements OnInit {
     private _router: Router,
     private productSvc: ProductService,
     private messageSvc: MessageService,
+    private uiSvc: UIService,
     private loaderService: LoaderService) {
 
     this.priceSubscription = this.messageSvc.getPriceRange()
@@ -114,6 +116,11 @@ export class AccessoryProductListComponent implements OnInit {
   ngOnDestroy() {
     //this.messageSvc.clearSizeRange();
     this.priceSubscription.unsubscribe();
+  }
+
+  onPageChanged(evt){
+    this.p = evt;
+    this.uiSvc.handleScrollTop();
   }
 
 }

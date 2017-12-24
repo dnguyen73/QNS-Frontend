@@ -1,7 +1,7 @@
 <!-- Page Content -->
 <div class="container mt-2">
   <div class="row" *ngIf="products.length > 0">
-    <div class="col-lg-4 col-md-4 col-sm-6 mb-4" *ngFor="let product of products | paginate: { itemsPerPage: 6, currentPage: p }">
+    <div class="col-lg-3 col-md-3 col-sm-6 mb-4" *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: p }">
       <product-box [product]="product"></product-box>
     </div>
   </div>
@@ -11,6 +11,6 @@
     <p>Chưa có sản phẩm nào</p>
   </div>
 
-  <pagination-controls class="qns-paging" (pageChange)="p = $event"></pagination-controls>
+  <pagination-controls class="qns-paging" (pageChange)="onPageChanged($event)"></pagination-controls>
 </div>
 <!-- /.container -->

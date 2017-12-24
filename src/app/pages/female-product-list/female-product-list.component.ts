@@ -7,6 +7,7 @@ import { PriceRange } from "../../shared/models/priceRange";
 import { SizeRange } from "../../shared/models/sizeRange";
 import { LoaderService } from "../../shared/services/loader.service";
 import { Subscription } from "rxjs/Rx";
+import { UIService } from "../../shared/services/ui.service";
 declare var $: any; 
 
 @Component({
@@ -35,6 +36,7 @@ export class FemaleProductListComponent implements OnInit {
     private _router: Router,
     private productSvc: ProductService,
     private messageSvc: MessageService,
+    private uiSvc: UIService,
     private loaderService: LoaderService) {
 
     this.priceSubscription = this.messageSvc.getPriceRange()
@@ -136,6 +138,11 @@ export class FemaleProductListComponent implements OnInit {
     //this.messageSvc.clearSizeRange();
     this.sizeSubscription.unsubscribe();
     this.priceSubscription.unsubscribe();
+  }
+
+  onPageChanged(evt){
+    this.p = evt;
+    this.uiSvc.handleScrollTop();
   }
 
 }

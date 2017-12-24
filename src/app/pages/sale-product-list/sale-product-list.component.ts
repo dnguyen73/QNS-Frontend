@@ -7,6 +7,7 @@ import { PriceRange } from "../../shared/models/priceRange";
 import { SizeRange } from "../../shared/models/sizeRange";
 import { Subscription } from "rxjs/Rx";
 import { LoaderService } from "../../shared/services/loader.service";
+import { UIService } from "../../shared/services/ui.service";
 declare var $: any; 
 const NUM_OF_DAYS: number = 20; //Set 7 days for selecting new products
 
@@ -35,6 +36,7 @@ export class SaleProductListComponent implements OnInit {
     private _router: Router,
     private productSvc: ProductService,
     private messageSvc: MessageService,
+    private uiSvc: UIService,
     private loaderService: LoaderService) {
 
     this.priceSubscription = this.messageSvc.getPriceRange()
@@ -125,6 +127,11 @@ export class SaleProductListComponent implements OnInit {
   ngOnDestroy() {
     this.sizeSubscription.unsubscribe();
     this.priceSubscription.unsubscribe();
+  }
+
+  onPageChanged(evt){
+    this.p = evt;
+    this.uiSvc.handleScrollTop();
   }
 
 }

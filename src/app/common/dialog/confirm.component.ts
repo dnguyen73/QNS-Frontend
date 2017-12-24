@@ -9,7 +9,6 @@ export interface ConfirmModel {
     template: `<div class="modal-dialog">
                 <div class="modal-content">
                    <div class="modal-header">
-                     <button type="button" class="close" (click)="close()" >&times;</button>
                      <h4 class="modal-title">{{title || 'Confirm'}}</h4>
                    </div>
                    <div class="modal-body">
@@ -35,3 +34,4 @@ export class ConfirmComponent extends DialogComponent<ConfirmModel, boolean> imp
     this.close();
   }
 }
+// <button type="button" class="close" (click)="close()" >&times;</button>
