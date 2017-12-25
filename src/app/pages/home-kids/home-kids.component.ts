@@ -31,7 +31,7 @@ export class HomeKidsComponent implements OnInit {
 
   ngOnInit() {
     //fetch first page of kids products
-    this.fetchProducts(3, 1);
+    this.fetchProducts(3, 2);
   }
 
   gotoKids(cateId: string) {
@@ -42,7 +42,7 @@ export class HomeKidsComponent implements OnInit {
   fetchProducts(parentId: number, pagenum: number) {
     this.productSvc.getProductsByParentId(parentId, pagenum)
       .subscribe((products) => {
-        this.kidProducts = products;
+        this.kidProducts = products.slice(0, 12);
       });
   }
 

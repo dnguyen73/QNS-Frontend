@@ -21,14 +21,14 @@ export class HomeNewComponent implements OnInit {
 
   ngOnInit() {
     //fetch first page of all female newest products
-     this.fetchNewProductsByParentId(1, 1);
+     this.fetchNewProductsByParentId(1, 2);
   }
 
   //Get all new products belong to given parent id
   fetchNewProductsByParentId(parentId: number, pagenum?: number) {
     this.productSvc.fetchNewProductsByParentId(parentId, pagenum)
       .subscribe((products) => {
-        this.newProducts = products
+        this.newProducts = products.slice(0, 12);
       });
   }
 
@@ -36,7 +36,7 @@ export class HomeNewComponent implements OnInit {
   fetchSaleProductsByParentId(parentId: number, top?: number) {
     this.productSvc.fetchSaleProductsByParentId(parentId, top)
       .subscribe((products) => {
-        this.saleProducts = products;
+        this.saleProducts = products.slice(0, 12);
       });
   }
 
@@ -44,10 +44,10 @@ export class HomeNewComponent implements OnInit {
     this.forNewType = type;
     if(type === 0){
       //Show Female fashion
-      this.fetchNewProductsByParentId(1, 1);
+      this.fetchNewProductsByParentId(1, 2);
     } else if (type === 1){
       //Show Lady fashion
-      this.fetchNewProductsByParentId(2, 1);
+      this.fetchNewProductsByParentId(2, 2);
     }
   }
 
@@ -55,10 +55,10 @@ export class HomeNewComponent implements OnInit {
     this.forSaleType = type;
     if(type === 0){
       //Show Female fashion
-      this.fetchSaleProductsByParentId(1, 8);
+      this.fetchSaleProductsByParentId(1, 2);
     } else if (type === 1){
       //Show Lady fashion
-      this.fetchSaleProductsByParentId(2, 8);
+      this.fetchSaleProductsByParentId(2, 2);
     }
   }
 
