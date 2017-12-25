@@ -69,3 +69,8 @@
 .kid-cate .item.last{
     border-bottom: 1px solid #e3e3e3;
 }
+.kid-icons{
+    -webkit-align-items: flex-start !important;
+    -webkit-box-align: flex-start !important;
+     align-items: flex-start !important; 
+}
