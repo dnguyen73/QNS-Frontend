@@ -42,7 +42,7 @@
         <a [class.active]= "forSaleType == 1" (click)="selectSaleType(1)"><i class="icon fa fa-angle-double-right mr-2"></i>Thời trang trung niên</a>
       </div>
     <div class="row mt-2">
-      <div class="col-lg-3 col-md-3 col-sm-4 mb-4" *ngFor="let product of saleProducts">
+      <div class="col-lg-4 col-md-4 col-sm-4 mb-4" *ngFor="let product of saleProducts">
         <product-box [product]="product"></product-box>
       </div>
     </div>

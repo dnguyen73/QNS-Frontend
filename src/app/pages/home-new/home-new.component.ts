@@ -3,8 +3,6 @@ import { Router } from "@angular/router";
 import { ProductService } from "../../shared/services/products.service";
 import { Product } from "../../shared/models/product";
 
-const NUM_OF_DAYS: number = 20;
-
 @Component({
   selector: 'home-new',
   templateUrl: './home-new.component.html',
@@ -21,14 +19,14 @@ export class HomeNewComponent implements OnInit {
 
   ngOnInit() {
     //fetch first page of all female newest products
-     this.fetchNewProductsByParentId(1, 2);
+     this.fetchNewProductsByParentId(1, 1);
   }
 
   //Get all new products belong to given parent id
   fetchNewProductsByParentId(parentId: number, pagenum?: number) {
     this.productSvc.fetchNewProductsByParentId(parentId, pagenum)
       .subscribe((products) => {
-        this.newProducts = products.slice(0, 12);
+        this.newProducts = products;
       });
   }
 
@@ -36,7 +34,7 @@ export class HomeNewComponent implements OnInit {
   fetchSaleProductsByParentId(parentId: number, top?: number) {
     this.productSvc.fetchSaleProductsByParentId(parentId, top)
       .subscribe((products) => {
-        this.saleProducts = products.slice(0, 12);
+        this.saleProducts = products;
       });
   }
 
@@ -44,10 +42,10 @@ export class HomeNewComponent implements OnInit {
     this.forNewType = type;
     if(type === 0){
       //Show Female fashion
-      this.fetchNewProductsByParentId(1, 2);
+      this.fetchNewProductsByParentId(1, 1);
     } else if (type === 1){
       //Show Lady fashion
-      this.fetchNewProductsByParentId(2, 2);
+      this.fetchNewProductsByParentId(2, 1);
     }
   }
 
@@ -55,10 +53,10 @@ export class HomeNewComponent implements OnInit {
     this.forSaleType = type;
     if(type === 0){
       //Show Female fashion
-      this.fetchSaleProductsByParentId(1, 2);
+      this.fetchSaleProductsByParentId(1, 1);
     } else if (type === 1){
       //Show Lady fashion
-      this.fetchSaleProductsByParentId(2, 2);
+      this.fetchSaleProductsByParentId(2, 1);
     }
   }
 
