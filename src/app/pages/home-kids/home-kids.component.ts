@@ -30,7 +30,8 @@ export class HomeKidsComponent implements OnInit {
   constructor(private _router: Router, private productSvc: ProductService) { }
 
   ngOnInit() {
-    this.fetchProducts(3, 8);
+    //fetch first page of kids products
+    this.fetchProducts(3, 1);
   }
 
   gotoKids(cateId: string) {
@@ -38,8 +39,8 @@ export class HomeKidsComponent implements OnInit {
   }
 
   //Get all products belong to given parent id
-  fetchProducts(parentId: number, top: number) {
-    this.productSvc.getProductsByParentId(parentId, top)
+  fetchProducts(parentId: number, pagenum: number) {
+    this.productSvc.getProductsByParentId(parentId, pagenum)
       .subscribe((products) => {
         this.kidProducts = products;
       });

@@ -22,6 +22,7 @@ export class LadyProductListComponent implements OnInit {
   products: Product[] = [];
   PARENT_ID: number = 2;
   p: number;
+  totalItems: number;
   
 
   tmpProducts: Product[] = [];
@@ -56,35 +57,46 @@ export class LadyProductListComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       params => {
-        if (!params['lid']) {
+        if (this._router.url.indexOf('cate') < 0) {
           //Get all Female products
-          this.fetchProductsByParent();
+          this.p = (!params['page']) ? 1 : +params['page'];
+          this.getDisplayCount();
+          this.fetchProductsByParent(this.p);
           this.messageSvc.sendLID(this.selectedLID);
         } else {
           //Get all Female products under selected sub category.
           this.selectedLID = params['lid'];
+          this.p = (!params['page']) ? 1 : +params['page'];
+          
+          this.getDisplayCount();
           this.messageSvc.sendLID(this.selectedLID);
-          this.fetchProductsByCategory(this.selectedLID);
+          this.fetchProductsByCategory(this.selectedLID, this.p);
         }
 
       }
     );
   }
 
-  //refresh loading all products
-  refreshAllProducts() {
+  //Get total count of displaying product
+  getDisplayCount() {
     if (this.selectedLID !== '') {
-      this.fetchProductsByCategory(this.selectedLID);
+      this.productSvc.getCountByCategoryId(this.selectedLID)
+        .subscribe((count) => {
+          this.totalItems = count
+        });
     } else {
-      this.fetchProductsByParent();
+      this.productSvc.getCountByParentId(this.PARENT_ID)
+        .subscribe((count) => {
+          this.totalItems = count
+        });
     }
   }
 
   //Get all Female products by sub category
-  fetchProductsByCategory(categoryId: string) {
+  fetchProductsByCategory(categoryId: string, pagenum: number) {
     //limit top 8 latest products
     this.loaderService.show();
-    this.productSvc.getProductsByCategoryId(categoryId)
+    this.productSvc.getProductsByCategoryId(categoryId, pagenum)
       .subscribe((products) => {
         this.tmpProducts = products;
         this.products = products.filter(p => {
@@ -95,9 +107,9 @@ export class LadyProductListComponent implements OnInit {
   }
 
   //Get all Female products
-  fetchProductsByParent() {
+  fetchProductsByParent(pagenum: number) {
     this.loaderService.show();
-    this.productSvc.getProductsByParentId(this.PARENT_ID)
+    this.productSvc.getProductsByParentId(this.PARENT_ID, pagenum)
       .subscribe((products) => {
         this.tmpProducts = products;
         this.products = products.filter(p => {
@@ -142,6 +154,11 @@ export class LadyProductListComponent implements OnInit {
 
   onPageChanged(evt){
     this.p = evt;
+    if (this._router.url.indexOf('cate') > -1) {
+      this._router.navigate(["/lady/cate", this.selectedLID, this.p]);
+    } else {
+      this._router.navigate(["/lady", this.p]);
+    }
     this.uiSvc.handleScrollTop();
   }
 

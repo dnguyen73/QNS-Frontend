@@ -92,7 +92,7 @@ export class FemaleFashionComponent implements OnInit {
     this.resetSizeSelect();
 
     if (category.id !== '') {
-      this._router.navigate(["/female", category.id]);
+      this._router.navigate(["/female/cate", category.id]);
     } else {
       this._router.navigate(["/female"]);
     }

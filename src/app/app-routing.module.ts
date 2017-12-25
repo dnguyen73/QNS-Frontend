@@ -50,7 +50,15 @@ const routes: Routes = [
                 children: [
                     { path: '', component: NewProductListComponent },
                     {
-                        path: ':pid',
+                        path: 'cate/:pid',
+                        component: NewProductListComponent
+                    },
+                    {
+                        path: ':page',
+                        component: NewProductListComponent
+                    },
+                    {
+                        path: 'cate/:pid/:page',
                         component: NewProductListComponent
                     }
                 ]
@@ -61,7 +69,15 @@ const routes: Routes = [
                 children: [
                     { path: '', component: SaleProductListComponent },
                     {
-                        path: ':pid',
+                        path: 'cate/:pid',
+                        component: SaleProductListComponent
+                    },
+                    {
+                        path: ':page',
+                        component: SaleProductListComponent
+                    },
+                    {
+                        path: 'cate/:pid/:page',
                         component: SaleProductListComponent
                     }
                 ]
@@ -72,7 +88,15 @@ const routes: Routes = [
                 children: [
                     { path: '', component: FemaleProductListComponent },
                     {
-                        path: ':fid',
+                        path: 'cate/:fid',
+                        component: FemaleProductListComponent
+                    },
+                    {
+                        path: ':page',
+                        component: FemaleProductListComponent
+                    },
+                    {
+                        path: 'cate/:fid/:page',
                         component: FemaleProductListComponent
                     }
                 ]
@@ -83,7 +107,15 @@ const routes: Routes = [
                 children: [
                     { path: '', component: LadyProductListComponent },
                     {
-                        path: ':lid',
+                        path: 'cate/:lid',
+                        component: LadyProductListComponent
+                    },
+                    {
+                        path: ':page',
+                        component: LadyProductListComponent
+                    },
+                    {
+                        path: 'cate/:lid/:page',
                         component: LadyProductListComponent
                     }
                 ]
@@ -94,7 +126,15 @@ const routes: Routes = [
                 children: [
                     { path: '', component: KidsProductListComponent },
                     {
-                        path: ':kid',
+                        path: 'cate/:kid',
+                        component: KidsProductListComponent
+                    },
+                    {
+                        path: ':page',
+                        component: KidsProductListComponent
+                    },
+                    {
+                        path: 'cate/:kid/:page',
                         component: KidsProductListComponent
                     }
                 ]   

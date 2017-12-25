@@ -22,7 +22,7 @@ export class NewProductListComponent implements OnInit {
   @Input()
   products: Product[] = [];
   p: number;
-  
+  totalItems: number;
 
   tmpProducts: Product[] = [];
   selectedPID: number = 0;
@@ -55,25 +55,44 @@ export class NewProductListComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       params => {
-        if (!params['pid']) {
+        if (this._router.url.indexOf('cate') < 0) {
+          this.p = (!params['page']) ? 1 : +params['page'];
+          this.getDisplayCount();
           //Get all Female products
-          this.fetchAllNewProducts();
+          this.fetchAllNewProducts(this.p);
           this.messageSvc.sendPID(this.selectedPID);
         } else {
-          //Get all Female products under selected sub category.
           this.selectedPID = +params['pid'];
+          this.p = (!params['page']) ? 1 : +params['page'];
+          
+          this.getDisplayCount();
           this.messageSvc.sendPID(this.selectedPID);
-          this.fetchProductsByParentCategory(this.selectedPID, NUM_OF_DAYS);
+          this.fetchNewProductsByParentId(this.selectedPID, this.p);
         }
 
       }
     );
   }
 
+  //Get total count of displaying product
+  getDisplayCount() {
+    if (this.selectedPID > 0) {
+      this.productSvc.getCountNewestByParentId(this.selectedPID)
+        .subscribe((count) => {
+          this.totalItems = count
+        });
+    } else {
+      this.productSvc.getCountAllNewest()
+        .subscribe((count) => {
+          this.totalItems = count
+        });
+    }
+  }
+
   //Get all new products from all parent categories
-  fetchAllNewProducts() {
+  fetchAllNewProducts(pagenum: number) {
     this.loaderService.show();
-    this.productSvc.getNewProductsInPeriod(NUM_OF_DAYS)
+    this.productSvc.getAllNewProducts(pagenum)
       .subscribe((products) => {
         this.tmpProducts = products;
         this.products = products.filter(p => {
@@ -84,9 +103,9 @@ export class NewProductListComponent implements OnInit {
   }
 
   //Get all Female products by sub category
-  fetchProductsByParentCategory(pId: number, days) {
+  fetchNewProductsByParentId(pId: number, pagenum: number) {
     this.loaderService.show();
-    this.productSvc.fetchNewProductsByParentId(pId, days)
+    this.productSvc.fetchNewProductsByParentId(pId, pagenum)
       .subscribe((products) => {
         this.tmpProducts = products;
         this.products = products.filter(p => {
@@ -130,6 +149,12 @@ export class NewProductListComponent implements OnInit {
 
   onPageChanged(evt){
     this.p = evt;
+    if (this._router.url.indexOf('cate') > -1) {
+      this._router.navigate(["/new/cate", this.selectedPID, this.p]);
+    } else {
+      this._router.navigate(["/new", this.p]);
+    }
+    
     this.uiSvc.handleScrollTop();
   }
 

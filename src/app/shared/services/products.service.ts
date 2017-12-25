@@ -51,9 +51,11 @@ export class ProductService {
   /**
      * Grab all product items from loopback api
      */
-  getAllSaleProducts(): Observable<Product[]> {
+  getAllSaleProducts(pagenum: number): Observable<Product[]> {
+    if (!pagenum) { pagenum = 1 };
+    
     return this._http
-      .get(PRODUCT_URL + "/findAllSale")
+      .get(PRODUCT_URL + "/findAllSale?pagenum=" + pagenum)
       .map(res => {
         const product = res.json();
         return product.map((product) => new Product(product));
@@ -76,9 +78,11 @@ export class ProductService {
   /**
      * Grab all product items from loopback api
      */
-  getNewProductsInPeriod(days: number): Observable<Product[]> {
+  getAllNewProducts(pagenum: number): Observable<Product[]> {
+    if (!pagenum) { pagenum = 1 };
+
     return this._http
-      .get(PRODUCT_URL + "/findNewestByDays?days=" + days)
+      .get(PRODUCT_URL + "/findAllNewest?pagenum=" + pagenum)
       .map(res => {
         const product = res.json();
         return product.map((product) => new Product(product));
@@ -86,31 +90,14 @@ export class ProductService {
       .catch(this.handleError);
   }
 
-  // /**
-  //  * Grab all product items for given parentId from loopback api
-  //  */
-  // getProductsByParentId(pId: number, top?: number): Observable<Product[]> {
-  //   return this._http
-  //     .get(PRODUCT_URL)
-  //     .map(res => {
-  //       const products = res.json();
-  //       return products
-  //         .filter(p => p.parentId === +pId)
-  //         .map((product) => new Product(product));
-  //     })
-  //     .catch(this.handleError);
-  // }
-
   /**
    * Grab all product items for given parentId from loopback api
    */
-  getProductsByParentId(pId: number, top?: number): Observable<Product[]> {
+  getProductsByParentId(pId: number, pagenum?: number): Observable<Product[]> {
     let reqURL: string = '';
-    if (!top) {
-      reqURL = PRODUCT_URL + "/findByParentId?parentId=" + pId;
-    } else {
-      reqURL = PRODUCT_URL + "/findByParentId?parentId=" + pId + "&top=" + top;
-    }
+
+    if (!pagenum) { pagenum = 1 };
+    reqURL = PRODUCT_URL + "/findByParentId?parentId=" + pId + "&pagenum=" + pagenum;
 
     return this._http
       .get(reqURL)
@@ -122,18 +109,118 @@ export class ProductService {
   }
 
   /**
+   * Get number count of products belong to selected category
+   */
+  getCountByCategoryId(cId: string): Observable<number> {
+    let reqURL: string = '';
+
+    reqURL = PRODUCT_URL + "/countByCategory?categoryId=" + cId;
+
+    return this._http
+      .get(reqURL)
+      .map(res => {
+        const data = res.json();
+        return data.count;
+      })
+      .catch(this.handleError);
+  }
+
+  /**
+     * Get number count of newest products belong to all parent category
+     */
+  getCountAllNewest(): Observable<number> {
+    let reqURL: string = '';
+
+    reqURL = PRODUCT_URL + "/countAllNewest";
+
+    return this._http
+      .get(reqURL)
+      .map(res => {
+        const data = res.json();
+        return data.count;
+      })
+      .catch(this.handleError);
+  }
+
+  /**
+     * Get number count of sale products belong to all parent category
+     */
+  getCountAllSale(): Observable<number> {
+    let reqURL: string = '';
+
+    reqURL = PRODUCT_URL + "/countAllSale";
+
+    return this._http
+      .get(reqURL)
+      .map(res => {
+        const data = res.json();
+        return data.count;
+      })
+      .catch(this.handleError);
+  }
+
+  /**
+   * Get number count of newest products belong to selected parent category
+   */
+  getCountNewestByParentId(pId: number): Observable<number> {
+    let reqURL: string = '';
+
+    reqURL = PRODUCT_URL + "/countNewestByParentId?parentId=" + pId;
+
+    return this._http
+      .get(reqURL)
+      .map(res => {
+        const data = res.json();
+        return data.count;
+      })
+      .catch(this.handleError);
+  }
+
+  /**
+   * Get number count of newest products belong to selected parent category
+   */
+  getCountSaleByParentId(pId: number): Observable<number> {
+    let reqURL: string = '';
+
+    reqURL = PRODUCT_URL + "/countSaleByParentId?parentId=" + pId;
+
+    return this._http
+      .get(reqURL)
+      .map(res => {
+        const data = res.json();
+        return data.count;
+      })
+      .catch(this.handleError);
+  }
+
+  /**
+   * Get number count of products belong to selected parent id
+   */
+  getCountByParentId(pId: number): Observable<number> {
+    let reqURL: string = '';
+
+    reqURL = PRODUCT_URL + "/countByParentId?parentId=" + pId;
+
+    return this._http
+      .get(reqURL)
+      .map(res => {
+        const data = res.json();
+        return data.count;
+      })
+      .catch(this.handleError);
+  }
+
+  /**
    * Grab all product items for given category Id from loopback api
    */
-  getProductsByCategoryId(cId: string, top?: number): Observable<Product[]> {
+  getProductsByCategoryId(cId: string, pagenum?: number): Observable<Product[]> {
     // let params: URLSearchParams = new URLSearchParams();
     // params.set('categoryId', cId);
     // params.set('top', top.toString());
     let reqURL: string = '';
-    if (!top) {
-      reqURL = PRODUCT_URL + "/findByCategory?categoryId=" + cId;
-    } else {
-      reqURL = PRODUCT_URL + "/findByCategory?categoryId=" + cId + "&top=" + top;
-    }
+
+    if (!pagenum) { pagenum = 1 };
+    reqURL = PRODUCT_URL + "/findByCategory?categoryId=" + cId + "&pagenum=" + pagenum;
 
     return this._http
       .get(reqURL)
@@ -148,13 +235,11 @@ export class ProductService {
    * Grab all new product items for given parentId from loopback api
    * Optional: top --- number of product return with DATE desc
    */
-  fetchNewProductsByParentId(parentId: number, days: number, top?: number): Observable<Product[]> {
+  fetchNewProductsByParentId(parentId: number, pagenum?: number): Observable<Product[]> {
     let reqURL: string = '';
-    if (!top) {
-      reqURL = PRODUCT_URL + "/findNewest?pid=" + parentId + "&days=" + days;
-    } else {
-      reqURL = PRODUCT_URL + "/findNewest?pid=" + parentId + "&days=" + days + "&top=" + top;
-    }
+    if (!pagenum) { pagenum = 1 };
+
+    reqURL = PRODUCT_URL + "/findNewestByParentId?pid=" + parentId + "&pagenum=" + pagenum;
 
     return this._http
       .get(reqURL)
@@ -170,13 +255,11 @@ export class ProductService {
    * Grab all new product items for given parentId from loopback api
    * Optional: top --- number of product return with DATE desc
    */
-  fetchSaleProductsByParentId(parentId: number, top?: number): Observable<Product[]> {
+  fetchSaleProductsByParentId(parentId: number, pagenum?: number): Observable<Product[]> {
     let url: string = '';
-    if (!top) {
-      url = PRODUCT_URL + "/findSale?pid=" + parentId;
-    } else {
-      url = PRODUCT_URL + "/findSale?pid=" + parentId + "&top=" + top;
-    }
+    if (!pagenum) { pagenum = 1 };
+
+    url = PRODUCT_URL + "/findSaleByParentId?pid=" + parentId + "&pagenum=" + pagenum;
     return this._http
       .get(url)
       .map(res => {

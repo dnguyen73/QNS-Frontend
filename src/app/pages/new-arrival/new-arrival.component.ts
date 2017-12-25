@@ -124,7 +124,7 @@ export class NewArrivalComponent implements OnInit {
     this.resetSizeSelect(category.parentId);
 
     if (category.parentId !== 0) {
-      this._router.navigate(["/new", category.parentId]);
+      this._router.navigate(["/new/cate", category.parentId]);
     } else {
       this._router.navigate(["/new"]);
     }

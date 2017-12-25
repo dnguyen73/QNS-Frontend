@@ -124,7 +124,7 @@ export class SaleFashionComponent implements OnInit {
     this.resetSizeSelect(category.parentId);
 
     if (category.parentId !== 0) {
-      this._router.navigate(["/sales", category.parentId]);
+      this._router.navigate(["/sales/cate", category.parentId]);
     } else {
       this._router.navigate(["/sales"]);
     }

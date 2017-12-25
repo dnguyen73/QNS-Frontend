@@ -20,29 +20,13 @@ export class HomeNewComponent implements OnInit {
   constructor(private _router: Router, private productSvc: ProductService) { }
 
   ngOnInit() {
-     this.fetchNewProductsByParentId(1, NUM_OF_DAYS, 8);
-     //this.fetchSaleProductsByParentId(1, 8);
-  }
-
-  //Get all products belong to given parent id
-  fetchProducts(parentId: number) {
-    this.productSvc.getProductsByParentId(parentId)
-      .subscribe((products) => {
-        this.newProducts = products;
-      });
-  }
-
-  
-
-  //Get all products belong to given parent id
-  fetchProductsByCategory(categoryId: string) {
-    this.productSvc.getProductsByCategoryId(categoryId)
-      .subscribe((products) => this.newProducts = products);
+    //fetch first page of all female newest products
+     this.fetchNewProductsByParentId(1, 1);
   }
 
   //Get all new products belong to given parent id
-  fetchNewProductsByParentId(parentId: number, days: number, top?: number) {
-    this.productSvc.fetchNewProductsByParentId(parentId, days, top)
+  fetchNewProductsByParentId(parentId: number, pagenum?: number) {
+    this.productSvc.fetchNewProductsByParentId(parentId, pagenum)
       .subscribe((products) => {
         this.newProducts = products
       });
@@ -60,10 +44,10 @@ export class HomeNewComponent implements OnInit {
     this.forNewType = type;
     if(type === 0){
       //Show Female fashion
-      this.fetchNewProductsByParentId(1, NUM_OF_DAYS, 8);
+      this.fetchNewProductsByParentId(1, 1);
     } else if (type === 1){
       //Show Lady fashion
-      this.fetchNewProductsByParentId(2, NUM_OF_DAYS, 8);
+      this.fetchNewProductsByParentId(2, 1);
     }
   }
 

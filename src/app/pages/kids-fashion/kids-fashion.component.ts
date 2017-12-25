@@ -106,7 +106,7 @@ export class KidsFashionComponent implements OnInit {
     this.resetSizeSelect();
 
     if (category.id !== '') {
-      this._router.navigate(["/kids", category.id]);
+      this._router.navigate(["/kids/cate", category.id]);
     } else {
       this._router.navigate(["/kids"]);
     }

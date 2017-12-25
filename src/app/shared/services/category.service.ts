@@ -6,10 +6,10 @@ import { Category } from "../models/categories";
 
 const CATEGORY_URL: string = environment.apiUrl + '/categories';
 const PRIMARY_CATEGORY: any[] = [
-  { parentId: 1, name: 'Thời trang nữ', route: 'female'},
-  { parentId: 2, name: 'Thời trang trung niên', route: 'lady'},
-  { parentId: 3, name: 'Quần áo trẻ em', route: 'kids'},
-  { parentId: 4, name: 'Phụ kiện', route: 'accessory'}
+  { parentId: 1, name: 'Thời trang nữ', route: 'female/cate'},
+  { parentId: 2, name: 'Thời trang trung niên', route: 'lady/cate'},
+  { parentId: 3, name: 'Quần áo trẻ em', route: 'kids/cate'},
+  { parentId: 4, name: 'Phụ kiện', route: 'accessory/cate'}
 ]
 
 @Injectable()

@@ -22,7 +22,7 @@ export class SaleProductListComponent implements OnInit {
   @Input()
   products: Product[] = [];
   p: number;
-  
+  totalItems: number;
 
   tmpProducts: Product[] = [];
   selectedPID: number = 0;
@@ -56,25 +56,44 @@ export class SaleProductListComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       params => {
-        if (!params['pid']) {
+        if (this._router.url.indexOf('cate') < 0) {
+          this.p = (!params['page']) ? 1 : +params['page'];
+          this.getDisplayCount();
           //Get all Female products
-          this.fetchAllSaleProducts();
+          this.fetchAllSaleProducts(this.p);
           this.messageSvc.sendPID(this.selectedPID);
         } else {
-          //Get all sales products under selected sub category.
           this.selectedPID = +params['pid'];
+          this.p = (!params['page']) ? 1 : +params['page'];
+          
+          this.getDisplayCount();
           this.messageSvc.sendPID(this.selectedPID);
-          this.fetchSaleProductsByParentId(this.selectedPID);
+          this.fetchSaleProductsByParentId(this.selectedPID, this.p);
         }
 
       }
     );
   }
 
+  //Get total count of displaying product
+  getDisplayCount() {
+    if (this.selectedPID > 0) {
+      this.productSvc.getCountSaleByParentId(this.selectedPID)
+        .subscribe((count) => {
+          this.totalItems = count
+        });
+    } else {
+      this.productSvc.getCountAllSale()
+        .subscribe((count) => {
+          this.totalItems = count
+        });
+    }
+  }
+
   //Get all sale products from all parent categories
-  fetchAllSaleProducts() {
+  fetchAllSaleProducts(pagenum: number) {
     this.loaderService.show();
-    this.productSvc.getAllSaleProducts()
+    this.productSvc.getAllSaleProducts(pagenum)
       .subscribe((products) => {
         this.tmpProducts = products;
         this.products = products.filter(p => {
@@ -85,9 +104,9 @@ export class SaleProductListComponent implements OnInit {
   }
 
   //Get all Female products by sub category
-  fetchSaleProductsByParentId(pId: number) {
+  fetchSaleProductsByParentId(pId: number, pagenum: number) {
     this.loaderService.show();
-    this.productSvc.fetchSaleProductsByParentId(pId)
+    this.productSvc.fetchSaleProductsByParentId(pId, pagenum)
       .subscribe((products) => {
         this.tmpProducts = products;
         this.products = products.filter(p => {
@@ -131,6 +150,12 @@ export class SaleProductListComponent implements OnInit {
 
   onPageChanged(evt){
     this.p = evt;
+    if (this._router.url.indexOf('cate') > -1) {
+      this._router.navigate(["/sales/cate", this.selectedPID, this.p]);
+    } else {
+      this._router.navigate(["/sales", this.p]);
+    }
+    
     this.uiSvc.handleScrollTop();
   }
 
