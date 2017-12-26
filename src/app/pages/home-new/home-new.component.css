@@ -23,12 +23,12 @@
     margin-top: 5px;
 }
 .best:before{
-    border-bottom: 20px solid #F25A59;
+    border-bottom: 20px solid #96243f;
     border-right: 10px solid transparent;
-    border-top: 20px solid #F25A59;
+    border-top: 20px solid #d4375c;
     content: "";
     display: inline-block;
-    width: 228px;
+    width: 190px;
 }
 .best:after{
     border-left: 9px solid transparent;
@@ -68,7 +68,7 @@
     text-decoration: none;
     font-weight: 700;
     display: inline-block;
-    padding: 0 20px;
+    padding: 0 10px;
     color: #777 !important;
     cursor: pointer;
 }

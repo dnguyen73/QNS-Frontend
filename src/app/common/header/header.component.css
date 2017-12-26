@@ -110,7 +110,7 @@
 
 /*Header Navbar Part*/
 .qns-navbar{
-    background: #834453 !important;
+    background: #96243f !important;
     color: #fff !important;
     position: relative;
 }
@@ -159,6 +159,11 @@
 
     .qns-header-top .feature p{
         font-size: 12px;
+    }
+
+    .new-category-mobile a{
+        font-size: 12px;
+        padding: 0 10px !important;
     }
 }
 
