@@ -14,6 +14,7 @@ import { Province } from "../../shared/models/province";
 import { ProvinceService } from "../../shared/services/province.service";
 import { UIService } from "../../shared/services/ui.service";
 import { LoaderService } from "../../shared/services/loader.service";
+import { GoogleAnalyticsEventsService } from "../../shared/services/ga-event.service";
 declare var $: any;
 
 @Component({
@@ -63,7 +64,8 @@ export class ShoppingCartComponent implements OnInit {
     private loaderService: LoaderService,
     private sessionStorage: SessionStorageService,
     private route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private gaService: GoogleAnalyticsEventsService
   ) {
     this.shoppingCartItems$ = this
       .cartSvc
@@ -143,6 +145,13 @@ export class ShoppingCartComponent implements OnInit {
       this.orderItem.userInfo = this.userInfo;
       this.orderItem.orderAmount = this.subtotal
       this.orderItem.totalAmount = this.subtotal + this.orderItem.shippingFee;
+
+      //tracking GA event
+      let trackingStr = "";
+      for (let itm of this.orderItem.items){
+        trackingStr += itm.product.productCode + "-";
+      }
+      this.gaService.emitEvent("Make Order Tracking", "orderDetail", trackingStr, 1);
 
       //Call api to submit orderItem
       this.orderSvc

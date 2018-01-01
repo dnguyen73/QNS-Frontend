@@ -47,6 +47,7 @@ import { LoaderService } from "./shared/services/loader.service";
 import { AccessoryComponent } from './pages/accessory/accessory.component';
 import { AccessoryProductListComponent } from './pages/accessory-product-list/accessory-product-list.component';
 import { PolicyService } from "./shared/services/policy.service";
+import { GoogleAnalyticsEventsService } from "./shared/services/ga-event.service";
 
 
 @NgModule({
@@ -82,7 +83,7 @@ import { PolicyService } from "./shared/services/policy.service";
   entryComponents: [
     ConfirmComponent, AlertComponent
   ],
-  providers: [ProductService, ProductDetailResolve, CategoryService, CartService, OrderService, RatingService, ProvinceService, PolicyService, LoaderService, MessageService, UIService],
+  providers: [ProductService, ProductDetailResolve, CategoryService, CartService, OrderService, RatingService, ProvinceService, PolicyService, LoaderService, MessageService, UIService, GoogleAnalyticsEventsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

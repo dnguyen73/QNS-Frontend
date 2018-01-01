@@ -19,8 +19,10 @@ import { Category } from "../../shared/models/categories";
 import { CategoryService } from "../../shared/services/category.service";
 import { UIService } from "../../shared/services/ui.service";
 import { LoaderService } from "../../shared/services/loader.service";
+import { GoogleAnalyticsEventsService } from "../../shared/services/ga-event.service";
 
 declare var $: any;
+declare let ga: Function;
 
 @Component({
   selector: 'app-product-detail',
@@ -84,7 +86,8 @@ export class ProductDetailComponent implements OnInit {
     private ratingSvc: RatingService,
     private dialogService: DialogService,
     private uiSvc: UIService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private gaService: GoogleAnalyticsEventsService
   ) {
 
     //Start loading progress
@@ -110,6 +113,8 @@ export class ProductDetailComponent implements OnInit {
   //However, route subcribe() will work every time route's param is changed.
   ngOnInit() {
     this.uiSvc.handleScrollTop();
+    //tracking GA event
+    this.gaService.emitEvent("Product View Tracking", "productDetail", this.myProduct.productName, 1);
   }
 
   //Check size or color available in stock
@@ -328,6 +333,10 @@ export class ProductDetailComponent implements OnInit {
         unitPrice: (this.myProduct.isOnSale) ? this.myProduct.discountPrice: this.myProduct.price
       });
       this.cartSvc.addItemToCart(newCartItem);
+      //tracking GA event
+      this.gaService.emitEvent("Add-To-Cart Tracking", "cartDetail", this.myProduct.productName + "-" + newCartItem.size + "-" + newCartItem.color, 1);
+
+      //show new item added to shopping cart
       $(this.myModal.nativeElement).modal('show');
     } else {
       //show warning dialog
